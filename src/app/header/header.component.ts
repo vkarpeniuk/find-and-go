@@ -1,16 +1,16 @@
-import { environment } from "../../environments/environment";
-import { Component, OnInit } from "@angular/core";
+import { ApiService } from './../api.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: "app-header",
-  templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.styl"]
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.styl']
 })
 export class HeaderComponent implements OnInit {
   title: string;
-  constructor() {}
+  constructor(private api: ApiService) {}
 
   ngOnInit() {
-    this.title = environment.testvar;
+    this.api.getTestVar().subscribe(res => (this.title = res.testvar));
   }
 }

@@ -1,13 +1,14 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { HttpClientModule } from "@angular/common/http";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { VenuesListComponent } from './venues-list/venues-list.component';
-import { MapComponent } from './map/map.component';
-import { VenuesComponent } from './venues/venues.component';
-import { VenueDetailsComponent } from './venue-details/venue-details.component';
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { HeaderComponent } from "./header/header.component";
+import { VenuesListComponent } from "./venues-list/venues-list.component";
+import { MapComponent } from "./map/map.component";
+import { VenuesComponent } from "./venues/venues.component";
+import { VenueDetailsComponent } from "./venue-details/venue-details.component";
 
 @NgModule({
   declarations: [
@@ -18,11 +19,8 @@ import { VenueDetailsComponent } from './venue-details/venue-details.component';
     VenuesComponent,
     VenueDetailsComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
