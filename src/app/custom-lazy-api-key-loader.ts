@@ -1,12 +1,16 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import {
   MapsAPILoader,
   LAZY_MAPS_API_CONFIG,
   LazyMapsAPILoaderConfigLiteral,
   GoogleMapsScriptProtocol
 } from '@agm/core';
+
 import { DocumentRef, WindowRef } from '@agm/core/utils/browser-globals';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class CustomLazyAPIKeyLoader extends MapsAPILoader {
@@ -39,12 +43,19 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
     script.async = true;
     script.defer = true;
     const callbackName: string = `agmLazyMapsAPILoader`;
-
-    this.http.get('getKey').subscribe((res: any) => {
-      this._config.apiKey = res;
-      script.src = this._getScriptSrc(callbackName);
-      this._documentRef.getNativeDocument().body.appendChild(script);
-    });
+    if (environment.production) {
+      this.http.get('getGoogleApiKey').subscribe((res: any) => {
+        this._config.apiKey = res;
+        script.src = this._getScriptSrc(callbackName);
+        this._documentRef.getNativeDocument().body.appendChild(script);
+      });
+    } else {
+      this.http.get('getDevGoogleApiKey').subscribe((res: any) => {
+        this._config.apiKey = res;
+        script.src = this._getScriptSrc(callbackName);
+        this._documentRef.getNativeDocument().body.appendChild(script);
+      });
+    }
 
     this._scriptLoadingPromise = new Promise<void>(
       (resolve: Function, reject: Function) => {
@@ -93,14 +104,12 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
     const params: string = Object.keys(queryParams)
       .filter((k: string) => queryParams[k] != null)
       .filter((k: string) => {
-        // remove empty arrays
         return (
           !Array.isArray(queryParams[k]) ||
           (Array.isArray(queryParams[k]) && queryParams[k].length > 0)
         );
       })
       .map((k: string) => {
-        // join arrays as comma seperated strings
         let i = queryParams[k];
         if (Array.isArray(i)) {
           return { key: k, value: i.join(',') };

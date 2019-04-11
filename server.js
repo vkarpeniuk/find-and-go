@@ -3,8 +3,14 @@ const path = require('path');
 
 const app = express();
 
-app.use('/getKey', function(req, res, next) {
+app.use('/getGoogleApiKey', function(req, res, next) {
   let result = process.env.google_api_key;
+  res.send(JSON.stringify(result));
+});
+
+app.use('/getDevGoogleApiKey', function(req, res, next) {
+  const devConfig = JSON.parse(require('/src/dev-config.json'));
+  let result = devConfig.googleApiKey;
   res.send(JSON.stringify(result));
 });
 
