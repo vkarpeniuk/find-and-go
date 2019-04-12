@@ -9,7 +9,7 @@ app.use('/getGoogleApiKey', function(req, res, next) {
 });
 
 app.use('/getDevGoogleApiKey', function(req, res, next) {
-  const devConfig = JSON.parse(require('/src/dev-config.json'));
+  const devConfig = require(__dirname + '/dist/find-and-go/dev-config.json');
   let result = devConfig.googleApiKey;
   res.send(JSON.stringify(result));
 });
