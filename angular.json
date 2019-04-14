@@ -23,7 +23,12 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets", "src/dev-config.json"],
-            "styles": ["src/styles.styl"],
+            "styles": [
+              "src/styles.styl",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/rhea/theme.css",
+              "node_modules/primeng/resources/primeng.min.css"
+            ],
             "scripts": [],
             "es5BrowserSupport": true
           },
