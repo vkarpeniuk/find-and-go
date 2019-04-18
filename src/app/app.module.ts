@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import { CustomLazyAPIKeyLoader } from './custom-lazy-api-key-loader';
-import { AutoCompleteModule } from 'primeng/autocomplete';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,8 +25,7 @@ import { VenueDetailsComponent } from './venue-details/venue-details.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    AgmCoreModule.forRoot({}),
-    AutoCompleteModule
+    AgmCoreModule.forRoot({})
   ],
   providers: [{ provide: MapsAPILoader, useClass: CustomLazyAPIKeyLoader }],
   bootstrap: [AppComponent]
