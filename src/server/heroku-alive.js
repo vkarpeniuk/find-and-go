@@ -8,9 +8,13 @@ class HerokuKeepAlive {
         port: port,
         path: '/'
       };
-      http.get(options).on('error', function(err) {
-        console.log('Error: ' + err.message);
-      });
+      http
+        .get(options, function(res) {
+          res.on('data', function() {});
+        })
+        .on('error', function(err) {
+          console.log('Error: ' + err.message);
+        });
     }, 0.5 * 60 * 1000); // load every 20 minutes
   }
 }
