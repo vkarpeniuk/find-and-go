@@ -27,7 +27,7 @@ app.get('/*', function(req, res) {
 });
 
 //keep heroku running
-alive.run(process.env.PORT || 8080);
+alive.run();
 
 // Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);
