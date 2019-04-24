@@ -4,7 +4,7 @@ class HerokuKeepAlive {
   run(port) {
     setInterval(() => {
       var options = {
-        host: 'find-and-go.herokuapp.com/',
+        host: 'find-and-go.herokuapp.com',
         port: port,
         path: '/'
       };
