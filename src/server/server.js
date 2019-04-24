@@ -1,5 +1,7 @@
 const express = require('express');
 const path = require('path');
+const HerokuKeepAlive = require('./heroku-alive');
+const alive = new HerokuKeepAlive();
 
 const app = express();
 
@@ -23,6 +25,9 @@ app.use(express.static(path.resolve(__dirname, '../../dist/find-and-go')));
 app.get('/*', function(req, res) {
   res.sendFile(path.resolve(__dirname, '../../dist/find-and-go/index.html'));
 });
+
+//keep heroku running
+alive.run(process.env.PORT || 8080);
 
 // Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);
