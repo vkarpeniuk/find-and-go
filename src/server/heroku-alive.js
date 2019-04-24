@@ -10,7 +10,7 @@ class HerokuKeepAlive {
       https.get(options).on('error', function(err) {
         console.log('Error: ' + err.message);
       });
-    }, 0.5 * 60 * 1000); // load every 20 minutes
+    }, 20 * 60 * 1000); // load every 20 minutes
   }
 }
 
