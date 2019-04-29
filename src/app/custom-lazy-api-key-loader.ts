@@ -44,13 +44,13 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
     script.defer = true;
     const callbackName: string = `agmLazyMapsAPILoader`;
     if (environment.production) {
-      this.http.get('getGoogleApiKey').subscribe((res: any) => {
+      this.http.get('api/getGoogleApiKey').subscribe((res: any) => {
         this._config.apiKey = res;
         script.src = this._getScriptSrc(callbackName);
         this._documentRef.getNativeDocument().body.appendChild(script);
       });
     } else {
-      this.http.get('getDevGoogleApiKey').subscribe((res: any) => {
+      this.http.get('api/getDevGoogleApiKey').subscribe((res: any) => {
         this._config.apiKey = res;
         script.src = this._getScriptSrc(callbackName);
         this._documentRef.getNativeDocument().body.appendChild(script);

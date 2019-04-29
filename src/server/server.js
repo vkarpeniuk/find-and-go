@@ -5,12 +5,12 @@ const alive = new HerokuKeepAlive();
 
 const app = express();
 
-app.use('/getGoogleApiKey', function(req, res, next) {
+app.use('/api/getGoogleApiKey', function(req, res, next) {
   let result = process.env.google_api_key;
   res.send(JSON.stringify(result));
 });
 
-app.use('/getDevGoogleApiKey', function(req, res, next) {
+app.use('/api/getDevGoogleApiKey', function(req, res, next) {
   const devConfig = require(path.resolve(
     __dirname,
     '../../dist/find-and-go/dev-config.json'
