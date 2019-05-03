@@ -1,0 +1,61 @@
+@import '~@angular/material/theming';
+@import 'src/themes/colors';
+
+:host {
+  display: block;
+  position: fixed;
+  background-color: $accent;
+  height: 60px;
+  width: 100%;
+  z-index: 1;
+  box-shadow: rgba(35, 87, 137, 0.11) 0 1px;
+
+  & > * {
+    vertical-align: middle;
+    padding: 0 10px 0 10px;
+  }
+
+  &:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+  }
+}
+
+img.logo {
+  display: inline-block;
+  height: 95%;
+}
+
+::ng-deep {
+  .mat-form-field-flex {
+    cursor: pointer;
+  }
+
+  .mat-autocomplete-panel.icons-autocomplete {
+    max-height: 350px;
+
+    i.material-icons {
+      margin-right: 8px;
+      font-size: 28px;
+      color: $primary;
+    }
+    span.mat-option-text {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.input-icon-suffix {
+  opacity: 0.3;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.location-filter .input-icon-suffix {
+  font-size: 18px;
+}

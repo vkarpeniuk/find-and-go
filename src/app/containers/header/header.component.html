@@ -1,0 +1,35 @@
+<img class="logo" src="../../assets/images/logo.png" />
+
+<!-- <mat-form-field>
+    <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+  </mat-form-field>
+  
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
+  </mat-autocomplete> -->
+<mat-form-field floatLabel="never">
+  <input
+    type="text"
+    matInput
+    [matAutocomplete]="auto"
+    placeholder="I'm looking for..."
+  />
+  <mat-icon matSuffix class="input-icon-suffix">arrow_drop_down</mat-icon>
+</mat-form-field>
+<mat-autocomplete #auto="matAutocomplete" class="icons-autocomplete">
+  <mat-option><i class="material-icons">star</i>Top Picks</mat-option>
+  <mat-option><i class="material-icons">trending_up</i>Trending</mat-option>
+  <mat-option><i class="material-icons">local_dining</i>Food</mat-option>
+  <mat-option><i class="material-icons">local_cafe</i>Coffee</mat-option>
+  <mat-option><i class="material-icons">local_bar</i>Nightlife</mat-option>
+  <mat-option><i class="material-icons">local_play</i>Fun</mat-option>
+  <mat-option><i class="material-icons">local_mall</i>Shopping</mat-option>
+  <mat-option><i class="material-icons">local_pizza</i>Pizza</mat-option>
+  <mat-option><i class="material-icons">local_parking</i>Parking</mat-option>
+  <mat-option><i class="material-icons">local_movies</i>Movies</mat-option>
+  <mat-option><i class="material-icons">local_hotel</i>Hotel</mat-option>
+</mat-autocomplete>
+<mat-form-field class="location-filter" floatLabel="never">
+  <input matInput placeholder="Current Map View" />
+  <mat-icon matSuffix class="input-icon-suffix">my_location</mat-icon>
+</mat-form-field>

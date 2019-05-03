@@ -1,13 +1,13 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { VenuesComponent } from "./venues/venues.component";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { VenuesComponent } from './containers/venues/venues.component';
 
 const routes: Routes = [
   {
-    path: "venues",
+    path: 'venues',
     component: VenuesComponent
   },
-  { path: "", redirectTo: "/venues", pathMatch: "full" }
+  { path: '', redirectTo: '/venues', pathMatch: 'full' }
 ];
 
 @NgModule({
