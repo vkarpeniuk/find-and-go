@@ -59,3 +59,38 @@ img.logo {
 .location-filter .input-icon-suffix {
   font-size: 18px;
 }
+
+@media only screen and (max-width: 560px) {
+  :host {
+    height: 50px;
+
+    img.logo {
+      height: 35px;
+    }
+
+    .mat-form-field {
+      width: 120px;
+      font-size: 12px;
+    }
+
+    .location-filter .input-icon-suffix {
+      font-size: 14px;
+    }
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  :host {
+    img.logo {
+      height: 35px;
+    }
+
+    .mat-form-field {
+      width: 110px;
+    }
+
+    mat-autocomplete {
+      padding: 0;
+    }
+  }
+}
