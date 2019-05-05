@@ -6,17 +6,23 @@ const alive = new HerokuKeepAlive();
 const FoursquareRequestHelper = require('./foursquare-request-helper');
 const foursquareRequestHelper = new FoursquareRequestHelper();
 const devConfigPath = '../../dist/find-and-go/dev-config.json';
+const devConfig = require(path.resolve(__dirname, devConfigPath));
 const app = express();
 
-app.use('/api/getGoogleApiKey', function(req, res, next) {
-  let result = process.env.google_api_key;
-  res.send(JSON.stringify(result));
-});
+app.set(
+  'googleApiKey',
+  process.env.production ? process.env.google_api_key : devConfig.googleApiKey
+);
 
-app.use('/api/getDevGoogleApiKey', function(req, res, next) {
-  const devConfig = require(path.resolve(__dirname, devConfigPath));
-  let result = devConfig.googleApiKey;
-  res.send(JSON.stringify(result));
+app.set(
+  'googlePlacesApiKey',
+  process.env.production
+    ? process.env.google_places_api_key
+    : devConfig.googlePlacesApiKey
+);
+
+app.use('/api/getGoogleApiKey', function(req, res, next) {
+  res.send(JSON.stringify(app.get('googleApiKey')));
 });
 
 app.use('/api/foursquare', function(req, res, next) {

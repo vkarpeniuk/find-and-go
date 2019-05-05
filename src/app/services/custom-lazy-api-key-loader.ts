@@ -10,7 +10,6 @@ import {
 } from '@agm/core';
 
 import { DocumentRef, WindowRef } from '@agm/core/utils/browser-globals';
-import { environment } from '../../environments/environment';
 
 @Injectable()
 export class CustomLazyAPIKeyLoader extends MapsAPILoader {
@@ -43,10 +42,7 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
     script.async = true;
     script.defer = true;
     const callbackName: string = `agmLazyMapsAPILoader`;
-    const apiKeyUrl = environment.production
-      ? 'api/getGoogleApiKey'
-      : 'api/getDevGoogleApiKey';
-    this.http.get(apiKeyUrl).subscribe((res: any) => {
+    this.http.get('api/getGoogleApiKey').subscribe((res: any) => {
       this._config.apiKey = res;
       script.src = this._getScriptSrc(callbackName);
       this._documentRef.getNativeDocument().body.appendChild(script);
