@@ -17,7 +17,7 @@ app.locals.googlePlacesApiKey = process.env.production
   ? process.env.google_places_api_key
   : require(path.resolve(__dirname, devConfigPath)).googlePlacesApiKey;
 
-app.use('/api/getGoogleApiKey', function(req, res, next) {
+app.get('/api/getGoogleApiKey', function(req, res, next) {
   res.send(JSON.stringify(app.locals.googleApiKey));
 });
 

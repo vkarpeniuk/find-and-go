@@ -1,7 +1,5 @@
+import { ProxyService } from './proxy.service';
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
 import {
   MapsAPILoader,
   LAZY_MAPS_API_CONFIG,
@@ -22,7 +20,7 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
     @Inject(LAZY_MAPS_API_CONFIG) config: any,
     w: WindowRef,
     d: DocumentRef,
-    private http: HttpClient
+    private proxyService: ProxyService
   ) {
     super();
     this._config = config || {};
@@ -42,7 +40,7 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
     script.async = true;
     script.defer = true;
     const callbackName: string = `agmLazyMapsAPILoader`;
-    this.http.get('api/getGoogleApiKey').subscribe((res: any) => {
+    this.proxyService.getGoogleApiKey().subscribe((res: any) => {
       this._config.apiKey = res;
       script.src = this._getScriptSrc(callbackName);
       this._documentRef.getNativeDocument().body.appendChild(script);
