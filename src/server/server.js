@@ -3,11 +3,13 @@ const path = require('path');
 const request = require('request');
 const HerokuKeepAlive = require('./heroku-alive');
 const alive = new HerokuKeepAlive();
-const FoursquareRequestHelper = require('./foursquare-request-helper');
-const foursquareRequestHelper = new FoursquareRequestHelper();
+const RequestHelper = require('./request-helper');
+const requestHelper = new RequestHelper();
 const devConfigPath = '../../dist/find-and-go/dev-config.json';
 
 const app = express();
+
+//#region keys
 
 app.locals.googleApiKey = process.env.production
   ? process.env.google_api_key
@@ -17,24 +19,37 @@ app.locals.googlePlacesApiKey = process.env.production
   ? process.env.google_places_api_key
   : require(path.resolve(__dirname, devConfigPath)).googlePlacesApiKey;
 
-app.get('/api/getGoogleApiKey', function(req, res, next) {
-  res.send(JSON.stringify(app.locals.googleApiKey));
+app.locals.foursquareClientId = process.env.production
+  ? process.env.foursquare_client_id
+  : require(path.resolve(__dirname, devConfigPath)).foursquareClientId;
+
+app.locals.foursquareClientSecret = process.env.production
+  ? process.env.foursquare_client_secret
+  : require(path.resolve(__dirname, devConfigPath)).foursquareClientSecret;
+
+//#endregion
+
+app.get('/api/googleMapsScript', function(req, res, next) {
+  const url = requestHelper.getGoogleMapsScriptUrl(
+    req.query,
+    app.locals.googleApiKey
+  );
+  request.get(url, (error, response, body) => {
+    res
+      .status(response.statusCode)
+      .type('.js')
+      .send(body);
+  });
 });
 
 app.use('/api/foursquare', function(req, res, next) {
-  if (process.env.production) {
-    req.query.client_id = process.env.foursquare_client_id;
-    req.query.client_secret = process.env.foursquare_client_secret;
-  } else {
-    const devConfig = require(path.resolve(__dirname, devConfigPath));
-    req.query.client_id = devConfig.foursquareClientId;
-    req.query.client_secret = devConfig.foursquareClientSecret;
-  }
+  req.query.client_id = app.locals.foursquareClientId;
+  req.query.client_secret = app.locals.foursquareClientSecret;
   next();
 });
 
 app.get('/api/foursquare', function(req, res, next) {
-  const url = foursquareRequestHelper.getRequestUrl(req.query);
+  const url = requestHelper.getFoursquareRequestUrl(req.query);
   request.get(url, (error, response, body) => {
     const responseBodyObject = JSON.parse(body);
     res.status(responseBodyObject.meta.code).send(responseBodyObject.response);

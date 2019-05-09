@@ -1,4 +1,3 @@
-import { ProxyService } from './proxy.service';
 import { Injectable, Inject } from '@angular/core';
 import {
   MapsAPILoader,
@@ -8,6 +7,9 @@ import {
 } from '@agm/core';
 
 import { DocumentRef, WindowRef } from '@agm/core/utils/browser-globals';
+import { Observable } from 'rxjs';
+
+import { GoogleService } from './google.service';
 
 @Injectable()
 export class CustomLazyAPIKeyLoader extends MapsAPILoader {
@@ -20,7 +22,7 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
     @Inject(LAZY_MAPS_API_CONFIG) config: any,
     w: WindowRef,
     d: DocumentRef,
-    private proxyService: ProxyService
+    private googleService: GoogleService
   ) {
     super();
     this._config = config || {};
@@ -40,9 +42,9 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
     script.async = true;
     script.defer = true;
     const callbackName: string = `agmLazyMapsAPILoader`;
-    this.proxyService.getGoogleApiKey().subscribe((res: any) => {
-      this._config.apiKey = res;
-      script.src = this._getScriptSrc(callbackName);
+
+    this._getScript(callbackName).subscribe(res => {
+      script.innerHTML = res;
       this._documentRef.getNativeDocument().body.appendChild(script);
     });
 
@@ -61,7 +63,7 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
     return this._scriptLoadingPromise;
   }
 
-  private _getScriptSrc(callbackName: string): string {
+  private _getScript(callbackName: string): Observable<string> {
     let protocolType: GoogleMapsScriptProtocol =
       (this._config && this._config.protocol) || GoogleMapsScriptProtocol.HTTPS;
     let protocol: string;
@@ -83,7 +85,6 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
     const queryParams: { [key: string]: string | Array<string> } = {
       v: this._config.apiVersion || '3',
       callback: callbackName,
-      key: this._config.apiKey,
       client: this._config.clientId,
       channel: this._config.channel,
       libraries: this._config.libraries,
@@ -109,6 +110,9 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
         return `${entry.key}=${entry.value}`;
       })
       .join('&');
-    return `${protocol}//${hostAndPath}?${params}`;
+
+    return this.googleService.getMapsScriptContent(
+      `${protocol}//${hostAndPath}?${params}`
+    );
   }
 }

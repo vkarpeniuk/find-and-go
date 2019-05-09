@@ -4,14 +4,26 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 export abstract class ApiService {
+  defaultOptions: object = {
+    params: new HttpParams(),
+    responseType: 'json'
+  };
+
   constructor(private http: HttpClient) {}
 
   private formatErrors(error: any) {
     return throwError(error.error);
   }
 
-  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    return this.http.get(path, { params }).pipe(catchError(this.formatErrors));
+  get(path: string, options = this.defaultOptions): Observable<any> {
+    return this.http.get(path, options).pipe(catchError(this.formatErrors));
+  }
+
+  getText(
+    path: string,
+    params: HttpParams = new HttpParams()
+  ): Observable<string> {
+    return this.get(path, { params, responseType: 'text' });
   }
 
   put(path: string, body: Object = {}): Observable<any> {
