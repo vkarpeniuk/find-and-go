@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 
 import { catchError } from 'rxjs/operators';
@@ -8,6 +8,11 @@ export abstract class ApiService {
     params: new HttpParams(),
     responseType: 'json'
   };
+
+  defaultHeaders: HttpHeaders = new HttpHeaders().set(
+    'Content-Type',
+    'application/json; charset=utf-8'
+  );
 
   constructor(private http: HttpClient) {}
 
@@ -32,9 +37,13 @@ export abstract class ApiService {
       .pipe(catchError(this.formatErrors));
   }
 
-  post(path: string, body: Object = {}): Observable<any> {
+  post(
+    path: string,
+    body: object = {},
+    headers: HttpHeaders = this.defaultHeaders
+  ): Observable<any> {
     return this.http
-      .post(path, JSON.stringify(body))
+      .post(path, JSON.stringify(body), { headers })
       .pipe(catchError(this.formatErrors));
   }
 

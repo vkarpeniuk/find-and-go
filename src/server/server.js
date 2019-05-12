@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 const request = require('request');
 const HerokuKeepAlive = require('./heroku-alive');
 const alive = new HerokuKeepAlive();
@@ -8,6 +9,8 @@ const requestHelper = new RequestHelper();
 const devConfigPath = '../../dist/find-and-go/dev-config.json';
 
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //#region keys
 
@@ -28,6 +31,11 @@ app.locals.foursquareClientSecret = process.env.production
   : require(path.resolve(__dirname, devConfigPath)).foursquareClientSecret;
 
 //#endregion
+
+const GoogleApiServiceModule = require('./google-api-service');
+const googleApiService = new GoogleApiServiceModule(
+  app.locals.googlePlacesApiKey
+);
 
 app.get('/api/googleMapsScript', function(req, res, next) {
   const url = requestHelper.getGoogleMapsScriptUrl(
@@ -53,6 +61,47 @@ app.get('/api/foursquare', function(req, res, next) {
   request.get(url, (error, response, body) => {
     const responseBodyObject = JSON.parse(body);
     res.status(responseBodyObject.meta.code).send(responseBodyObject.response);
+  });
+});
+
+app.post('/api/googlePlaces', function(req, res, next) {
+  const result = [];
+  const promises = [];
+
+  req.body.venues.forEach(venue => {
+    let promise = new Promise(resolve => {
+      googleApiService
+        .getPlaceInfo(venue.query)
+        .then(responsePlaceInfo => {
+          googleApiService
+            .getPlacePhoto(
+              responsePlaceInfo.json.results[0].photos[0].photo_reference,
+              300,
+              300
+            )
+            .then(responsePlacePhoto => {
+              result.push({
+                id: venue.id,
+                photoUrl:
+                  'https://' +
+                  responsePlacePhoto.req.socket._host +
+                  responsePlacePhoto.req.path
+              });
+              resolve();
+            })
+            .catch(err => {
+              console.log('getPlacePhoto error: ' + err);
+            });
+        })
+        .catch(err => {
+          console.log('getPlaceInfo error: ' + err);
+        });
+    });
+    promises.push(promise);
+  });
+
+  Promise.all(promises).then(() => {
+    res.send(result);
   });
 });
 
