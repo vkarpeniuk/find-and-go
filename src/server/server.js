@@ -37,7 +37,7 @@ const googleApiService = new GoogleApiServiceModule(
   app.locals.googlePlacesApiKey
 );
 
-app.get('/api/googleMapsScript', function(req, res, next) {
+app.get('/api/google-maps-script', function(req, res, next) {
   const url = requestHelper.getGoogleMapsScriptUrl(
     req.query,
     app.locals.googleApiKey
@@ -64,7 +64,7 @@ app.get('/api/foursquare', function(req, res, next) {
   });
 });
 
-app.post('/api/googlePlaces', function(req, res, next) {
+app.post('/api/place-photos', function(req, res, next) {
   const result = [];
   const promises = [];
 

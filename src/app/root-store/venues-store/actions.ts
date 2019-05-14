@@ -2,8 +2,8 @@ import { Action } from '@ngrx/store';
 import { Venue } from '../../models/venue';
 
 export enum ActionTypes {
-  LOAD_REQUEST = '[Venue] Load Request',
-  LOAD_COMPLETE = '[Venue] Load Complete'
+  LOAD_REQUEST = '[Venues] Load Request',
+  LOAD_COMPLETE = '[Venues] Load Complete'
 }
 
 export class LoadRequestAction implements Action {

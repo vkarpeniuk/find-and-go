@@ -13,10 +13,10 @@ export class GoogleService extends ApiService {
 
   getMapsScriptContent(url: string): Observable<string> {
     const params = new HttpParams().set('requestPath', url);
-    return this.getText('api/googleMapsScript', params);
+    return this.getText('api/google-maps-script', params);
   }
 
-  getPlacePhotoUrl(): Observable<string> {
+  getPlacePhotosUrls(): Observable<string> {
     const body = {
       venues: [
         {
@@ -29,6 +29,6 @@ export class GoogleService extends ApiService {
         }
       ]
     };
-    return this.post('api/googlePlaces', body);
+    return this.post('api/place-photos', body);
   }
 }

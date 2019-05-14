@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { map, mergeMap } from 'rxjs/operators';
 import { FoursquareService } from './../../services/foursquare.service';
-import { State } from './state';
 import { ActionTypes, LoadRequestAction, LoadCompleteAction } from './actions';
 
 @Injectable()
