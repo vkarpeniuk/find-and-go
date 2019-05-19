@@ -106,10 +106,10 @@ app.post('/api/place-photos', function(req, res, next) {
 });
 
 // Serve only the static files form the dist directory
-app.use(express.static(path.resolve(__dirname, '../../dist/find-and-go')));
+app.use(express.static(path.resolve(__dirname, '../dist/find-and-go')));
 
 app.get('/*', function(req, res) {
-  res.sendFile(path.resolve(__dirname, '../../dist/find-and-go/index.html'));
+  res.sendFile(path.resolve(__dirname, '../dist/find-and-go/index.html'));
 });
 
 //keep heroku running
