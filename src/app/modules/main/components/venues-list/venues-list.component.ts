@@ -1,9 +1,5 @@
 import { Venue } from './../../../../core/models/venue.model';
-import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { State } from '../../reducers/state';
-import { selectAllVenues } from '../../selectors/venues';
-import { Observable } from 'rxjs';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-venues-list',
@@ -11,11 +7,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./venues-list.component.scss']
 })
 export class VenuesListComponent implements OnInit {
-  venues$: Observable<Venue[]>;
+  @Input() venues: Venue[];
 
-  constructor(private store$: Store<State>) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.venues$ = this.store$.pipe(select(selectAllVenues));
-  }
+  ngOnInit() {}
 }

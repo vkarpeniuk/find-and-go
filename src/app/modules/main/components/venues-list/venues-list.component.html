@@ -1,5 +1,6 @@
 <mat-nav-list>
-  <a mat-list-item href="#" *ngFor="let venue of venues$ | async">
+  <mat-list-item href="#" *ngFor="let venue of venues">
+    <img [src]="venue.imageUrl" style="width: 50px; height: 50px;" />
     {{ venue.name }}
-  </a>
+  </mat-list-item>
 </mat-nav-list>

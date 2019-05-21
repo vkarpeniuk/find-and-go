@@ -1,4 +1,4 @@
-import { Venue } from './../../../core/models/venue.model';
+import { Venue } from '../../../../core/models/venue.model';
 import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
 import { Actions, ActionTypes } from '../actions/venues';
 

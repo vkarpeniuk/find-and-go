@@ -1,3 +1,4 @@
+import { GoogleService } from './google.service';
 import { Observable, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -13,7 +14,7 @@ export class FoursquareService extends ApiService {
   private proxyUrl = 'api/foursquare';
   private foursquareApiUrl = 'https://api.foursquare.com/v2/';
 
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, private googleService: GoogleService) {
     super(http);
   }
 
@@ -31,7 +32,8 @@ export class FoursquareService extends ApiService {
       .set('near', near);
 
     return this.getJson(this.proxyUrl, params).pipe(
-      mergeMap(res => of(FoursquareHelper.parseVenuesRecommendations(res)))
+      mergeMap(res => of(FoursquareHelper.parseVenuesRecommendations(res))),
+      mergeMap(venues => this.googleService.getPlacePhotosUrls(venues))
     );
   }
 }

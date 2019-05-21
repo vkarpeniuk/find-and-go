@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ApiService } from './api.service';
+import { Venue } from '../models/venue.model';
+import { mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,19 +18,20 @@ export class GoogleService extends ApiService {
     return this.getText('api/google-maps-script', params);
   }
 
-  getPlacePhotosUrls(): Observable<string> {
+  getPlacePhotosUrls(venues: Venue[]): Observable<Venue[]> {
     const body = {
-      venues: [
-        {
-          id: '123',
-          query: 'copperhead, івано-франківськ'
-        },
-        {
-          id: '486',
-          query: "п'ятниця, івано-франківськ"
-        }
-      ]
+      venues: venues.map(venue => {
+        return { id: venue.id, query: `${venue.name}, ${venue.city}` };
+      })
     };
-    return this.post('api/place-photos', body);
+    return this.post('api/place-photos', body).pipe(
+      mergeMap(photosRes => {
+        photosRes.forEach(venuePhoto => {
+          venues.find(v => v.id === venuePhoto.id).imageUrl =
+            venuePhoto.photoUrl;
+        });
+        return of(venues);
+      })
+    );
   }
 }

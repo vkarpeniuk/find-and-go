@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { State } from '../../reducers/filters';
+import { State } from '../../store/reducers/filters';
 import { FormControl } from '@angular/forms';
-import { ChangeSearchAction, ChangeWhereAction } from '../../actions/filters';
+import {
+  ChangeSearchAction,
+  ChangeWhereAction
+} from '../../store/actions/filters';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({

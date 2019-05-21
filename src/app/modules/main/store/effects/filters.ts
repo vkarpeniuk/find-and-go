@@ -1,11 +1,11 @@
 import { ActionTypes } from './../actions/filters';
-import { FoursquareService } from './../../../core/services/foursquare.service';
+import { FoursquareService } from '../../../../core/services/foursquare.service';
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { LoadCompleteAction } from '../actions/venues';
-import { State } from '../reducers/state';
+import { State } from '../reducers';
 
 @Injectable()
 export class FiltersStoreEffects {

@@ -14,7 +14,8 @@ export class FoursquareHelper {
         address: venue.location.address,
         city: venue.location.city,
         latitude: venue.location.lat,
-        longitude: venue.location.lng
+        longitude: venue.location.lng,
+        imageUrl: null
       };
 
       result.push(parsedVenue);

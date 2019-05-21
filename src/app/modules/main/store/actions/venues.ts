@@ -1,4 +1,4 @@
-import { Venue } from './../../../core/models/venue.model';
+import { Venue } from '../../../../core/models/venue.model';
 import { Action } from '@ngrx/store';
 
 export enum ActionTypes {

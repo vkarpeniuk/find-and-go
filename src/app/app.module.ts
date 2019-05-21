@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { CustomLazyAPIKeyLoader } from './core/services/custom-lazy-api-key-loader';
 import { CoreModule } from './core';
-import { FiltersStoreEffects } from './modules/main/effects/filters';
+import { FiltersStoreEffects } from './modules/main/store/effects/filters';
 import { EffectsModule } from '@ngrx/effects';
 
 // modules
