@@ -1,32 +1,20 @@
 import { ActionTypes } from './../actions/filters';
-import { FoursquareService } from '../../../../core/services/foursquare.service';
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { map, mergeMap, withLatestFrom } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { LoadCompleteAction } from '../actions/venues';
-import { State } from '../reducers';
+import { map } from 'rxjs/operators';
+import { LoadRequestAction } from '../actions/venues';
 
 @Injectable()
 export class FiltersStoreEffects {
-  constructor(
-    private store$: Store<State>,
-    private actions$: Actions,
-    private foursquareService: FoursquareService
-  ) {}
+  constructor(private actions$: Actions) {}
 
   @Effect()
-  loadFilteredVenues$ = this.actions$.pipe(
-    ofType(ActionTypes.CHANGE_SEARCH, ActionTypes.CHANGE_WHERE),
-    withLatestFrom(this.store$),
-    mergeMap(([action, storeState]) =>
-      this.foursquareService.getVenueRecommendations(
-        null,
-        null,
-        storeState.filters.search,
-        storeState.filters.where
-      )
+  changeFilters$ = this.actions$.pipe(
+    ofType(
+      ActionTypes.CHANGE_SEARCH,
+      ActionTypes.CHANGE_WHERE,
+      ActionTypes.CHANGE_MAP_LOCATION
     ),
-    map(items => new LoadCompleteAction({ items }))
+    map(() => new LoadRequestAction())
   );
 }

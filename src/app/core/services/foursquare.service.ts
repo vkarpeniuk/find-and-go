@@ -14,6 +14,8 @@ export class FoursquareService extends ApiService {
   private proxyUrl = 'api/foursquare';
   private foursquareApiUrl = 'https://api.foursquare.com/v2/';
 
+  private defaultSearch = 'top picks';
+
   constructor(http: HttpClient, private googleService: GoogleService) {
     super(http);
   }
@@ -23,13 +25,26 @@ export class FoursquareService extends ApiService {
     longitude: number = null,
     search: string = null,
     near: string = null,
+    locationByMap: boolean,
     limit: number = 20,
     offset: number = 0
   ): Observable<Venue[]> {
-    const params = new HttpParams()
-      .set('requestPath', `${this.foursquareApiUrl}venues/explore`)
-      .set('query', search)
-      .set('near', near);
+    let params = new HttpParams().set(
+      'requestPath',
+      `${this.foursquareApiUrl}venues/explore`
+    );
+
+    if (search) {
+      params = params.set('query', search);
+    } else {
+      params = params.set('query', this.defaultSearch);
+    }
+
+    if (locationByMap) {
+      params = params.set('ll', `${latitude},${longitude}`);
+    } else {
+      params = params.set('near', near);
+    }
 
     return this.getJson(this.proxyUrl, params).pipe(
       mergeMap(res => of(FoursquareHelper.parseVenuesRecommendations(res))),

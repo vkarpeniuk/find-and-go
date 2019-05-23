@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe(value => {
-        this.store$.dispatch(new ChangeSearchAction({ newSearch: value }));
+        this.store$.dispatch(new ChangeSearchAction({ search: value }));
       });
 
     this.where.valueChanges
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe(value => {
-        this.store$.dispatch(new ChangeWhereAction({ newWhere: value }));
+        this.store$.dispatch(new ChangeWhereAction({ where: value }));
       });
   }
 }

@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { MapLocation } from './../../../../core/models/map-location.model';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Output,
+  EventEmitter,
+  Input
+} from '@angular/core';
+import { AgmMap } from '@agm/core';
 
 @Component({
   selector: 'app-map',
@@ -6,9 +15,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
-  lat: number = 48.9226;
-  lng: number = 24.7111;
+  @Input() location: MapLocation;
+  @Output() locationChanged: EventEmitter<MapLocation> = new EventEmitter<
+    MapLocation
+  >();
+
+  isInitialized: boolean;
+
+  @ViewChild('map') mapRef: AgmMap;
+
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.mapRef.latitude = this.location.latitude;
+    this.mapRef.longitude = this.location.longitude;
+  }
+
+  mapIdle() {
+    if (this.isInitialized) {
+      this.locationChanged.emit({
+        latitude: this.mapRef.latitude,
+        longitude: this.mapRef.longitude
+      });
+    } else {
+      this.isInitialized = true;
+    }
+  }
 }

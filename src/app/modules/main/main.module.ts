@@ -9,6 +9,9 @@ import { VenuesListComponent } from './components/venues-list/venues-list.compon
 import { MapComponent } from './components/map/map.component';
 import { VenuesComponent } from './containers/venues/venues.component';
 import { reducers } from './store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { FiltersStoreEffects } from './store/effects/filters';
+import { VenuesStoreEffects } from './store/effects/venues';
 
 // modules
 const modules = [
@@ -17,7 +20,8 @@ const modules = [
   FormsModule,
   ReactiveFormsModule,
   AgmCoreModule.forRoot({}),
-  StoreModule.forRoot(reducers)
+  StoreModule.forRoot(reducers),
+  EffectsModule.forRoot([FiltersStoreEffects, VenuesStoreEffects])
 ];
 
 // components

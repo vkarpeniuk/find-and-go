@@ -8,8 +8,6 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { CustomLazyAPIKeyLoader } from './core/services/custom-lazy-api-key-loader';
 import { CoreModule } from './core';
-import { FiltersStoreEffects } from './modules/main/store/effects/filters';
-import { EffectsModule } from '@ngrx/effects';
 
 // modules
 const modules = [
@@ -17,7 +15,6 @@ const modules = [
   SharedModule,
   AppRoutingModule,
   MainModule,
-  EffectsModule.forRoot([FiltersStoreEffects]),
   StoreDevtoolsModule.instrument({
     maxAge: 25,
     logOnly: environment.production

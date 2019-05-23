@@ -1,18 +1,28 @@
+import { MapLocation } from './../../../../core/models/map-location.model';
 import { Action } from '@ngrx/store';
 
 export enum ActionTypes {
   CHANGE_SEARCH = '[Filters] Change search',
-  CHANGE_WHERE = '[Filters] Change where'
+  CHANGE_WHERE = '[Filters] Change where',
+  CHANGE_MAP_LOCATION = '[Filters] Change map location'
 }
 
 export class ChangeSearchAction implements Action {
   readonly type = ActionTypes.CHANGE_SEARCH;
-  constructor(public payload: { newSearch: string }) {}
+  constructor(public payload: { search: string }) {}
 }
 
 export class ChangeWhereAction implements Action {
   readonly type = ActionTypes.CHANGE_WHERE;
-  constructor(public payload: { newWhere: string }) {}
+  constructor(public payload: { where: string }) {}
 }
 
-export type Actions = ChangeSearchAction | ChangeWhereAction;
+export class ChangeMapLocationAction implements Action {
+  readonly type = ActionTypes.CHANGE_MAP_LOCATION;
+  constructor(public payload: MapLocation) {}
+}
+
+export type Actions =
+  | ChangeSearchAction
+  | ChangeWhereAction
+  | ChangeMapLocationAction;

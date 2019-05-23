@@ -1,3 +1,1 @@
-<agm-map [latitude]="lat" [longitude]="lng" [streetViewControl]="false">
-  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-</agm-map>
+<agm-map #map [streetViewControl]="false" (idle)="mapIdle()"> </agm-map>

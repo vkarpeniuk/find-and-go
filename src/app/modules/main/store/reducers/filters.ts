@@ -3,11 +3,17 @@ import { Actions, ActionTypes } from '../actions/filters';
 export interface State {
   search: string;
   where: string;
+  latitude: number;
+  longitude: number;
+  locationByMap: boolean;
 }
 
 export const initialState: State = {
   search: null,
-  where: null
+  where: null,
+  latitude: 48.9226,
+  longitude: 24.7111,
+  locationByMap: true
 };
 
 export function reducer(state = initialState, action: Actions): State {
@@ -15,13 +21,22 @@ export function reducer(state = initialState, action: Actions): State {
     case ActionTypes.CHANGE_SEARCH: {
       return {
         ...state,
-        search: action.payload.newSearch
+        search: action.payload.search
       };
     }
     case ActionTypes.CHANGE_WHERE: {
       return {
         ...state,
-        where: action.payload.newWhere
+        where: action.payload.where,
+        locationByMap: false
+      };
+    }
+    case ActionTypes.CHANGE_MAP_LOCATION: {
+      return {
+        ...state,
+        latitude: action.payload.latitude,
+        longitude: action.payload.longitude,
+        locationByMap: true
       };
     }
     default: {

@@ -1,33 +1,36 @@
-import { GoogleService } from '../../../../core/services/google.service';
 import { FoursquareService } from '../../../../core/services/foursquare.service';
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import {
   LoadRequestAction,
   ActionTypes,
   LoadCompleteAction
 } from '../actions/venues';
+import { Store } from '@ngrx/store';
+import { State } from '../reducers';
 
 @Injectable()
 export class VenuesStoreEffects {
   constructor(
+    private store$: Store<State>,
     private actions$: Actions,
-    private foursquareService: FoursquareService,
-    private googleService: GoogleService
+    private foursquareService: FoursquareService
   ) {}
 
-  // @Effect()
-  // loadAllVenues$ = this.actions$.pipe(
-  //   ofType<LoadRequestAction>(ActionTypes.LOAD_REQUEST),
-  //   mergeMap(() => this.foursquareService.getVenueRecommendations()),
-  //   map(items => new LoadCompleteAction({ items }))
-  // );
-
-  // @Effect()
-  // loadVenuesCompleted$ = this.actions$.pipe(
-  //   ofType<LoadCompleteAction>(ActionTypes.LOAD_COMPLETE),
-  //   mergeMap((venues) => this.googleService.getPlacePhotosUrls(venues.payload.items)),
-  //   map(items => new LoadCompleteAction({ items }))
-  // );
+  @Effect()
+  loadVenues$ = this.actions$.pipe(
+    ofType<LoadRequestAction>(ActionTypes.LOAD_REQUEST),
+    withLatestFrom(this.store$),
+    mergeMap(([action, storeState]) =>
+      this.foursquareService.getVenueRecommendations(
+        storeState.filters.latitude,
+        storeState.filters.longitude,
+        storeState.filters.search,
+        storeState.filters.where,
+        storeState.filters.locationByMap
+      )
+    ),
+    map(items => new LoadCompleteAction({ items }))
+  );
 }
