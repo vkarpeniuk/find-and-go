@@ -13,6 +13,7 @@ export class FoursquareHelper {
         name: venue.name,
         address: venue.location.address,
         city: venue.location.city,
+        country: venue.location.country,
         latitude: venue.location.lat,
         longitude: venue.location.lng,
         imageUrl: null

@@ -3,6 +3,7 @@ export interface Venue {
   name: string;
   address: string;
   city: string;
+  country: string;
   latitude: number;
   longitude: number;
   imageUrl: string;

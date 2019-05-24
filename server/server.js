@@ -91,10 +91,12 @@ app.post('/api/place-photos', function(req, res, next) {
             })
             .catch(err => {
               console.log('getPlacePhoto error: ' + err);
+              resolve();
             });
         })
         .catch(err => {
           console.log('getPlaceInfo error: ' + err);
+          resolve();
         });
     });
     promises.push(promise);

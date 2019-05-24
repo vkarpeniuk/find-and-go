@@ -1,6 +1,13 @@
 <mat-nav-list>
   <mat-list-item href="#" *ngFor="let venue of venues">
-    <img [src]="venue.imageUrl" style="width: 50px; height: 50px;" />
+    <img
+      [src]="
+        venue.imageUrl
+          ? venue.imageUrl
+          : '../../assets/images/img-placeholder.png'
+      "
+      style="width: 50px; height: 50px;"
+    />
     {{ venue.name }}
   </mat-list-item>
 </mat-nav-list>

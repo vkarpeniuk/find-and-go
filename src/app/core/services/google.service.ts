@@ -21,7 +21,11 @@ export class GoogleService extends ApiService {
   getPlacePhotosUrls(venues: Venue[]): Observable<Venue[]> {
     const body = {
       venues: venues.map(venue => {
-        return { id: venue.id, query: `${venue.name}, ${venue.city}` };
+        if (venue.city) {
+          return { id: venue.id, query: `${venue.name}, ${venue.city}` };
+        } else {
+          return { id: venue.id, query: `${venue.name}, ${venue.country}` };
+        }
       })
     };
     return this.post('api/place-photos', body).pipe(
