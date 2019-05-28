@@ -1,4 +1,4 @@
-import { MapLocation } from './../../../../core/models/map-location.model';
+import { MapOptions } from '../../../../core/models/map-options.model';
 import { Action } from '@ngrx/store';
 
 export enum ActionTypes {
@@ -19,7 +19,7 @@ export class ChangeWhereAction implements Action {
 
 export class ChangeMapLocationAction implements Action {
   readonly type = ActionTypes.CHANGE_MAP_LOCATION;
-  constructor(public payload: MapLocation) {}
+  constructor(public payload: MapOptions) {}
 }
 
 export type Actions =

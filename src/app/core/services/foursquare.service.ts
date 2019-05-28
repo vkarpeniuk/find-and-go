@@ -26,6 +26,7 @@ export class FoursquareService extends ApiService {
     search: string = null,
     near: string = null,
     locationByMap: boolean,
+    zoomLevel: number,
     limit: number = 20,
     offset: number = 0
   ): Observable<Venue[]> {
@@ -41,7 +42,12 @@ export class FoursquareService extends ApiService {
     }
 
     if (locationByMap) {
-      params = params.set('ll', `${latitude},${longitude}`);
+      params = params
+        .set('ll', `${latitude},${longitude}`)
+        .set(
+          'radius',
+          FoursquareHelper.getRadiusByZoomLevel(zoomLevel).toString()
+        );
     } else {
       params = params.set('near', near);
     }

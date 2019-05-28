@@ -1,4 +1,4 @@
-import { MapLocation } from './../../../../core/models/map-location.model';
+import { MapOptions } from '../../../../core/models/map-options.model';
 import { Venue } from './../../../../core/models/venue.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -15,20 +15,21 @@ import { ChangeMapLocationAction } from '../../store/actions/filters';
 })
 export class VenuesComponent implements OnInit {
   venues$: Observable<Venue[]>;
-  location$: Observable<MapLocation>;
+  mapOptions$: Observable<MapOptions>;
 
   constructor(private store$: Store<State>) {}
 
   ngOnInit() {
     this.venues$ = this.store$.pipe(select(selectAllVenues));
-    this.location$ = this.store$.pipe(select(selectLocationFilter));
+    this.mapOptions$ = this.store$.pipe(select(selectLocationFilter));
   }
 
-  mapLocationChanged(newLocation: MapLocation): void {
+  mapOptionsChanged(newOptions: MapOptions): void {
     this.store$.dispatch(
       new ChangeMapLocationAction({
-        latitude: newLocation.latitude,
-        longitude: newLocation.longitude
+        latitude: newOptions.latitude,
+        longitude: newOptions.longitude,
+        zoom: newOptions.zoom
       })
     );
   }

@@ -24,4 +24,28 @@ export class FoursquareHelper {
 
     return result;
   }
+
+  static getRadiusByZoomLevel(zoomLevel: number): number {
+    if (zoomLevel < 7) {
+      return 100000;
+    } else if (zoomLevel === 8) {
+      return 80000;
+    } else if (zoomLevel === 9) {
+      return 60000;
+    } else if (zoomLevel === 10) {
+      return 25000;
+    } else if (zoomLevel === 11) {
+      return 15000;
+    } else if (zoomLevel === 12) {
+      return 7000;
+    } else if (zoomLevel === 13) {
+      return 5000;
+    } else if (zoomLevel === 14) {
+      return 3000;
+    } else if (zoomLevel === 15) {
+      return 2000;
+    } else {
+      return 1000;
+    }
+  }
 }

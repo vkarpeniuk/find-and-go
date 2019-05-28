@@ -24,6 +24,11 @@
     .content-container {
       color: $primary-dark;
       padding: 10px;
+
+      h4 > a:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
     }
   }
 }

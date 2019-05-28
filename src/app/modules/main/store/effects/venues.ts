@@ -28,7 +28,8 @@ export class VenuesStoreEffects {
         storeState.filters.longitude,
         storeState.filters.search,
         storeState.filters.where,
-        storeState.filters.locationByMap
+        storeState.filters.locationByMap,
+        storeState.filters.zoom
       )
     ),
     map(items => new LoadCompleteAction({ items }))

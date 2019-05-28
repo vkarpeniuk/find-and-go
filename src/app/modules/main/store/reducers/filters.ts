@@ -5,6 +5,7 @@ export interface State {
   where: string;
   latitude: number;
   longitude: number;
+  zoom: number;
   locationByMap: boolean;
 }
 
@@ -13,6 +14,7 @@ export const initialState: State = {
   where: null,
   latitude: 48.9226,
   longitude: 24.7111,
+  zoom: 8,
   locationByMap: true
 };
 

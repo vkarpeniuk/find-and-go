@@ -1,5 +1,6 @@
 <app-map
-  [location]="location$ | async"
-  (locationChanged)="mapLocationChanged($event)"
+  [venues]="venues$ | async"
+  [mapOptions]="mapOptions$ | async"
+  (mapUpdated)="mapOptionsChanged($event)"
 ></app-map>
 <app-venues-list [venues]="venues$ | async"></app-venues-list>

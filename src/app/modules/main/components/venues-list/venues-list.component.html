@@ -1,5 +1,5 @@
 <mat-nav-list>
-  <mat-list-item href="#" *ngFor="let venue of venues" class="venue-list-item">
+  <mat-list-item *ngFor="let venue of venues" class="venue-list-item">
     <div class="img-container">
       <img
         [src]="
@@ -11,8 +11,9 @@
     </div>
     <div class="content-container">
       <h4>
-        {{ venue.name }}
+        <a href="venue-details/{{ venue.id }}">{{ venue.name }}</a>
       </h4>
+      <h5>{{ venue.address }}, {{ venue.city }}</h5>
     </div>
   </mat-list-item>
 </mat-nav-list>

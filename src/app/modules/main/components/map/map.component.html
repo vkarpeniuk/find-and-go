@@ -1,1 +1,7 @@
-<agm-map #map [streetViewControl]="false" (idle)="mapIdle()"> </agm-map>
+<agm-map #map [streetViewControl]="false" (idle)="mapIdle()">
+  <agm-marker
+    *ngFor="let marker of markers"
+    [latitude]="marker.latitude"
+    [longitude]="marker.longitude"
+  ></agm-marker>
+</agm-map>

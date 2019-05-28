@@ -1,2 +1,2 @@
 export * from './venue.model';
-export * from './map-location.model';
+export * from './map-options.model';
