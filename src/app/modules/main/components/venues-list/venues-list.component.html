@@ -11,7 +11,7 @@
     </div>
     <div class="content-container">
       <h4>
-        <a href="venue-details/{{ venue.id }}">{{ venue.name }}</a>
+        <a [routerLink]="['/venue-details', venue.id]">{{ venue.name }}</a>
       </h4>
       <h5>{{ venue.address }}, {{ venue.city }}</h5>
     </div>

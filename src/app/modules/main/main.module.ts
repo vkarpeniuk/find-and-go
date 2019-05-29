@@ -12,10 +12,12 @@ import { reducers } from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { FiltersStoreEffects } from './store/effects/filters';
 import { VenuesStoreEffects } from './store/effects/venues';
+import { RouterModule } from '@angular/router';
 
 // modules
 const modules = [
   CommonModule,
+  RouterModule,
   SharedModule,
   FormsModule,
   ReactiveFormsModule,

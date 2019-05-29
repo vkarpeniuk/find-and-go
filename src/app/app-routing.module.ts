@@ -7,6 +7,11 @@ const routes: Routes = [
     path: 'venues',
     component: VenuesComponent
   },
+  {
+    path: 'venue-details/:id',
+    loadChildren:
+      './modules/venue-details/venue-details.module#VenueDetailsModule'
+  },
   { path: '', redirectTo: '/venues', pathMatch: 'full' }
 ];
 

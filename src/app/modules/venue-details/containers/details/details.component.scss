@@ -1,11 +1,9 @@
-.venues-wrapper {
-  width: calc(100vw - 17px);
-  height: 100%;
+.details-container {
   padding-top: 60px;
 }
 
 @media only screen and (max-width: 560px) {
-  .venues-wrapper {
+  .details-container {
     padding-top: 50px;
   }
 }
