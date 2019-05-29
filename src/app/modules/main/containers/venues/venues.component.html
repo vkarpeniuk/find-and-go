@@ -1,8 +1,6 @@
-<div class="venues-wrapper">
-  <app-map
-    [venues]="venues$ | async"
-    [mapOptions]="mapOptions$ | async"
-    (mapUpdated)="mapOptionsChanged($event)"
-  ></app-map>
-  <app-venues-list [venues]="venues$ | async"></app-venues-list>
-</div>
+<app-map
+  [venues]="venues$ | async"
+  [mapOptions]="mapOptions$ | async"
+  (mapUpdated)="mapOptionsChanged($event)"
+></app-map>
+<app-venues-list [venues]="venues$ | async"></app-venues-list>
