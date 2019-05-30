@@ -2,10 +2,10 @@
   "name": "find-and-go",
   "version": "0.0.0",
   "scripts": {
-    "start": "node server/server.js",
     "build": "ng build",
-    "start:dev": "concurrently --kill-others \"npm run start\" \"ng serve --progress=false --proxy-config=proxy.conf.json\"",
-    "build:prod": "ng build --aot --prod",
+    "build:prod": "ng build --production",
+    "start:server": "node server/server.js",
+    "start:dev": "concurrently --kill-others \"npm run start:server\" \"ng serve --progress=false --proxy-config=proxy.conf.json\"",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
