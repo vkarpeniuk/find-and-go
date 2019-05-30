@@ -69,6 +69,10 @@
           "configurations": {
             "production": {
               "browserTarget": "find-and-go:build:production"
+            },
+            "dev": {
+              "progress": false,
+              "proxyConfig": "proxy.conf.json"
             }
           }
         },
