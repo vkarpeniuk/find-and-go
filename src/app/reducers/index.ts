@@ -1,6 +1,6 @@
 import { ActionReducerMap } from '@ngrx/store';
-import * as fromFilters from './filters';
-import * as fromVenues from './venues';
+import * as fromFilters from '../modules/main/containers/header/redux/reducers';
+import * as fromVenues from '../modules/main/containers/venues/redux/reducers';
 
 export interface State {
   filters: fromFilters.State;

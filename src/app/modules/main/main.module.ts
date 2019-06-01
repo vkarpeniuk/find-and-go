@@ -8,10 +8,10 @@ import { HeaderComponent } from './containers/header/header.component';
 import { VenuesListComponent } from './components/venues-list/venues-list.component';
 import { MapComponent } from './components/map/map.component';
 import { VenuesComponent } from './containers/venues/venues.component';
-import { reducers } from './store/reducers';
+import { reducers } from '../../reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { FiltersStoreEffects } from './store/effects/filters';
-import { VenuesStoreEffects } from './store/effects/venues';
+import { HeaderStoreEffects } from './containers/header/redux/effects';
+import { VenuesStoreEffects } from './containers/venues/redux/effects';
 import { RouterModule } from '@angular/router';
 
 // modules
@@ -23,7 +23,7 @@ const modules = [
   ReactiveFormsModule,
   AgmCoreModule.forRoot({}),
   StoreModule.forRoot(reducers),
-  EffectsModule.forRoot([FiltersStoreEffects, VenuesStoreEffects])
+  EffectsModule.forRoot([HeaderStoreEffects, VenuesStoreEffects])
 ];
 
 // components

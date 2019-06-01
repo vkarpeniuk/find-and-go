@@ -1,4 +1,4 @@
-import { Actions, ActionTypes } from '../actions/filters';
+import { Actions, ActionTypes } from './actions';
 
 export interface State {
   search: string;

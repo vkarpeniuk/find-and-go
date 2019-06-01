@@ -1,11 +1,11 @@
-import { ActionTypes } from './../actions/filters';
+import { ActionTypes } from './actions';
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { map } from 'rxjs/operators';
-import { LoadRequestAction } from '../actions/venues';
+import { LoadRequestAction } from '../../venues/redux/actions';
 
 @Injectable()
-export class FiltersStoreEffects {
+export class HeaderStoreEffects {
   constructor(private actions$: Actions) {}
 
   @Effect()

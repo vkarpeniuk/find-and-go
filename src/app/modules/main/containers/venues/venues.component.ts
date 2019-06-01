@@ -3,10 +3,10 @@ import { Venue } from './../../../../core/models/venue.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { State } from '../../store/reducers';
-import { selectAllVenues } from '../../store/selectors/venues';
-import { selectLocationFilter } from '../../store/selectors/filters';
-import { ChangeMapLocationAction } from '../../store/actions/filters';
+import * as fromRoot from 'src/app/reducers';
+import { selectAllVenues } from './redux/selectors';
+import { selectLocationFilter } from '../header/redux/selectors';
+import { ChangeMapLocationAction } from '../header/redux/actions';
 
 @Component({
   selector: 'app-venues',
@@ -17,7 +17,7 @@ export class VenuesComponent implements OnInit {
   venues$: Observable<Venue[]>;
   mapOptions$: Observable<MapOptions>;
 
-  constructor(private store$: Store<State>) {}
+  constructor(private store$: Store<fromRoot.State>) {}
 
   ngOnInit() {
     this.venues$ = this.store$.pipe(select(selectAllVenues));

@@ -1,19 +1,15 @@
-import { FoursquareService } from '../../../../core/services/foursquare.service';
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { map, mergeMap, withLatestFrom } from 'rxjs/operators';
-import {
-  LoadRequestAction,
-  ActionTypes,
-  LoadCompleteAction
-} from '../actions/venues';
+import { LoadRequestAction, ActionTypes, LoadCompleteAction } from './actions';
 import { Store } from '@ngrx/store';
-import { State } from '../reducers';
+import { FoursquareService } from 'src/app/core/services';
+import * as fromRoot from 'src/app/reducers';
 
 @Injectable()
 export class VenuesStoreEffects {
   constructor(
-    private store$: Store<State>,
+    private store$: Store<fromRoot.State>,
     private actions$: Actions,
     private foursquareService: FoursquareService
   ) {}

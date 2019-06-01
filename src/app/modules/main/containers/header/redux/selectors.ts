@@ -1,24 +1,22 @@
-import { MapOptions } from './../../../../core/models/map-options.model';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as fromFilters from '../reducers/filters';
+import { State } from './reducers';
+import { MapOptions } from 'src/app/core/models';
 
-export const selectFiltersState = createFeatureSelector<fromFilters.State>(
-  'filters'
-);
+export const selectFiltersState = createFeatureSelector<State>('filters');
 
 export const selectSearchFilter = createSelector(
   selectFiltersState,
-  (state: fromFilters.State): string => state.search
+  (state: State): string => state.search
 );
 
 export const selectWhereFilter = createSelector(
   selectFiltersState,
-  (state: fromFilters.State): string => state.where
+  (state: State): string => state.where
 );
 
 export const selectLocationFilter = createSelector(
   selectFiltersState,
-  (state: fromFilters.State): MapOptions => {
+  (state: State): MapOptions => {
     return {
       latitude: state.latitude,
       longitude: state.longitude,
