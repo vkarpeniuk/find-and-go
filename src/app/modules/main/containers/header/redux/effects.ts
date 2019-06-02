@@ -1,12 +1,20 @@
-import { ActionTypes } from './actions';
+import {
+  ActionTypes,
+  GetCurrentLocationAction,
+  ChangeMapLocationAction
+} from './actions';
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { LoadRequestAction } from '../../venues/redux/actions';
+import { LocationService } from 'src/app/core/services';
 
 @Injectable()
 export class HeaderStoreEffects {
-  constructor(private actions$: Actions) {}
+  constructor(
+    private actions$: Actions,
+    private locationService: LocationService
+  ) {}
 
   @Effect()
   changeFilters$ = this.actions$.pipe(
@@ -16,5 +24,19 @@ export class HeaderStoreEffects {
       ActionTypes.CHANGE_MAP_LOCATION
     ),
     map(() => new LoadRequestAction())
+  );
+
+  @Effect()
+  getCurrentLocation$ = this.actions$.pipe(
+    ofType<GetCurrentLocationAction>(ActionTypes.GET_CURRENT_LOCATION),
+    switchMap(() => this.locationService.getCurrentPosition()),
+    map(
+      res =>
+        new ChangeMapLocationAction({
+          latitude: res.latitude,
+          longitude: res.longitude,
+          zoom: 12
+        })
+    )
   );
 }

@@ -26,6 +26,9 @@ export class MapComponent implements OnInit, OnChanges {
   >();
 
   isInitialized: boolean;
+  latitude: number;
+  longitude: number;
+  zoom: number;
   markers: MapMarker[];
 
   @ViewChild('map') mapRef: AgmMap;
@@ -33,14 +36,22 @@ export class MapComponent implements OnInit, OnChanges {
   constructor() {}
 
   ngOnInit() {
-    this.mapRef.latitude = this.mapOptions.latitude;
-    this.mapRef.longitude = this.mapOptions.longitude;
+    this.initMapOptions();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.venues) {
       this.initMarkers();
     }
+    if (changes.mapOptions) {
+      this.initMapOptions();
+    }
+  }
+
+  initMapOptions(): void {
+    this.latitude = this.mapOptions.latitude;
+    this.longitude = this.mapOptions.longitude;
+    this.zoom = this.mapOptions.zoom;
   }
 
   initMarkers(): void {

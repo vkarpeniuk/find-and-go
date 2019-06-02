@@ -57,5 +57,10 @@
     [formControl]="where"
     name="where"
   />
-  <mat-icon matSuffix class="input-icon-suffix">my_location</mat-icon>
+  <mat-icon
+    matSuffix
+    class="input-icon-suffix"
+    (click)="getCurrentLocation($event)"
+    >my_location</mat-icon
+  >
 </mat-form-field>

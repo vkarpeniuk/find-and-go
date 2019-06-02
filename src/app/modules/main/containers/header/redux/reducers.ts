@@ -38,6 +38,7 @@ export function reducer(state = initialState, action: Actions): State {
         ...state,
         latitude: action.payload.latitude,
         longitude: action.payload.longitude,
+        zoom: action.payload.zoom,
         locationByMap: true
       };
     }

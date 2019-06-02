@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { State } from './redux/reducers';
 import { FormControl } from '@angular/forms';
-import { ChangeSearchAction, ChangeWhereAction } from './redux/actions';
+import {
+  ChangeSearchAction,
+  ChangeWhereAction,
+  GetCurrentLocationAction
+} from './redux/actions';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
@@ -33,5 +37,10 @@ export class HeaderComponent implements OnInit {
       .subscribe(value => {
         this.store$.dispatch(new ChangeWhereAction({ where: value }));
       });
+  }
+
+  getCurrentLocation(event): void {
+    event.stopPropagation();
+    this.store$.dispatch(new GetCurrentLocationAction());
   }
 }
