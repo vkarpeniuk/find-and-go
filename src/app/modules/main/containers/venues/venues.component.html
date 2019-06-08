@@ -3,4 +3,7 @@
   [mapOptions]="mapOptions$ | async"
   (mapUpdated)="mapOptionsChanged($event)"
 ></app-map>
-<app-venues-list [venues]="venues$ | async"></app-venues-list>
+<app-venues-list
+  [venues]="venues$ | async"
+  [isLoading]="isLoading$ | async"
+></app-venues-list>

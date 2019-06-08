@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class VenuesListComponent implements OnInit {
   @Input() venues: Venue[];
+  @Input() isLoading: boolean;
 
   constructor() {}
 

@@ -1,9 +1,9 @@
 @import 'src/themes/colors';
 
 :host {
+  position: relative;
   display: block;
-  width: 100%;
-  height: 800px;
+  height: auto;
 }
 
 .mat-nav-list {
@@ -27,6 +27,7 @@
     }
   }
 }
+
 @media only screen and (min-width: 961px) {
   :host {
     width: 50%;

@@ -1,0 +1,40 @@
+.wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 1002;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  height: 100%;
+}
+
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: calc(100vh - 60px);
+
+  @media only screen and (min-width: 961px) {
+    align-items: center;
+  }
+}
+
+.narrow {
+  display: block;
+}
+.wide {
+  display: none;
+}
+
+@media only screen and (min-width: 961px) {
+  .narrow {
+    display: none;
+  }
+  .wide {
+    display: block;
+  }
+}

@@ -1,3 +1,4 @@
+import { SpinnerComponent } from './components/spinner.component';
 import { MaterialModule } from './material.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -6,13 +7,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [],
-  exports: [MaterialModule],
+  declarations: [SpinnerComponent],
+  exports: [MaterialModule, SpinnerComponent],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialModule
   ],
   providers: []
 })

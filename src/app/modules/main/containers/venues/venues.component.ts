@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import * as fromRoot from '@reducers';
-import { selectAllVenues } from './redux/selectors';
+import { selectAllVenues, selectIsLoading } from './redux/selectors';
 import { selectLocationFilter } from '../header/redux/selectors';
 import { ChangeMapLocationAction } from '../header/redux/actions';
 
@@ -15,12 +15,14 @@ import { ChangeMapLocationAction } from '../header/redux/actions';
 export class VenuesComponent implements OnInit {
   venues$: Observable<Venue[]>;
   mapOptions$: Observable<MapOptions>;
+  isLoading$: Observable<boolean>;
 
   constructor(private store$: Store<fromRoot.State>) {}
 
   ngOnInit() {
     this.venues$ = this.store$.pipe(select(selectAllVenues));
     this.mapOptions$ = this.store$.pipe(select(selectLocationFilter));
+    this.isLoading$ = this.store$.pipe(select(selectIsLoading));
   }
 
   mapOptionsChanged(newOptions: MapOptions): void {
