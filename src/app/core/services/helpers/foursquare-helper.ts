@@ -1,4 +1,4 @@
-import { Venue } from '../../models/venue.model';
+import { Venue } from '@models';
 
 export class FoursquareHelper {
   static parseVenuesRecommendations(response: any): Venue[] {

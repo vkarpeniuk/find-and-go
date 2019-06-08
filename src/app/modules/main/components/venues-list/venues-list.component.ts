@@ -1,4 +1,4 @@
-import { Venue } from './../../../../core/models/venue.model';
+import { Venue } from '@models';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

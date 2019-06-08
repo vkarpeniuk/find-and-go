@@ -8,7 +8,7 @@ import { HeaderComponent } from './containers/header/header.component';
 import { VenuesListComponent } from './components/venues-list/venues-list.component';
 import { MapComponent } from './components/map/map.component';
 import { VenuesComponent } from './containers/venues/venues.component';
-import { reducers } from '../../reducers';
+import { reducers } from '@reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { HeaderStoreEffects } from './containers/header/redux/effects';
 import { VenuesStoreEffects } from './containers/venues/redux/effects';

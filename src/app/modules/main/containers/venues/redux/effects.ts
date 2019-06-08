@@ -3,8 +3,8 @@ import { Effect, Actions, ofType } from '@ngrx/effects';
 import { map, withLatestFrom, switchMap } from 'rxjs/operators';
 import { LoadRequestAction, ActionTypes, LoadCompleteAction } from './actions';
 import { Store } from '@ngrx/store';
-import { FoursquareService } from 'src/app/core/services';
-import * as fromRoot from 'src/app/reducers';
+import { FoursquareService } from '@services';
+import * as fromRoot from '@reducers';
 
 @Injectable()
 export class VenuesStoreEffects {

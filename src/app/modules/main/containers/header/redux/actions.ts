@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { MapOptions } from 'src/app/core/models';
+import { MapOptions } from '@models';
 
 export enum ActionTypes {
   CHANGE_SEARCH = '[Header] Change search',

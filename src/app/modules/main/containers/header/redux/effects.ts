@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { map, switchMap } from 'rxjs/operators';
 import { LoadRequestAction } from '../../venues/redux/actions';
-import { LocationService } from 'src/app/core/services';
+import { LocationService } from '@services';
 
 @Injectable()
 export class HeaderStoreEffects {

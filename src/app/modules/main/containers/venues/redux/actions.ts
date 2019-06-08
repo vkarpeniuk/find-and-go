@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Venue } from 'src/app/core/models';
+import { Venue } from '@models';
 
 export enum ActionTypes {
   LOAD_REQUEST = '[Venues] Load Request',

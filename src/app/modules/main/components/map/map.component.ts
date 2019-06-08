@@ -1,6 +1,4 @@
-import { MapMarker } from './../../../../core/models/map-marker.model';
-import { Venue } from './../../../../core/models/venue.model';
-import { MapOptions } from '../../../../core/models/map-options.model';
+import { MapMarker, Venue, MapOptions } from '@models';
 import {
   Component,
   OnInit,
