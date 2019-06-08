@@ -3,7 +3,7 @@
   <a
     mat-list-item
     [routerLink]="['/venue-details', venue.id]"
-    *ngFor="let venue of venues"
+    *ngFor="let venue of venues; trackBy: trackVenues"
     class="venue-list-item"
   >
     <div class="img-container">

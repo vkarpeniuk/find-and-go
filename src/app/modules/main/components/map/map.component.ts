@@ -75,4 +75,8 @@ export class MapComponent implements OnInit, OnChanges {
       this.isInitialized = true;
     }
   }
+
+  trackMarkers(index: number, item: MapMarker) {
+    return item.id;
+  }
 }

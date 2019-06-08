@@ -13,4 +13,8 @@ export class VenuesListComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  trackVenues(index: number, item: Venue) {
+    return item.id;
+  }
 }
