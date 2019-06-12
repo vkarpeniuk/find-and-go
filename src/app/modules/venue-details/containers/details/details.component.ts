@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import * as fromRoot from '@reducers*';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectParams } from 'app/redux/selectors';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-details',
@@ -7,12 +11,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit {
-  id: string;
-  constructor(private route: ActivatedRoute) {}
+  id$: Observable<string>;
+  constructor(private store$: Store<fromRoot.State>) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.id = params.id;
-    });
+    this.id$ = this.store$.pipe(
+      select(selectParams),
+      map(params => params.id)
+    );
   }
 }

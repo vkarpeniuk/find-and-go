@@ -16,7 +16,7 @@
     "paths": {
       "@models*": ["app/core/models/index"],
       "@services*": ["app/core/services/index"],
-      "@reducers*": ["app/reducers/index"]
+      "@reducers*": ["app/redux/reducers"]
     }
   }
 }
