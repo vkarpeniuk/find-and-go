@@ -1,23 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { LoadRequestAction } from './redux/actions';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as fromRoot from '@reducers*';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { selectParams } from 'app/redux/selectors';
-import { map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent implements OnInit {
-  id$: Observable<string>;
+export class DetailsComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   constructor(private store$: Store<fromRoot.State>) {}
 
   ngOnInit() {
-    this.id$ = this.store$.pipe(
-      select(selectParams),
-      map(params => params.id)
-    );
+    this.store$
+      .pipe(
+        select(selectParams),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(params =>
+        this.store$.dispatch(new LoadRequestAction({ id: params.id }))
+      );
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

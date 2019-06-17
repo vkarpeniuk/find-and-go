@@ -1,3 +1,4 @@
+import { VenueDetailsStoreEffects } from './modules/venue-details/containers/details/redux/effects';
 import { HeaderStoreEffects } from './modules/main/containers/header/redux/effects';
 import { CustomRouterStateSerializer } from './redux/custom-router-state-serializer';
 import { MainModule } from './modules/main/main.module';
@@ -27,7 +28,11 @@ const modules = [
   MainModule,
   StoreModule.forRoot(reducers),
   StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
-  EffectsModule.forRoot([HeaderStoreEffects, VenuesStoreEffects]),
+  EffectsModule.forRoot([
+    HeaderStoreEffects,
+    VenuesStoreEffects,
+    VenueDetailsStoreEffects
+  ]),
   StoreDevtoolsModule.instrument({
     maxAge: 25,
     logOnly: environment.production

@@ -1,4 +1,4 @@
-import { Venue } from '@models';
+import { Venue, VenueDetails } from '@models';
 
 export class FoursquareHelper {
   static parseVenuesRecommendations(response: any): Venue[] {
@@ -21,6 +21,40 @@ export class FoursquareHelper {
 
       result.push(parsedVenue);
     });
+
+    return result;
+  }
+
+  static parseVenueDetails(response: any): VenueDetails {
+    const venue = response.venue;
+    const result: VenueDetails = {
+      categories: venue.categories.map(category => category.name),
+      facebookName: venue.contact.facebookName,
+      phone: venue.contact.formattedPhone,
+      twitter: venue.contact.twitter,
+      isOpen: venue.hours
+        ? venue.hours.isOpen
+        : venue.popular
+        ? venue.popular.isOpen
+        : null,
+      status: venue.hours
+        ? venue.hours.status
+        : venue.popular
+        ? venue.popular.status
+        : null,
+      id: venue.id,
+      likes: venue.likes.count,
+      address: venue.location.address,
+      city: venue.location.city,
+      country: venue.location.country,
+      name: venue.name,
+      photos: [], // load photos separately
+      price: venue.price ? venue.price.tier : null,
+      rating: venue.rating,
+      tipsCount: venue.tips.count,
+      tips: [], // load tips separately
+      url: venue.url
+    };
 
     return result;
   }

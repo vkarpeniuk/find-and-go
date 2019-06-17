@@ -71,31 +71,40 @@ app.post('/api/place-photos', function(req, res, next) {
   req.body.venues.forEach(venue => {
     let promise = new Promise(resolve => {
       googleApiService
-        .getPlaceInfo(venue.query)
+        .getPlacesByQuery(venue.query)
         .then(responsePlaceInfo => {
-          googleApiService
-            .getPlacePhoto(
-              responsePlaceInfo.json.results[0].photos[0].photo_reference,
-              300,
-              300
-            )
-            .then(responsePlacePhoto => {
-              result.push({
-                id: venue.id,
-                photoUrl:
-                  'https://' +
-                  responsePlacePhoto.req.socket._host +
-                  responsePlacePhoto.req.path
+          if (
+            responsePlaceInfo.json.results &&
+            responsePlaceInfo.json.results.length &&
+            responsePlaceInfo.json.results[0].photos &&
+            responsePlaceInfo.json.results[0].photos.length
+          ) {
+            googleApiService
+              .getPlacePhoto(
+                responsePlaceInfo.json.results[0].photos[0].photo_reference,
+                300,
+                300
+              )
+              .then(responsePlacePhoto => {
+                result.push({
+                  id: venue.id,
+                  photoUrl:
+                    'https://' +
+                    responsePlacePhoto.req.socket._host +
+                    responsePlacePhoto.req.path
+                });
+                resolve();
+              })
+              .catch(err => {
+                console.log('getPlacePhoto error: ' + err);
+                resolve();
               });
-              resolve();
-            })
-            .catch(err => {
-              console.log('getPlacePhoto error: ' + err);
-              resolve();
-            });
+          } else {
+            resolve();
+          }
         })
         .catch(err => {
-          console.log('getPlaceInfo error: ' + err);
+          console.log('getPlacesByQuery error: ' + err);
           resolve();
         });
     });
@@ -105,6 +114,20 @@ app.post('/api/place-photos', function(req, res, next) {
   Promise.all(promises).then(() => {
     res.send(result);
   });
+});
+
+app.get('/api/place-details', function(req, res, next) {
+  googleApiService
+    .getPlaceDetailsByQuery(req.query.searchQuery)
+    .then(details => {
+      const result = {
+        photos: details.photos.map(
+          photo => `https://${photo.req.socket._host}${photo.req.path}`
+        ),
+        tips: details.reviews
+      };
+      res.send(result);
+    });
 });
 
 // Serve only the static files form the dist directory

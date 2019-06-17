@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { ApiService } from './api.service';
-import { Venue } from '../models/venue.model';
 import { mergeMap } from 'rxjs/operators';
+import { Venue, VenueDetails } from '@models*';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class GoogleService extends ApiService {
     return this.getText('api/google-maps-script', params);
   }
 
-  getPlacePhotosUrls(venues: Venue[]): Observable<Venue[]> {
+  getPlacesPhotosUrls(venues: Venue[]): Observable<Venue[]> {
     const body = {
       venues: venues.map(venue => {
         if (venue.city) {
@@ -35,6 +35,32 @@ export class GoogleService extends ApiService {
             venuePhoto.photoUrl;
         });
         return of(venues);
+      })
+    );
+  }
+
+  getPlaceDetails(venue: VenueDetails) {
+    let searchQuery = '';
+    if (venue.city) {
+      searchQuery = `${venue.name}, ${venue.city}`;
+    } else {
+      searchQuery = `${venue.name}, ${venue.country}`;
+    }
+    const params = new HttpParams().set('searchQuery', searchQuery);
+    return this.getJson('api/place-details', params).pipe(
+      mergeMap(detailsRes => {
+        const response: any = detailsRes;
+        venue.photos = response.photos.map(photo => photo);
+        venue.tips = response.tips.map(tip => {
+          return {
+            authorName: tip.author_name,
+            profilePhotoUrl: tip.profile_photo_url,
+            rating: tip.rating,
+            relativeTimeDescription: tip.relative_time_description,
+            text: tip.text
+          };
+        });
+        return of(venue);
       })
     );
   }

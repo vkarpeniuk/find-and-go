@@ -6,7 +6,16 @@ class GoogleApiService {
     });
   }
 
-  getPlaceInfo(searchQuery) {
+  getPlaceDetails(id) {
+    return this.googleMapsClient
+      .place({
+        placeid: id,
+        fields: ['photo', 'review']
+      })
+      .asPromise();
+  }
+
+  getPlacesByQuery(searchQuery) {
     return this.googleMapsClient
       .places({
         query: searchQuery
@@ -22,6 +31,52 @@ class GoogleApiService {
         maxheight: maxheight
       })
       .asPromise();
+  }
+
+  getPlaceDetailsByQuery(searchQuery) {
+    const result = { photos: [], reviews: [] };
+    const promises = [];
+    return this.getPlacesByQuery(searchQuery)
+      .then(res => {
+        return res.json.results[0].place_id;
+      })
+      .then(placeId => {
+        return this.getPlaceDetails(placeId);
+      })
+      .then(placeDetails => {
+        return {
+          photos: placeDetails.json.result.photos,
+          reviews: placeDetails.json.result.reviews
+        };
+      })
+      .then(detailsResult => {
+        result.reviews = detailsResult.reviews;
+        const photos = detailsResult.photos.map(photoObj => {
+          return {
+            photoReference: photoObj.photo_reference,
+            height: photoObj.height,
+            width: photoObj.width
+          };
+        });
+        photos.forEach(photo => {
+          const promise = new Promise(resolve => {
+            this.getPlacePhoto(
+              photo.photoReference,
+              photo.width,
+              photo.height
+            ).then(photo => {
+              result.photos.push(photo);
+              resolve();
+            });
+          });
+          promises.push(promise);
+        });
+
+        return Promise.all(promises);
+      })
+      .then(() => {
+        return result;
+      });
   }
 }
 
