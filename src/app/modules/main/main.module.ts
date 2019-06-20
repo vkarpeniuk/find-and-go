@@ -11,7 +11,6 @@ import { RouterModule } from '@angular/router';
 
 // modules
 const modules = [
-  CommonModule,
   RouterModule,
   SharedModule,
   FormsModule,

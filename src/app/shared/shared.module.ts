@@ -1,20 +1,22 @@
 import { SpinnerComponent } from './components/spinner.component';
 import { MaterialModule } from './material.module';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { DragScrollModule } from 'ngx-drag-scroll';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [SpinnerComponent],
-  exports: [MaterialModule, SpinnerComponent],
+  exports: [CommonModule, MaterialModule, SpinnerComponent, DragScrollModule],
   imports: [
-    BrowserModule,
+    CommonModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    FlexLayoutModule,
+    DragScrollModule
   ],
   providers: []
 })

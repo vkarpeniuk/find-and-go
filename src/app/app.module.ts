@@ -1,3 +1,4 @@
+import { DragScrollModule } from 'ngx-drag-scroll';
 import { VenueDetailsStoreEffects } from './modules/venue-details/containers/details/redux/effects';
 import { HeaderStoreEffects } from './modules/main/containers/header/redux/effects';
 import { CustomRouterStateSerializer } from './redux/custom-router-state-serializer';
@@ -8,7 +9,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { SharedModule } from './shared/shared.module';
 import { CustomLazyAPIKeyLoader } from './core/services/custom-lazy-api-key-loader';
 import { CoreModule } from './core';
 import {
@@ -19,11 +19,12 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from '@reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { VenuesStoreEffects } from './modules/main/containers/venues/redux/effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 
 // modules
 const modules = [
   CoreModule,
-  SharedModule,
   AppRoutingModule,
   MainModule,
   StoreModule.forRoot(reducers),
@@ -36,7 +37,8 @@ const modules = [
   StoreDevtoolsModule.instrument({
     maxAge: 25,
     logOnly: environment.production
-  })
+  }),
+  BrowserAnimationsModule
 ];
 
 @NgModule({

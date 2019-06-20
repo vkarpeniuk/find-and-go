@@ -13,7 +13,7 @@ export interface VenueDetails {
   city: string;
   country: string;
   name: string;
-  photos: any[];
+  photos: string[];
   price: number; //1-4
   rating: number; //0-10
   tipsCount: number;

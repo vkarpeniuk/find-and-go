@@ -1,0 +1,15 @@
+::ng-deep {
+  .scrollable {
+    background-color: white;
+
+    & > .drag-scroll-content {
+      overflow: hidden !important;
+
+      img {
+        height: 250px;
+        width: 250px;
+        object-fit: cover;
+      }
+    }
+  }
+}
