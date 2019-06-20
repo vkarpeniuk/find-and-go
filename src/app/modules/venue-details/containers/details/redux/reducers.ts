@@ -7,7 +7,26 @@ export interface State {
 }
 
 export const initialState: State = {
-  venue: null,
+  venue: {
+    categories: null,
+    twitter: null,
+    phone: null,
+    facebookName: null,
+    status: null,
+    isOpen: false,
+    id: null,
+    likes: null,
+    address: null,
+    city: null,
+    country: null,
+    name: null,
+    photos: [],
+    price: null,
+    rating: null,
+    tipsCount: null,
+    tips: [],
+    url: null
+  },
   isLoading: false
 };
 

@@ -39,7 +39,7 @@ export class GoogleService extends ApiService {
     );
   }
 
-  getPlaceDetails(venue: VenueDetails) {
+  getPlaceDetails(venue: VenueDetails): Observable<VenueDetails> {
     let searchQuery = '';
     if (venue.city) {
       searchQuery = `${venue.name}, ${venue.city}`;
@@ -51,15 +51,17 @@ export class GoogleService extends ApiService {
       mergeMap(detailsRes => {
         const response: any = detailsRes;
         venue.photos = response.photos.map(photo => photo);
-        venue.tips = response.tips.map(tip => {
-          return {
-            authorName: tip.author_name,
-            profilePhotoUrl: tip.profile_photo_url,
-            rating: tip.rating,
-            relativeTimeDescription: tip.relative_time_description,
-            text: tip.text
-          };
-        });
+        if (response.tips) {
+          venue.tips = response.tips.map(tip => {
+            return {
+              authorName: tip.author_name,
+              profilePhotoUrl: tip.profile_photo_url,
+              rating: tip.rating,
+              relativeTimeDescription: tip.relative_time_description,
+              text: tip.text
+            };
+          });
+        }
         return of(venue);
       })
     );

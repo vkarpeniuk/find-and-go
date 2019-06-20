@@ -3,7 +3,6 @@ import { MaterialModule } from './material.module';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { DragScrollModule } from 'ngx-drag-scroll';
 import { CommonModule } from '@angular/common';
 
@@ -15,7 +14,6 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
-    FlexLayoutModule,
     DragScrollModule
   ],
   providers: []
