@@ -34,4 +34,10 @@
     float: left;
     height: calc(100vh - 59px);
   }
+
+  ::ng-deep {
+    .scroll-to-top {
+      left: calc(50% - 55px);
+    }
+  }
 }

@@ -36,11 +36,7 @@ export class FoursquareService extends ApiService {
       `${this.foursquareApiUrl}venues/explore`
     );
 
-    if (search) {
-      params = params.set('query', search);
-    } else {
-      params = params.set('query', this.defaultSearch);
-    }
+    params = params.set('query', search || this.defaultSearch);
 
     if (locationByMap) {
       params = params
