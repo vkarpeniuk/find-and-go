@@ -1,4 +1,4 @@
-import { selectPhotos } from './redux/selectors';
+import { selectPhotos, selectIsLoading } from './redux/selectors';
 import { LoadRequestAction } from './redux/actions';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as fromRoot from '@reducers*';
@@ -15,6 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 export class DetailsComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   photos$: Observable<string[]>;
+  isLoading$: Observable<boolean>;
 
   constructor(private store$: Store<fromRoot.State>) {}
 
@@ -28,6 +29,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
         this.store$.dispatch(new LoadRequestAction({ id: params.id }))
       );
     this.photos$ = this.store$.pipe(select(selectPhotos));
+    this.isLoading$ = this.store$.pipe(select(selectIsLoading));
   }
 
   ngOnDestroy() {

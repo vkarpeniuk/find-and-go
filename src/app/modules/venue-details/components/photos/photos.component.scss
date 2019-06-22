@@ -5,10 +5,21 @@
     & > .drag-scroll-content {
       overflow: hidden !important;
 
+      .inner-scrollable {
+        padding: 1px;
+      }
       img {
         height: 250px;
         width: 250px;
+        margin: 2px;
         object-fit: cover;
+      }
+
+      @media only screen and (max-width: 560px) {
+        img {
+          height: 150px;
+          width: 150px;
+        }
       }
     }
   }

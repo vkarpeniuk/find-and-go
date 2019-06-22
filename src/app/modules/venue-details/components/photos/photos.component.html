@@ -1,3 +1,5 @@
-<drag-scroll class="scrollable">
-  <img *ngFor="let photo of photos" drag-scroll-item src="{{ photo }}" />
+<drag-scroll class="scrollable" *ngIf="photos">
+  <div drag-scroll-item class="inner-scrollable">
+    <img *ngFor="let photo of photos" src="{{ photo }}" />
+  </div>
 </drag-scroll>

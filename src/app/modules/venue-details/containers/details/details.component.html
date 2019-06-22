@@ -1,3 +1,6 @@
-<div fxLayout="column" class="details-container">
-  <app-photos [photos]="photos$ | async"></app-photos>
+<div class="outer-details-container">
+  <app-spinner [visible]="isLoading$ | async"></app-spinner>
+  <div class="details-container">
+    <app-photos [photos]="photos$ | async"></app-photos>
+  </div>
 </div>

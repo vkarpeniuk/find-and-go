@@ -9,3 +9,8 @@ export const selectPhotos = createSelector(
   selectVenueDetailsState,
   (state: State): string[] => state.venue.photos
 );
+
+export const selectIsLoading = createSelector(
+  selectVenueDetailsState,
+  (state: State): boolean => state.isLoading
+);

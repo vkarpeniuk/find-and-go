@@ -2,17 +2,25 @@
 
 :host {
   width: 100%;
-  background-color: $accent-light;
 }
 
-.details-container {
-  height: 100%;
+.outer-details-container {
+  display: flex;
+  justify-content: center;
   padding-top: 60px;
-  margin: 0 160px;
+  background-color: $accent-light;
+}
+.details-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 950px;
+  //padding: 0 160px;
+  width: 100%;
+  height: 100%;
 }
 
 @media only screen and (max-width: 560px) {
-  .details-container {
+  .outer-details-container {
     padding-top: 50px;
   }
 }
