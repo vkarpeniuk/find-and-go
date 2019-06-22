@@ -1,0 +1,25 @@
+p {
+  margin-bottom: 0;
+}
+
+mat-icon,
+img {
+  margin-right: 5px;
+}
+
+.time {
+  flex-direction: row;
+  align-items: flex-end;
+
+  p {
+    margin-bottom: 0;
+
+    &.green {
+      color: #00b551;
+    }
+
+    &.red {
+      color: #e6092c;
+    }
+  }
+}

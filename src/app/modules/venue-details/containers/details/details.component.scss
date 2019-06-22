@@ -24,14 +24,19 @@
       -moz-box-shadow: rgba(0, 0, 0, 0.8) 0 0 2px;
       box-shadow: rgba(0, 0, 0, 0.8) 0 0 2px;
     }
+
+    .contacts-tips-wrapper {
+      flex-direction: column;
+    }
   }
 
   @media only screen and (min-width: 950px) {
+    //2 columns
     & .details-container > * {
       margin-top: 5px;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      border-radius: 5px;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
     }
   }
 

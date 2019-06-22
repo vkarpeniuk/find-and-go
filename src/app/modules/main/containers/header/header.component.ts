@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.search.valueChanges
       .pipe(
-        debounceTime(800),
+        debounceTime(1000),
         distinctUntilChanged()
       )
       .subscribe(value => {
@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
 
     this.where.valueChanges
       .pipe(
-        debounceTime(800),
+        debounceTime(1000),
         distinctUntilChanged()
       )
       .subscribe(value => {

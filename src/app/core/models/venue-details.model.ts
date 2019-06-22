@@ -4,7 +4,9 @@ export interface VenueDetails {
   categories: Category[];
   twitter: string;
   phone: string;
+  facebook: string;
   facebookName: string;
+  instagram: string;
   status: string;
   isOpen: boolean;
   id: string;
@@ -14,9 +16,8 @@ export interface VenueDetails {
   country: string;
   name: string;
   photos: string[];
-  price: number; //1-4
-  rating: number; //0-10
-  tipsCount: number;
+  price: number;
+  rating: number;
   tips: Tip[];
   url: string;
 }

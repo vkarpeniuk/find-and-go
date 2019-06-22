@@ -12,21 +12,23 @@
       <p>Likes:</p>
       <mat-icon [matBadge]="venue?.likes">thumb_up</mat-icon>
     </div>
-    <div class="price flex">
-      <p>Price:</p>
-      <mat-icon [ngClass]="{ colored: venue?.price >= 1 }"
-        >attach_money</mat-icon
-      >
-      <mat-icon [ngClass]="{ colored: venue?.price >= 2 }"
-        >attach_money</mat-icon
-      >
-      <mat-icon [ngClass]="{ colored: venue?.price >= 3 }"
-        >attach_money</mat-icon
-      >
-      <mat-icon [ngClass]="{ colored: venue?.price >= 4 }"
-        >attach_money</mat-icon
-      >
-    </div>
+    <ng-container *ngIf="venue?.price">
+      <div class="price flex">
+        <p>Price:</p>
+        <mat-icon [ngClass]="{ colored: venue?.price >= 1 }"
+          >attach_money</mat-icon
+        >
+        <mat-icon [ngClass]="{ colored: venue?.price >= 2 }"
+          >attach_money</mat-icon
+        >
+        <mat-icon [ngClass]="{ colored: venue?.price >= 3 }"
+          >attach_money</mat-icon
+        >
+        <mat-icon [ngClass]="{ colored: venue?.price >= 4 }"
+          >attach_money</mat-icon
+        >
+      </div></ng-container
+    >
     <div class="rating flex">
       <p>Rating:</p>
       <ng-container *ngIf="venue?.rating >= 1; else emptyStar">
@@ -64,5 +66,5 @@
 </div>
 
 <ng-template #emptyStar>
-  <mat-icon>star_border</mat-icon>
+  <mat-icon class="empty">star_border</mat-icon>
 </ng-template>

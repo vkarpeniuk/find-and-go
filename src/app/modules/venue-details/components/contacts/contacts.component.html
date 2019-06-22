@@ -1,0 +1,59 @@
+<div class="address">
+  <p><mat-icon>location_on</mat-icon>{{ address }}</p>
+</div>
+<mat-divider></mat-divider>
+<ng-container *ngIf="venue?.phone">
+  <div><mat-icon>phone</mat-icon>{{ venue?.phone }}</div></ng-container
+>
+<mat-divider></mat-divider>
+<ng-container *ngIf="venue?.twitter">
+  <div>
+    <img src="assets/images/twitter.png" />
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      [href]="'http://twitter.com/' + venue.twitter"
+      >{{ venue.twitter }}</a
+    >
+  </div>
+  <mat-divider></mat-divider>
+</ng-container>
+<ng-container *ngIf="venue?.facebook">
+  <div>
+    <img src="assets/images/facebook.png" />
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      [href]="'http://facebook.com/' + venue.facebook"
+      >{{ venue.facebookName }}</a
+    >
+  </div>
+  <mat-divider></mat-divider>
+</ng-container>
+<ng-container *ngIf="venue?.instagram">
+  <div>
+    <img src="assets/images/instagram.png" />
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      [href]="'http://instagram.com/' + venue.instagram"
+      >{{ venue.instagram }}</a
+    >
+  </div>
+  <mat-divider></mat-divider>
+</ng-container>
+<div class="time flex">
+  <mat-icon>access_time</mat-icon>
+  <p [ngClass]="{ green: venue.isOpen, red: !venue.isOpen }">
+    {{ venue.status }}
+  </p>
+</div>
+<mat-divider></mat-divider>
+<ng-container *ngIf="venue?.url">
+  <div>
+    <mat-icon>language</mat-icon
+    ><a target="_blank" rel="noopener noreferrer" [href]="venue.url">{{
+      venue.url
+    }}</a>
+  </div></ng-container
+>

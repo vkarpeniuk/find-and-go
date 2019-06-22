@@ -1,4 +1,9 @@
-import { selectPhotos, selectIsLoading, selectVenue } from './redux/selectors';
+import {
+  selectPhotos,
+  selectIsLoading,
+  selectVenue,
+  selectTips
+} from './redux/selectors';
 import { LoadRequestAction } from './redux/actions';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as fromRoot from '@reducers*';
@@ -6,7 +11,7 @@ import { Store, select } from '@ngrx/store';
 import { selectParams } from 'app/redux/selectors';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { VenueDetails } from '@models*';
+import { VenueDetails, Tip } from '@models*';
 
 @Component({
   selector: 'app-details',
@@ -17,6 +22,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   venue$: Observable<VenueDetails>;
   photos$: Observable<string[]>;
+  tips$: Observable<Tip[]>;
   isLoading$: Observable<boolean>;
 
   constructor(private store$: Store<fromRoot.State>) {}
@@ -32,6 +38,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       );
     this.venue$ = this.store$.pipe(select(selectVenue));
     this.photos$ = this.store$.pipe(select(selectPhotos));
+    this.tips$ = this.store$.pipe(select(selectTips));
     this.isLoading$ = this.store$.pipe(select(selectIsLoading));
   }
 

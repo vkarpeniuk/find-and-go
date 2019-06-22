@@ -11,7 +11,9 @@ export const initialState: State = {
     categories: [],
     twitter: null,
     phone: null,
+    facebook: null,
     facebookName: null,
+    instagram: null,
     status: null,
     isOpen: false,
     id: null,
@@ -23,7 +25,6 @@ export const initialState: State = {
     photos: [],
     price: null,
     rating: null,
-    tipsCount: null,
     tips: [],
     url: null
   },

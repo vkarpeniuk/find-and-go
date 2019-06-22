@@ -36,7 +36,9 @@
       align-items: flex-end;
     }
 
-    .likes {
+    .likes,
+    .price,
+    .rating {
       p {
         margin-bottom: 0;
       }
@@ -46,25 +48,25 @@
       }
     }
 
+    .likes .mat-badge-content {
+      right: -14px;
+    }
+
     .price {
-      p {
-        margin-bottom: 0;
-      }
-
-      mat-icon:first-of-type {
-        margin-left: 5px;
-      }
-
       mat-icon.colored {
         border-radius: 50%;
-        background-color: $primary-light;
+        background-color: $primary;
         color: white;
       }
     }
 
     .rating {
-      p {
-        margin-bottom: 0;
+      mat-icon {
+        color: $primary;
+
+        &.empty {
+          color: black;
+        }
       }
     }
   }

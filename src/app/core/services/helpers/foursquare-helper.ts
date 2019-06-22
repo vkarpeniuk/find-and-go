@@ -34,9 +34,11 @@ export class FoursquareHelper {
           icon: `${category.icon.prefix}bg_88${category.icon.suffix}`
         };
       }),
+      facebook: venue.contact.facebookUsername,
       facebookName: venue.contact.facebookName,
       phone: venue.contact.formattedPhone,
       twitter: venue.contact.twitter,
+      instagram: venue.contact.instagram,
       isOpen: venue.hours
         ? venue.hours.isOpen
         : venue.popular
@@ -56,7 +58,6 @@ export class FoursquareHelper {
       photos: [],
       price: venue.price ? venue.price.tier : null,
       rating: venue.rating,
-      tipsCount: venue.tips.count,
       tips: [],
       url: venue.url
     };
