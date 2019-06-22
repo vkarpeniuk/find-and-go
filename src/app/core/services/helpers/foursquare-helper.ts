@@ -28,7 +28,12 @@ export class FoursquareHelper {
   static parseVenueDetails(response: any): VenueDetails {
     const venue = response.venue;
     const result: VenueDetails = {
-      categories: venue.categories.map(category => category.name),
+      categories: venue.categories.map(category => {
+        return {
+          name: category.name,
+          icon: `${category.icon.prefix}bg_88${category.icon.suffix}`
+        };
+      }),
       facebookName: venue.contact.facebookName,
       phone: venue.contact.formattedPhone,
       twitter: venue.contact.twitter,
@@ -48,11 +53,11 @@ export class FoursquareHelper {
       city: venue.location.city,
       country: venue.location.country,
       name: venue.name,
-      photos: [], // load photos separately
+      photos: [],
       price: venue.price ? venue.price.tier : null,
       rating: venue.rating,
       tipsCount: venue.tips.count,
-      tips: [], // load tips separately
+      tips: [],
       url: venue.url
     };
 

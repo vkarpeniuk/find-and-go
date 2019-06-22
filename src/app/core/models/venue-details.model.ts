@@ -1,7 +1,7 @@
-import { Tip } from '@models*';
+import { Tip, Category } from '@models*';
 
 export interface VenueDetails {
-  categories: string[];
+  categories: Category[];
   twitter: string;
   phone: string;
   facebookName: string;

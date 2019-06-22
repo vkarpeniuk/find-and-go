@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./photos.component.scss']
 })
 export class PhotosComponent {
-  @Input() photos = [];
+  @Input() photos: string[] = [];
 }

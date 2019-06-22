@@ -1,0 +1,77 @@
+@import 'src/themes/colors';
+
+.main-info-wrapper {
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: white;
+
+  .general {
+    align-items: center;
+    padding: 10px;
+
+    .category-img {
+      width: 88px;
+      height: 88px;
+      margin-right: 10px;
+    }
+
+    .captions {
+      flex-direction: column;
+
+      h2 {
+        margin: 5px 0;
+      }
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .rates {
+    flex-direction: column;
+    padding: 10px;
+
+    & > * {
+      align-items: flex-end;
+    }
+
+    .likes {
+      p {
+        margin-bottom: 0;
+      }
+
+      mat-icon:first-of-type {
+        margin-left: 5px;
+      }
+    }
+
+    .price {
+      p {
+        margin-bottom: 0;
+      }
+
+      mat-icon:first-of-type {
+        margin-left: 5px;
+      }
+
+      mat-icon.colored {
+        border-radius: 50%;
+        background-color: $primary-light;
+        color: white;
+      }
+    }
+
+    .rating {
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 690px) {
+    & {
+      flex-direction: row;
+    }
+  }
+}

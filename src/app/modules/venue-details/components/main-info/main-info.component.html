@@ -1,0 +1,68 @@
+<div class="main-info-wrapper flex">
+  <div class="general flex">
+    <img class="category-img" [src]="categoryIcon" />
+    <div class="captions flex">
+      <h2>{{ venue?.name }}</h2>
+      <p>{{ categories }}</p>
+      <p>{{ venue?.city }}</p>
+    </div>
+  </div>
+  <div class="rates flex">
+    <div class="likes flex">
+      <p>Likes:</p>
+      <mat-icon [matBadge]="venue?.likes">thumb_up</mat-icon>
+    </div>
+    <div class="price flex">
+      <p>Price:</p>
+      <mat-icon [ngClass]="{ colored: venue?.price >= 1 }"
+        >attach_money</mat-icon
+      >
+      <mat-icon [ngClass]="{ colored: venue?.price >= 2 }"
+        >attach_money</mat-icon
+      >
+      <mat-icon [ngClass]="{ colored: venue?.price >= 3 }"
+        >attach_money</mat-icon
+      >
+      <mat-icon [ngClass]="{ colored: venue?.price >= 4 }"
+        >attach_money</mat-icon
+      >
+    </div>
+    <div class="rating flex">
+      <p>Rating:</p>
+      <ng-container *ngIf="venue?.rating >= 1; else emptyStar">
+        <mat-icon>star</mat-icon>
+      </ng-container>
+      <ng-container *ngIf="venue?.rating >= 2; else emptyStar">
+        <mat-icon>star</mat-icon>
+      </ng-container>
+      <ng-container *ngIf="venue?.rating >= 3; else emptyStar">
+        <mat-icon>star</mat-icon>
+      </ng-container>
+      <ng-container *ngIf="venue?.rating >= 4; else emptyStar">
+        <mat-icon>star</mat-icon>
+      </ng-container>
+      <ng-container *ngIf="venue?.rating >= 5; else emptyStar">
+        <mat-icon>star</mat-icon>
+      </ng-container>
+      <ng-container *ngIf="venue?.rating >= 6; else emptyStar">
+        <mat-icon>star</mat-icon>
+      </ng-container>
+      <ng-container *ngIf="venue?.rating >= 7; else emptyStar">
+        <mat-icon>star</mat-icon>
+      </ng-container>
+      <ng-container *ngIf="venue?.rating >= 8; else emptyStar">
+        <mat-icon>star</mat-icon>
+      </ng-container>
+      <ng-container *ngIf="venue?.rating >= 9; else emptyStar">
+        <mat-icon>star</mat-icon>
+      </ng-container>
+      <ng-container *ngIf="venue?.rating >= 10; else emptyStar">
+        <mat-icon>star</mat-icon>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #emptyStar>
+  <mat-icon>star_border</mat-icon>
+</ng-template>

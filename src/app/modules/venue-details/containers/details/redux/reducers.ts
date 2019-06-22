@@ -8,7 +8,7 @@ export interface State {
 
 export const initialState: State = {
   venue: {
-    categories: null,
+    categories: [],
     twitter: null,
     phone: null,
     facebookName: null,
