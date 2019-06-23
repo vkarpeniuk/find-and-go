@@ -1,5 +1,10 @@
 <drag-scroll class="scrollable" *ngIf="photos">
   <div drag-scroll-item class="inner-scrollable">
-    <img *ngFor="let photo of photos" src="{{ photo }}" />
+    <img
+      class="cursor-pointer"
+      *ngFor="let photo of photos"
+      src="{{ photo }}"
+      (click)="openPhoto(photo)"
+    />
   </div>
 </drag-scroll>

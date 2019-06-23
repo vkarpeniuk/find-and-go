@@ -12,7 +12,10 @@ import {
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
   MatButtonModule,
   MatBadgeModule,
-  MatDividerModule
+  MatDividerModule,
+  MatCardModule,
+  MatDialogModule,
+  MatDialog
 } from '@angular/material';
 
 @NgModule({
@@ -28,7 +31,9 @@ import {
     MatSnackBarModule,
     MatButtonModule,
     MatBadgeModule,
-    MatDividerModule
+    MatDividerModule,
+    MatCardModule,
+    MatDialogModule
   ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 4000 } }

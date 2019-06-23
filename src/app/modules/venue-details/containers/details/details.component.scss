@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   padding-top: 60px;
-  background-color: $accent-light;
+  background-color: $accent-dark;
 
   .details-container {
     display: flex;
@@ -31,12 +31,15 @@
   }
 
   @media only screen and (min-width: 950px) {
-    //2 columns
     & .details-container > * {
       margin-top: 5px;
       -webkit-border-radius: 3px;
       -moz-border-radius: 3px;
       border-radius: 3px;
+    }
+
+    & .details-container .contacts-tips-wrapper {
+      flex-direction: row-reverse;
     }
   }
 
@@ -44,11 +47,18 @@
     & {
       padding-top: 50px;
 
-      .details-container > * {
-        padding: 8px;
-        -webkit-border-radius: 0;
-        -moz-border-radius: 0;
-        border-radius: 0;
+      .details-container {
+        & > * {
+          padding: 8px;
+          -webkit-border-radius: 0;
+          -moz-border-radius: 0;
+          border-radius: 0;
+        }
+
+        .contacts-tips-wrapper {
+          flex-direction: column;
+          padding: 8px 3px;
+        }
       }
     }
   }
