@@ -2,6 +2,7 @@
 <mat-nav-list>
   <a
     mat-list-item
+    @items
     [routerLink]="['/venue-details', venue.id]"
     *ngFor="let venue of venues; trackBy: trackVenues"
     class="venue-list-item"
