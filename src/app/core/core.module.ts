@@ -1,5 +1,6 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 @NgModule({

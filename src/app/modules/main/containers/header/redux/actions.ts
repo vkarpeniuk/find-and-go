@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+
 import { MapOptions } from '@models';
 
 export enum ActionTypes {

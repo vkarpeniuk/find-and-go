@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+
 export enum ActionTypes {
   SHOW_ERROR = '[Global] Show Error'
 }

@@ -1,4 +1,3 @@
-import { MapMarker, Venue, MapOptions } from '@models';
 import {
   Component,
   OnInit,
@@ -9,7 +8,10 @@ import {
   SimpleChanges,
   OnChanges
 } from '@angular/core';
+
 import { AgmMap } from '@agm/core';
+
+import { MapMarker, Venue, MapOptions } from '@models';
 
 @Component({
   selector: 'app-map',

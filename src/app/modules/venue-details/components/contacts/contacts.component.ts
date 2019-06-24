@@ -1,5 +1,6 @@
-import { VenueDetails } from '@models*';
 import { Component, Input, SimpleChanges, OnChanges } from '@angular/core';
+
+import { VenueDetails } from '@models*';
 
 @Component({
   selector: 'app-contacts',

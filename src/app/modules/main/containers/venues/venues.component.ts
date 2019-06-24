@@ -1,7 +1,8 @@
-import { MapOptions, Venue } from '@models';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import { MapOptions, Venue } from '@models';
 import * as fromRoot from '@reducers';
 import { selectAllVenues, selectIsLoading } from './redux/selectors';
 import { selectLocationFilter } from '../header/redux/selectors';

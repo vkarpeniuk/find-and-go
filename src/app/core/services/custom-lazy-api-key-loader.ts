@@ -1,13 +1,13 @@
 import { Injectable, Inject } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import {
   MapsAPILoader,
   LAZY_MAPS_API_CONFIG,
   LazyMapsAPILoaderConfigLiteral,
   GoogleMapsScriptProtocol
 } from '@agm/core';
-
 import { DocumentRef, WindowRef } from '@agm/core/utils/browser-globals';
-import { Observable } from 'rxjs';
 
 import { GoogleService } from './google.service';
 

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { State } from './redux/reducers';
 import { FormControl } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
+import { State } from './redux/reducers';
 import {
   ChangeSearchAction,
   ChangeWhereAction,
   GetCurrentLocationAction
 } from './redux/actions';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',

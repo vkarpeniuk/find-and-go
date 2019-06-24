@@ -1,24 +1,29 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
 import { AgmCoreModule } from '@agm/core';
+
 import { SharedModule } from './../../shared/shared.module';
 import { HeaderComponent } from './containers/header/header.component';
 import { VenuesListComponent } from './components/venues-list/venues-list.component';
 import { MapComponent } from './components/map/map.component';
 import { VenuesComponent } from './containers/venues/venues.component';
-import { RouterModule } from '@angular/router';
 
-// modules
+/**
+ * modules
+ */
 const modules = [
   RouterModule,
-  SharedModule,
   FormsModule,
   ReactiveFormsModule,
-  AgmCoreModule.forRoot({})
+  AgmCoreModule.forRoot({}),
+  SharedModule
 ];
 
-// components
+/**
+ * components
+ */
 const components = [
   HeaderComponent,
   VenuesListComponent,

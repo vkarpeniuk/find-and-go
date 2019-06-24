@@ -1,5 +1,6 @@
-import { Tip } from '@models*';
 import { Component, Input } from '@angular/core';
+
+import { Tip } from '@models*';
 
 @Component({
   selector: 'app-tips',

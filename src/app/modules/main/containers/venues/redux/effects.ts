@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { map, withLatestFrom, switchMap } from 'rxjs/operators';
-import { LoadRequestAction, ActionTypes, LoadCompleteAction } from './actions';
-import { Store } from '@ngrx/store';
-import { FoursquareService } from '@services';
+
 import * as fromRoot from '@reducers';
+import { FoursquareService } from '@services';
+import { LoadRequestAction, ActionTypes, LoadCompleteAction } from './actions';
 
 @Injectable()
 export class VenuesStoreEffects {

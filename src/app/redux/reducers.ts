@@ -1,6 +1,7 @@
 import { Params } from '@angular/router';
-import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import { ActionReducerMap } from '@ngrx/store';
+import { routerReducer, RouterReducerState } from '@ngrx/router-store';
+
 import * as fromFilters from '../modules/main/containers/header/redux/reducers';
 import * as fromVenues from '../modules/main/containers/venues/redux/reducers';
 import * as fromVenueDetails from '../modules/venue-details/containers/details/redux/reducers';

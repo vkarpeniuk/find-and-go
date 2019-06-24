@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { State } from './reducers';
+
 import { MapOptions } from '@models';
+import { State } from './reducers';
 
 export const selectFiltersState = createFeatureSelector<State>('filters');
 

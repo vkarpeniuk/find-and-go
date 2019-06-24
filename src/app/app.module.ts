@@ -1,32 +1,32 @@
-import { DragScrollModule } from 'ngx-drag-scroll';
-import { VenueDetailsStoreEffects } from './modules/venue-details/containers/details/redux/effects';
-import { HeaderStoreEffects } from './modules/main/containers/header/redux/effects';
-import { CustomRouterStateSerializer } from './redux/custom-router-state-serializer';
-import { MainModule } from './modules/main/main.module';
 import { NgModule } from '@angular/core';
-import { MapsAPILoader } from '@agm/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AppRoutingModule } from './app-routing.module';
-import { environment } from '../environments/environment';
-import { AppComponent } from './app.component';
-import { CustomLazyAPIKeyLoader } from './core/services/custom-lazy-api-key-loader';
-import { CoreModule } from './core';
 import {
   RouterStateSerializer,
   StoreRouterConnectingModule
 } from '@ngrx/router-store';
-import { StoreModule } from '@ngrx/store';
-import { reducers } from '@reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { VenuesStoreEffects } from './modules/main/containers/venues/redux/effects';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
 
-// modules
+import { MapsAPILoader } from '@agm/core';
+
+import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from './core';
+import { MainModule } from './modules/main/main.module';
+import { environment } from '../environments/environment';
+import { reducers } from '@reducers';
+import { CustomRouterStateSerializer } from './redux/custom-router-state-serializer';
+import { CustomLazyAPIKeyLoader } from './core/services/custom-lazy-api-key-loader';
+import { VenueDetailsStoreEffects } from './modules/venue-details/containers/details/redux/effects';
+import { HeaderStoreEffects } from './modules/main/containers/header/redux/effects';
+import { VenuesStoreEffects } from './modules/main/containers/venues/redux/effects';
+import { AppComponent } from './app.component';
+
+/**
+ * modules
+ */
 const modules = [
-  CoreModule,
-  AppRoutingModule,
-  MainModule,
+  BrowserAnimationsModule,
   StoreModule.forRoot(reducers),
   StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
   EffectsModule.forRoot([
@@ -38,7 +38,9 @@ const modules = [
     maxAge: 25,
     logOnly: environment.production
   }),
-  BrowserAnimationsModule
+  CoreModule,
+  AppRoutingModule,
+  MainModule
 ];
 
 @NgModule({

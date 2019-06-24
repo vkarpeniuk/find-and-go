@@ -1,12 +1,12 @@
-import { GoogleService } from './google.service';
-import { Observable, of } from 'rxjs';
-import { mergeMap, tap } from 'rxjs/operators';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+
+import { VenueDetails, Venue } from '@models*';
+import { GoogleService } from './google.service';
 import { ApiService } from './api.service';
 import { FoursquareHelper } from './helpers/foursquare-helper';
-import { Venue } from '../models/venue.model';
-import { VenueDetails } from '@models*';
 
 @Injectable({
   providedIn: 'root'

@@ -1,9 +1,10 @@
-import { selectError } from './redux/selectors';
 import { Component } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { State } from '@reducers*';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter } from 'rxjs/operators';
+import { Store, select } from '@ngrx/store';
+
+import { selectError } from './redux/selectors';
+import { State } from '@reducers*';
 
 @Component({
   selector: 'app-root',

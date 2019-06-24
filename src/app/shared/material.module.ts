@@ -14,8 +14,7 @@ import {
   MatBadgeModule,
   MatDividerModule,
   MatCardModule,
-  MatDialogModule,
-  MatDialog
+  MatDialogModule
 } from '@angular/material';
 
 @NgModule({

@@ -1,3 +1,11 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { Subject, Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import * as fromRoot from '@reducers*';
+import { VenueDetails, Tip } from '@models*';
+import { selectParams } from 'app/redux/selectors';
 import {
   selectPhotos,
   selectIsLoading,
@@ -5,13 +13,6 @@ import {
   selectTips
 } from './redux/selectors';
 import { LoadRequestAction } from './redux/actions';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import * as fromRoot from '@reducers*';
-import { Store, select } from '@ngrx/store';
-import { selectParams } from 'app/redux/selectors';
-import { Subject, Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { VenueDetails, Tip } from '@models*';
 
 @Component({
   selector: 'app-details',

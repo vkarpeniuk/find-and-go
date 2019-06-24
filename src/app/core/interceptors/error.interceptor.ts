@@ -7,9 +7,10 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { State } from '@reducers*';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/internal/operators/catchError';
+
+import { State } from '@reducers*';
 import { ShowErrorAction } from '@actions*';
 
 @Injectable()
