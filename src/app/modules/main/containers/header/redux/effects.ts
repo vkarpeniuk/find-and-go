@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { LocationService } from '@services';
+import * as fromRoot from '@reducers';
 import {
   ActionTypes,
   GetCurrentLocationAction,
@@ -13,6 +16,8 @@ import { LoadRequestAction } from '../../venues/redux/actions';
 @Injectable()
 export class HeaderStoreEffects {
   constructor(
+    private router: Router,
+    private store$: Store<fromRoot.State>,
     private actions$: Actions,
     private locationService: LocationService
   ) {}
@@ -24,7 +29,14 @@ export class HeaderStoreEffects {
       ActionTypes.CHANGE_WHERE,
       ActionTypes.CHANGE_MAP_LOCATION
     ),
-    map(() => new LoadRequestAction())
+    withLatestFrom(this.store$),
+    map(([action, storeState]) => {
+      if (storeState.router.state.url !== '/venues') {
+        this.router.navigateByUrl('/venues');
+      }
+
+      return new LoadRequestAction();
+    })
   );
 
   @Effect()
