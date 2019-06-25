@@ -5,7 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import * as fromRoot from '@reducers*';
 import { VenueDetails, Tip } from '@models*';
-import { selectParams } from 'app/redux/selectors';
+import { selectParams, selectUrl } from 'app/redux/selectors';
 import {
   selectPhotos,
   selectIsLoading,
@@ -25,18 +25,29 @@ export class DetailsComponent implements OnInit, OnDestroy {
   photos$: Observable<string[]>;
   tips$: Observable<Tip[]>;
   isLoading$: Observable<boolean>;
+  routerUrl: string;
 
   constructor(private store$: Store<fromRoot.State>) {}
 
   ngOnInit() {
     this.store$
       .pipe(
+        select(selectUrl),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(url => {
+        this.routerUrl = url;
+      });
+    this.store$
+      .pipe(
         select(selectParams),
         takeUntil(this.destroy$)
       )
-      .subscribe(params =>
-        this.store$.dispatch(new LoadRequestAction({ id: params.id }))
-      );
+      .subscribe(params => {
+        if (this.routerUrl !== '/venues') {
+          this.store$.dispatch(new LoadRequestAction({ id: params.id }));
+        }
+      });
     this.venue$ = this.store$.pipe(select(selectVenue));
     this.photos$ = this.store$.pipe(select(selectPhotos));
     this.tips$ = this.store$.pipe(select(selectTips));
