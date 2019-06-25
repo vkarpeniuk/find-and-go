@@ -4,9 +4,14 @@ import { Observable } from 'rxjs';
 
 import { MapOptions, Venue } from '@models';
 import * as fromRoot from '@reducers';
-import { selectAllVenues, selectIsLoading } from './redux/selectors';
+import {
+  selectAllVenues,
+  selectIsLoading,
+  selectFocusedVenueId
+} from './redux/selectors';
 import { selectLocationFilter } from '../header/redux/selectors';
 import { ChangeMapLocationAction } from '../header/redux/actions';
+import { VenueFocusedAction, VenuesUnfocusedAction } from './redux/actions';
 
 @Component({
   selector: 'app-venues',
@@ -15,6 +20,7 @@ import { ChangeMapLocationAction } from '../header/redux/actions';
 })
 export class VenuesComponent implements OnInit {
   venues$: Observable<Venue[]>;
+  focusedVenueId$: Observable<string>;
   mapOptions$: Observable<MapOptions>;
   isLoading$: Observable<boolean>;
 
@@ -22,6 +28,7 @@ export class VenuesComponent implements OnInit {
 
   ngOnInit() {
     this.venues$ = this.store$.pipe(select(selectAllVenues));
+    this.focusedVenueId$ = this.store$.pipe(select(selectFocusedVenueId));
     this.mapOptions$ = this.store$.pipe(select(selectLocationFilter));
     this.isLoading$ = this.store$.pipe(select(selectIsLoading));
   }
@@ -34,5 +41,13 @@ export class VenuesComponent implements OnInit {
         zoom: newOptions.zoom
       })
     );
+  }
+
+  venueFocused(id: string): void {
+    this.store$.dispatch(new VenueFocusedAction({ id }));
+  }
+
+  venuesUnfocused(): void {
+    this.store$.dispatch(new VenuesUnfocusedAction());
   }
 }

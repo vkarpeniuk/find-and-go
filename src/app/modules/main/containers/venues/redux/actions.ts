@@ -4,7 +4,9 @@ import { Venue } from '@models';
 
 export enum ActionTypes {
   LOAD_REQUEST = '[Venues] Load Request',
-  LOAD_COMPLETE = '[Venues] Load Complete'
+  LOAD_COMPLETE = '[Venues] Load Complete',
+  VENUE_FOCUSED = '[Venues] Venue Focused',
+  VENUES_UNFOCUSED = '[Venues] Venues Unfocused'
 }
 
 export class LoadRequestAction implements Action {
@@ -16,4 +18,17 @@ export class LoadCompleteAction implements Action {
   constructor(public payload: { items: Venue[] }) {}
 }
 
-export type Actions = LoadRequestAction | LoadCompleteAction;
+export class VenueFocusedAction implements Action {
+  readonly type = ActionTypes.VENUE_FOCUSED;
+  constructor(public payload: { id: string }) {}
+}
+
+export class VenuesUnfocusedAction implements Action {
+  readonly type = ActionTypes.VENUES_UNFOCUSED;
+}
+
+export type Actions =
+  | LoadRequestAction
+  | LoadCompleteAction
+  | VenueFocusedAction
+  | VenuesUnfocusedAction;

@@ -1,9 +1,12 @@
 <app-map
   [venues]="venues$ | async"
+  [focusedVenueId]="focusedVenueId$ | async"
   [mapOptions]="mapOptions$ | async"
   (mapUpdated)="mapOptionsChanged($event)"
 ></app-map>
 <app-venues-list
   [venues]="venues$ | async"
   [isLoading]="isLoading$ | async"
+  (venueFocused)="venueFocused($event)"
+  (venuesUnfocused)="venuesUnfocused()"
 ></app-venues-list>

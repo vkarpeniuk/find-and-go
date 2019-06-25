@@ -1,11 +1,12 @@
 <app-spinner [visible]="isLoading"></app-spinner>
-<mat-nav-list>
+<mat-nav-list (mouseleave)="onVenuesUnfocus()">
   <a
     mat-list-item
     @items
     [routerLink]="['/venue-details', venue.id]"
     *ngFor="let venue of venues; trackBy: trackVenues"
     class="venue-list-item"
+    (mouseenter)="onVenueFocus(venue.id)"
   >
     <div class="img-container">
       <img

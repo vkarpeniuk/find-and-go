@@ -20,6 +20,7 @@ import { MapMarker, Venue, MapOptions } from '@models';
 })
 export class MapComponent implements OnInit, OnChanges {
   @Input() venues: Venue[];
+  @Input() focusedVenueId: string;
   @Input() mapOptions: MapOptions;
   @Output() mapUpdated: EventEmitter<MapOptions> = new EventEmitter<
     MapOptions
@@ -40,7 +41,7 @@ export class MapComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.venues) {
+    if (changes.venues || changes.focusedVenueId) {
       this.initMarkers();
     }
     if (changes.mapOptions) {
@@ -55,7 +56,11 @@ export class MapComponent implements OnInit, OnChanges {
   }
 
   initMarkers(): void {
-    this.markers = this.venues.map(v => {
+    const filteredVenues = this.focusedVenueId
+      ? this.venues.filter(v => v.id === this.focusedVenueId)
+      : this.venues;
+
+    this.markers = filteredVenues.map(v => {
       return {
         latitude: v.latitude,
         longitude: v.longitude,

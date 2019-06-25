@@ -16,6 +16,11 @@ export const selectVenueById = createSelector(
     state.venues.find(venue => venue.id === id)
 );
 
+export const selectFocusedVenueId = createSelector(
+  selectVenuesState,
+  (state: State): string => state.focusedVenueId
+);
+
 export const selectIsLoading = createSelector(
   selectVenuesState,
   (state: State): boolean => state.isLoading

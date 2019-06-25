@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 import { Venue } from '@models';
@@ -22,6 +22,8 @@ import { Venue } from '@models';
 export class VenuesListComponent implements OnInit {
   @Input() venues: Venue[];
   @Input() isLoading: boolean;
+  @Output() venueFocused: EventEmitter<string> = new EventEmitter<string>();
+  @Output() venuesUnfocused: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() {}
 
@@ -29,5 +31,13 @@ export class VenuesListComponent implements OnInit {
 
   trackVenues(index: number, item: Venue) {
     return item.id;
+  }
+
+  onVenueFocus(id: string): void {
+    this.venueFocused.emit(id);
+  }
+
+  onVenuesUnfocus(): void {
+    this.venuesUnfocused.emit();
   }
 }
