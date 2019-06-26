@@ -33,16 +33,11 @@ class GoogleApiService {
       .asPromise();
   }
 
-  getPlaceDetailsByQuery(searchQuery) {
+  getPlaceDetailsById(placeId) {
     const result = { photos: [], reviews: [] };
     const promises = [];
-    return this.getPlacesByQuery(searchQuery)
-      .then(res => {
-        return res.json.results[0].place_id;
-      })
-      .then(placeId => {
-        return this.getPlaceDetails(placeId);
-      })
+
+    return this.getPlaceDetails(placeId)
       .then(placeDetails => {
         return {
           photos: placeDetails.json.result.photos,

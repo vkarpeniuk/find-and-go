@@ -117,17 +117,27 @@ app.post('/api/place-photos', function(req, res, next) {
 });
 
 app.get('/api/place-details', function(req, res, next) {
-  googleApiService
-    .getPlaceDetailsByQuery(req.query.searchQuery)
-    .then(details => {
+  googleApiService.getPlacesByQuery(req.query.searchQuery).then(places => {
+    if (places.json.results.length) {
+      googleApiService
+        .getPlaceDetailsById(places.json.results[0].place_id)
+        .then(details => {
+          const result = {
+            photos: details.photos.map(
+              photo => `https://${photo.req.socket._host}${photo.req.path}`
+            ),
+            tips: details.reviews
+          };
+          res.send(result);
+        });
+    } else {
       const result = {
-        photos: details.photos.map(
-          photo => `https://${photo.req.socket._host}${photo.req.path}`
-        ),
-        tips: details.reviews
+        photos: [],
+        tips: []
       };
       res.send(result);
-    });
+    }
+  });
 });
 
 // Serve only the static files form the dist directory
