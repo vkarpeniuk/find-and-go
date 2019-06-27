@@ -7,6 +7,7 @@
 .outer-details-container {
   display: flex;
   justify-content: center;
+  min-height: calc(100vh - 60px);
   padding-top: 60px;
   background-color: $accent-dark;
 
@@ -17,48 +18,31 @@
     width: 100%;
     height: 100%;
 
-    & > * {
-      background-color: white;
-      padding: 8px;
-      -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0px 0 2px;
-      -moz-box-shadow: rgba(0, 0, 0, 0.8) 0 0 2px;
-      box-shadow: rgba(0, 0, 0, 0.8) 0 0 2px;
-    }
-
     .contacts-tips-wrapper {
       flex-direction: column;
+      background-color: white;
     }
   }
 
   @media only screen and (min-width: 950px) {
     & .details-container > * {
       margin-top: 5px;
-      -webkit-border-radius: 3px;
-      -moz-border-radius: 3px;
-      border-radius: 3px;
     }
 
     & .details-container .contacts-tips-wrapper {
       flex-direction: row-reverse;
+      padding: 20px;
     }
   }
 
   @media only screen and (max-width: 560px) {
     & {
       padding-top: 50px;
+      min-height: calc(100vh - 50px);
 
-      .details-container {
-        & > * {
-          padding: 8px;
-          -webkit-border-radius: 0;
-          -moz-border-radius: 0;
-          border-radius: 0;
-        }
-
-        .contacts-tips-wrapper {
-          flex-direction: column;
-          padding: 8px 3px;
-        }
+      .details-container .contacts-tips-wrapper {
+        flex-direction: column;
+        padding: 6px 10px;
       }
     }
   }

@@ -1,5 +1,19 @@
 .contacts-container {
+  background-color: white;
   min-width: 300px;
+  padding: 10px;
+
+  @media only screen and (min-width: 950px) {
+    & {
+      padding: 0;
+    }
+  }
+
+  @media only screen and (max-width: 560px) {
+    & {
+      padding: 0;
+    }
+  }
 
   p {
     margin-bottom: 0;
@@ -29,13 +43,5 @@
         color: #e6092c;
       }
     }
-  }
-
-  @media only screen and (min-width: 950px) {
-    padding: 20px;
-  }
-
-  @media only screen and (max-width: 560px) {
-    padding: 6px 16px;
   }
 }

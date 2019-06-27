@@ -3,7 +3,7 @@
   <div class="details-container">
     <app-photos [photos]="photos$ | async"></app-photos>
     <app-main-info [venue]="venue$ | async"></app-main-info>
-    <div class="contacts-tips-wrapper flex">
+    <div class="contacts-tips-wrapper rounded shadowed flex">
       <app-contacts [venue]="venue$ | async"></app-contacts>
       <app-tips [tips]="tips$ | async"></app-tips>
     </div>
