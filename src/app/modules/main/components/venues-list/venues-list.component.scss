@@ -28,11 +28,30 @@
   }
 }
 
+.no-data-container {
+  width: auto;
+  height: auto;
+  padding: 20px;
+
+  .card {
+    text-align: center;
+    width: 100%;
+
+    .mat-card-header {
+      display: block;
+    }
+  }
+
+  img.mat-card-image {
+    width: 50%;
+    height: 50%;
+  }
+}
+
 @media only screen and (min-width: 961px) {
   :host {
     width: 50%;
     float: left;
-    height: calc(100vh - 59px);
   }
 
   ::ng-deep {

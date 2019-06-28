@@ -1,26 +1,45 @@
 <app-spinner [visible]="isLoading"></app-spinner>
-<mat-nav-list (mouseleave)="onVenuesUnfocus()">
-  <a
-    mat-list-item
-    @items
-    [routerLink]="['/venue-details', venue.id]"
-    *ngFor="let venue of venues; trackBy: trackVenues"
-    class="venue-list-item"
-    (mouseenter)="onVenueFocus(venue.id)"
-  >
-    <div class="img-container">
-      <img
-        [src]="
-          venue.imageUrl
-            ? venue.imageUrl
-            : '../../assets/images/img-placeholder.png'
-        "
-      />
-    </div>
-    <div class="content-container">
-      <h4>{{ venue.name }}</h4>
-      <h5>{{ venue.address }}, {{ venue.city }}</h5>
-    </div>
-  </a>
-</mat-nav-list>
-<app-scroll-top (scrollToTop)="renavigate()"></app-scroll-top>
+<ng-container *ngIf="venues.length; else nodata">
+  <mat-nav-list (mouseleave)="onVenuesUnfocus()">
+    <a
+      mat-list-item
+      @items
+      [routerLink]="['/venue-details', venue.id]"
+      *ngFor="let venue of venues; trackBy: trackVenues"
+      class="venue-list-item"
+      (mouseenter)="onVenueFocus(venue.id)"
+    >
+      <div class="img-container">
+        <img
+          [src]="
+            venue.imageUrl
+              ? venue.imageUrl
+              : '../../assets/images/img-placeholder.png'
+          "
+        />
+      </div>
+      <div class="content-container">
+        <h4>{{ venue.name }}</h4>
+        <h5>{{ venue.address }}, {{ venue.city }}</h5>
+      </div>
+    </a>
+  </mat-nav-list>
+  <app-scroll-top (scrollToTop)="renavigate()"></app-scroll-top>
+</ng-container>
+
+<ng-template #nodata>
+  <div class="no-data-container flex">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>No data found</mat-card-title>
+        <mat-card-subtitle
+          >Please try zooming in/out or searching for something more
+          general</mat-card-subtitle
+        >
+      </mat-card-header>
+      <mat-card-content>
+        <img mat-card-image src="../../../../../assets/images/no-data.svg" />
+      </mat-card-content>
+    </mat-card>
+  </div>
+</ng-template>
