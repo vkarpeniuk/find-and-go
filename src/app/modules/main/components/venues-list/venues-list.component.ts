@@ -22,8 +22,9 @@ import { Venue } from '@models';
 export class VenuesListComponent implements OnInit {
   @Input() venues: Venue[];
   @Input() isLoading: boolean;
-  @Output() venueFocused: EventEmitter<string> = new EventEmitter<string>();
-  @Output() venuesUnfocused: EventEmitter<void> = new EventEmitter<void>();
+  @Output() venueFocused = new EventEmitter<string>();
+  @Output() venuesUnfocused = new EventEmitter();
+  @Output() renavigated = new EventEmitter();
 
   constructor() {}
 
@@ -39,5 +40,9 @@ export class VenuesListComponent implements OnInit {
 
   onVenuesUnfocus(): void {
     this.venuesUnfocused.emit();
+  }
+
+  renavigate(): void {
+    this.renavigated.emit();
   }
 }

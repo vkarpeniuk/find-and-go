@@ -6,7 +6,8 @@ export enum ActionTypes {
   LOAD_REQUEST = '[Venues] Load Request',
   LOAD_COMPLETE = '[Venues] Load Complete',
   VENUE_FOCUSED = '[Venues] Venue Focused',
-  VENUES_UNFOCUSED = '[Venues] Venues Unfocused'
+  VENUES_UNFOCUSED = '[Venues] Venues Unfocused',
+  RENAVIGATE = '[Venues] Renavigate'
 }
 
 export class LoadRequestAction implements Action {
@@ -27,8 +28,13 @@ export class VenuesUnfocusedAction implements Action {
   readonly type = ActionTypes.VENUES_UNFOCUSED;
 }
 
+export class RenavigateAction implements Action {
+  readonly type = ActionTypes.RENAVIGATE;
+}
+
 export type Actions =
   | LoadRequestAction
   | LoadCompleteAction
   | VenueFocusedAction
-  | VenuesUnfocusedAction;
+  | VenuesUnfocusedAction
+  | RenavigateAction;

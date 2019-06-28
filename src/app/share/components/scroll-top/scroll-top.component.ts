@@ -1,4 +1,10 @@
-import { Component, Inject, HostListener } from '@angular/core';
+import {
+  Component,
+  Inject,
+  HostListener,
+  EventEmitter,
+  Output
+} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 @Component({
@@ -8,6 +14,7 @@ import { DOCUMENT } from '@angular/common';
 })
 export class ScrollTopComponent {
   windowScrolled: boolean;
+  @Output() scrollToTop = new EventEmitter();
 
   constructor(@Inject(DOCUMENT) private document: Document) {}
 
@@ -28,15 +35,7 @@ export class ScrollTopComponent {
     }
   }
 
-  scrollToTop() {
-    (function smoothscroll() {
-      const currentScroll =
-        document.documentElement.scrollTop || document.body.scrollTop;
-
-      if (currentScroll > 0) {
-        window.requestAnimationFrame(smoothscroll);
-        window.scrollTo(0, currentScroll - currentScroll / 8);
-      }
-    })();
+  onScrollToTop() {
+    this.scrollToTop.emit();
   }
 }

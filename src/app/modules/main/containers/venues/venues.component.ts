@@ -11,7 +11,11 @@ import {
 } from './redux/selectors';
 import { selectLocationFilter } from '../header/redux/selectors';
 import { ChangeMapLocationAction } from '../header/redux/actions';
-import { VenueFocusedAction, VenuesUnfocusedAction } from './redux/actions';
+import {
+  VenueFocusedAction,
+  VenuesUnfocusedAction,
+  RenavigateAction
+} from './redux/actions';
 
 @Component({
   selector: 'app-venues',
@@ -49,5 +53,9 @@ export class VenuesComponent implements OnInit {
 
   venuesUnfocused(): void {
     this.store$.dispatch(new VenuesUnfocusedAction());
+  }
+
+  renavigate(): void {
+    this.store$.dispatch(new RenavigateAction());
   }
 }
