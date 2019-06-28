@@ -26,6 +26,12 @@ export const selectUrl = createSelector(
     routerState.state.url
 );
 
+export const selectParamsId = createSelector(
+  selectRouterState,
+  (routerState: RouterReducerState<RouterState>): string =>
+    routerState.state.params.id
+);
+
 export const selectGlobalState = createFeatureSelector<GlobalState>('global');
 
 export const selectError = createSelector(
