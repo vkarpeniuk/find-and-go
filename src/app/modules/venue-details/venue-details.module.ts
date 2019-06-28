@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { VenueDetailsRoutingModule } from './venue-details-routing.module';
-import { SharedModule } from './../../shared/shared.module';
+import { ShareModule } from '@share/share.module';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { TipsComponent } from './components/tips/tips.component';
 import { MainInfoComponent } from './components/main-info/main-info.component';
@@ -16,6 +16,6 @@ import { DetailsComponent } from './containers/details/details.component';
     TipsComponent,
     ContactsComponent
   ],
-  imports: [VenueDetailsRoutingModule, SharedModule]
+  imports: [VenueDetailsRoutingModule, ShareModule]
 })
 export class VenueDetailsModule {}

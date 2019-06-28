@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
-import { ImageDialogComponent } from './../../../../shared/components/image-dialog/image-dialog.component';
+import { ImageDialogComponent } from '@share/components/image-dialog/image-dialog.component';
 
 @Component({
   selector: 'app-photos',

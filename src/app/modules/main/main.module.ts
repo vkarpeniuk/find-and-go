@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AgmCoreModule } from '@agm/core';
 
-import { SharedModule } from './../../shared/shared.module';
+import { ShareModule } from '@share/share.module';
 import { HeaderComponent } from './containers/header/header.component';
 import { VenuesListComponent } from './components/venues-list/venues-list.component';
 import { MapComponent } from './components/map/map.component';
@@ -18,7 +18,7 @@ const modules = [
   FormsModule,
   ReactiveFormsModule,
   AgmCoreModule.forRoot({}),
-  SharedModule
+  ShareModule
 ];
 
 /**

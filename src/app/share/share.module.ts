@@ -28,4 +28,4 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
   entryComponents: [ImageDialogComponent],
   providers: []
 })
-export class SharedModule {}
+export class ShareModule {}

@@ -17,7 +17,8 @@
       "@models*": ["app/core/models/index"],
       "@services*": ["app/core/services/index"],
       "@reducers*": ["app/redux/reducers"],
-      "@actions*": ["app/redux/actions"]
+      "@actions*": ["app/redux/actions"],
+      "@share*": ["app/share*"]
     }
   }
 }
