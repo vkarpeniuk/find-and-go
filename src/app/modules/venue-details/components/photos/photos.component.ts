@@ -13,9 +13,9 @@ export class PhotosComponent {
 
   constructor(private dialog: MatDialog) {}
 
-  openPhoto(photoUrl: string): void {
+  openPhoto(index: number): void {
     this.dialog.open(ImageDialogComponent, {
-      data: { imageUrl: photoUrl }
+      data: { images: this.photos, selectedImageIdx: index }
     });
   }
 }

@@ -1,5 +1,19 @@
 <div mat-dialog-content>
-  <img [src]="data.imageUrl" />
+  <img [src]="data.images[selectedIndex]" />
+  <button
+    class="arrow left"
+    (click)="goBack()"
+    [disabled]="selectedIndex === 0"
+  >
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
+  <button
+    class="arrow right"
+    (click)="goForward()"
+    [disabled]="selectedIndex === data.images.length - 1"
+  >
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="close()">Close</button>

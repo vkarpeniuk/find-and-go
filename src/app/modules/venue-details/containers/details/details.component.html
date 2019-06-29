@@ -1,8 +1,8 @@
+<app-spinner [visible]="isLoading$ | async"></app-spinner>
 <div class="outer-details-container">
   <div class="background w100 h100">
     <img class="w100 h100" [src]="venue$ | async | venueBgPhoto" />
   </div>
-  <app-spinner [visible]="isLoading$ | async"></app-spinner>
   <div class="details-container w100 h100">
     <app-photos [photos]="photos$ | async"></app-photos>
     <app-main-info [venue]="venue$ | async"></app-main-info>

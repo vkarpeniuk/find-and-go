@@ -4,9 +4,44 @@ img {
 }
 
 .mat-dialog-content {
+  position: relative;
   max-height: 80vh;
 }
 
 .mat-dialog-actions {
   justify-content: flex-end;
+
+  .mat-button {
+    background-color: #eee;
+  }
+}
+
+.arrow {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  top: calc(50% - 22px);
+  background-color: rgba(227, 227, 227, 0.5);
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  &.left {
+    left: 0;
+  }
+
+  &.right {
+    right: 0;
+  }
+
+  .mat-icon {
+    height: 44px;
+    width: 44px;
+    font-size: 44px;
+  }
+}
+
+.arrow:hover:not([disabled]) {
+  background-color: rgba(227, 227, 227, 1);
 }

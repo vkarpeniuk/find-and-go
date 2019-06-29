@@ -2,9 +2,9 @@
   <div drag-scroll-item class="inner-scrollable">
     <img
       class="cursor-pointer"
-      *ngFor="let photo of photos"
+      *ngFor="let photo of photos; let i = index"
       src="{{ photo }}"
-      (click)="openPhoto(photo)"
+      (click)="openPhoto(i)"
     />
   </div>
 </drag-scroll>
