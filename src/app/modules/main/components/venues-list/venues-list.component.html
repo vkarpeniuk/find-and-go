@@ -1,5 +1,5 @@
 <app-spinner [visible]="isLoading"></app-spinner>
-<ng-container *ngIf="venues.length; else nodata">
+<ng-container *ngIf="venues.length || isLoading; else nodata">
   <mat-nav-list (mouseleave)="onVenuesUnfocus()">
     <a
       mat-list-item

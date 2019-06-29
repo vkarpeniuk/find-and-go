@@ -23,6 +23,7 @@ export const initialState: State = {
     country: null,
     name: null,
     photos: [],
+    bestPhoto: null,
     price: null,
     rating: null,
     tips: [],

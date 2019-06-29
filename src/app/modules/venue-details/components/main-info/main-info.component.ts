@@ -7,19 +7,6 @@ import { VenueDetails } from '@models*';
   templateUrl: './main-info.component.html',
   styleUrls: ['./main-info.component.scss']
 })
-export class MainInfoComponent implements OnChanges {
+export class MainInfoComponent {
   @Input() venue: VenueDetails;
-  categories: string;
-  categoryIcon = 'assets/images/img-placeholder.png';
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.venue) {
-      this.categories = changes.venue.currentValue.categories
-        .map(c => c.name)
-        .join(', ');
-      if (changes.venue.currentValue.categories[0]) {
-        this.categoryIcon = changes.venue.currentValue.categories[0].icon;
-      }
-    }
-  }
 }

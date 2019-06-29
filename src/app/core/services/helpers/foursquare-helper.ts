@@ -56,6 +56,7 @@ export class FoursquareHelper {
       country: venue.location.country,
       name: venue.name,
       photos: [],
+      bestPhoto: `${venue.bestPhoto.prefix}original${venue.bestPhoto.suffix}`,
       price: venue.price ? venue.price.tier : null,
       rating: venue.rating,
       tips: [],

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { map, withLatestFrom, switchMap, tap } from 'rxjs/operators';
+import { map, withLatestFrom, switchMap, tap, filter } from 'rxjs/operators';
 
 import * as fromRoot from '@reducers';
 import { FoursquareService } from '@services';
@@ -10,7 +11,8 @@ import {
   LoadRequestAction,
   ActionTypes,
   LoadCompleteAction,
-  RenavigateAction
+  RenavigateAction,
+  VenuesUnfocusedAction
 } from './actions';
 
 @Injectable()
@@ -37,6 +39,18 @@ export class VenuesStoreEffects {
       )
     ),
     map(items => new LoadCompleteAction({ items }))
+  );
+
+  @Effect()
+  backNavigation$ = this.actions$.pipe(
+    ofType(ROUTER_NAVIGATION),
+    withLatestFrom(this.store$),
+    filter(
+      ([action, storeState]) =>
+        storeState.venues.focusedVenueId &&
+        storeState.router.state.url === '/venues'
+    ),
+    map(() => new VenuesUnfocusedAction())
   );
 
   @Effect({ dispatch: false })

@@ -1,9 +1,15 @@
 <div class="main-info-wrapper rounded shadowed flex">
   <div class="general flex">
-    <img class="category-img" [src]="categoryIcon" />
+    <img
+      class="category-img"
+      [src]="
+        (venue?.categories)[0]?.icon ||
+        '../../../../../assets/images/img-placeholder.png'
+      "
+    />
     <div class="captions flex">
       <h2>{{ venue?.name }}</h2>
-      <p>{{ categories }}</p>
+      <p>{{ venue?.categories | venueCategories }}</p>
       <p>{{ venue?.city }}</p>
     </div>
   </div>

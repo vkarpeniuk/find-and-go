@@ -4,9 +4,9 @@
   </div>
   <mat-divider></mat-divider>
   <ng-container *ngIf="venue?.phone">
-    <div><mat-icon>phone</mat-icon>{{ venue?.phone }}</div></ng-container
-  >
-  <mat-divider></mat-divider>
+    <div><mat-icon>phone</mat-icon>{{ venue?.phone }}</div>
+    <mat-divider></mat-divider
+  ></ng-container>
   <ng-container *ngIf="venue?.twitter">
     <div>
       <img src="assets/images/twitter.png" />
@@ -43,13 +43,15 @@
     </div>
     <mat-divider></mat-divider>
   </ng-container>
-  <div class="time flex">
-    <mat-icon>access_time</mat-icon>
-    <p [ngClass]="{ green: venue.isOpen, red: !venue.isOpen }">
-      {{ venue.status }}
-    </p>
-  </div>
-  <mat-divider></mat-divider>
+  <ng-container *ngIf="venue?.status">
+    <div class="time flex">
+      <mat-icon>access_time</mat-icon>
+      <p [ngClass]="{ green: venue.isOpen, red: !venue.isOpen }">
+        {{ venue.status }}
+      </p>
+    </div>
+    <mat-divider></mat-divider
+  ></ng-container>
   <ng-container *ngIf="venue?.url">
     <div>
       <mat-icon>language</mat-icon

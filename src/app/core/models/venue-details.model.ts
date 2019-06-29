@@ -16,6 +16,7 @@ export interface VenueDetails {
   country: string;
   name: string;
   photos: string[];
+  bestPhoto: string;
   price: number;
   rating: number;
   tips: Tip[];
