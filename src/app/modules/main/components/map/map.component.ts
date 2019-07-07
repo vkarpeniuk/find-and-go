@@ -25,6 +25,7 @@ export class MapComponent implements OnInit, OnChanges {
   @Output() mapUpdated: EventEmitter<MapOptions> = new EventEmitter<
     MapOptions
   >();
+  @Output() markerClicked: EventEmitter<string> = new EventEmitter<string>();
 
   isInitialized: boolean;
   latitude: number;
@@ -81,6 +82,10 @@ export class MapComponent implements OnInit, OnChanges {
     } else {
       this.isInitialized = true;
     }
+  }
+
+  markerClick(id: string): void {
+    this.markerClicked.emit(id);
   }
 
   trackMarkers(index: number, item: MapMarker) {

@@ -7,7 +7,9 @@ export enum ActionTypes {
   LOAD_COMPLETE = '[Venues] Load Complete',
   VENUE_FOCUSED = '[Venues] Venue Focused',
   VENUES_UNFOCUSED = '[Venues] Venues Unfocused',
-  RENAVIGATE = '[Venues] Renavigate'
+  RENAVIGATE = '[Venues] Renavigate',
+  SCROLL_TO_VENUE = '[Venues] Scroll To Venue',
+  RESET_SCROLLED_VENUE = '[Venues] Reset Scrolled Venue'
 }
 
 export class LoadRequestAction implements Action {
@@ -32,9 +34,20 @@ export class RenavigateAction implements Action {
   readonly type = ActionTypes.RENAVIGATE;
 }
 
+export class ScrollToVenueAction implements Action {
+  readonly type = ActionTypes.SCROLL_TO_VENUE;
+  constructor(public payload: { id: string }) {}
+}
+
+export class ResetScrolledVenueAction implements Action {
+  readonly type = ActionTypes.RESET_SCROLLED_VENUE;
+}
+
 export type Actions =
   | LoadRequestAction
   | LoadCompleteAction
   | VenueFocusedAction
   | VenuesUnfocusedAction
-  | RenavigateAction;
+  | RenavigateAction
+  | ScrollToVenueAction
+  | ResetScrolledVenueAction;

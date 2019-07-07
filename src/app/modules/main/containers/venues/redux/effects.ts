@@ -29,14 +29,16 @@ export class VenuesStoreEffects {
     ofType<LoadRequestAction>(ActionTypes.LOAD_REQUEST),
     withLatestFrom(this.store$),
     switchMap(([action, storeState]) =>
-      this.foursquareService.getVenueRecommendations(
-        storeState.filters.latitude,
-        storeState.filters.longitude,
-        storeState.filters.search,
-        storeState.filters.where,
-        storeState.filters.locationByMap,
-        storeState.filters.zoom
-      )
+      this.foursquareService.getVenueRecommendations({
+        latitude: storeState.filters.latitude,
+        longitude: storeState.filters.longitude,
+        search: storeState.filters.search,
+        near: storeState.filters.where,
+        locationByMap: storeState.filters.locationByMap,
+        zoomLevel: storeState.filters.zoom,
+        limit: 20,
+        offset: 0
+      })
     ),
     map(items => new LoadCompleteAction({ items }))
   );

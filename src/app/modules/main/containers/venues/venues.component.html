@@ -3,11 +3,14 @@
   [focusedVenueId]="focusedVenueId$ | async"
   [mapOptions]="mapOptions$ | async"
   (mapUpdated)="mapOptionsChanged($event)"
+  (markerClicked)="markerClick($event)"
 ></app-map>
 <app-venues-list
   [venues]="venues$ | async"
   [isLoading]="isLoading$ | async"
+  [scrolledVenueIdx]="scrolledVenueIdx$ | async"
   (venueFocused)="venueFocused($event)"
   (venuesUnfocused)="venuesUnfocused()"
   (renavigated)="renavigate()"
+  (scrolledToVenue)="resetScrolledVenue()"
 ></app-venues-list>

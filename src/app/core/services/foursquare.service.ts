@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { VenueDetails, Venue } from '@models*';
+import { VenueDetails, Venue, VenueFilter } from '@models*';
 import { GoogleService } from './google.service';
 import { ApiService } from './api.service';
 import { FoursquareHelper } from './helpers/foursquare-helper';
@@ -21,32 +21,23 @@ export class FoursquareService extends ApiService {
     super(http);
   }
 
-  getVenueRecommendations(
-    latitude: number = null,
-    longitude: number = null,
-    search: string = null,
-    near: string = null,
-    locationByMap: boolean,
-    zoomLevel: number,
-    limit: number = 20,
-    offset: number = 0
-  ): Observable<Venue[]> {
+  getVenueRecommendations(filter: VenueFilter): Observable<Venue[]> {
     let params = new HttpParams().set(
       'requestPath',
       `${this.foursquareApiUrl}venues/explore`
     );
 
-    params = params.set('query', search || this.defaultSearch);
+    params = params.set('query', filter.search || this.defaultSearch);
 
-    if (locationByMap) {
+    if (filter.locationByMap) {
       params = params
-        .set('ll', `${latitude},${longitude}`)
+        .set('ll', `${filter.latitude},${filter.longitude}`)
         .set(
           'radius',
-          FoursquareHelper.getRadiusByZoomLevel(zoomLevel).toString()
+          FoursquareHelper.getRadiusByZoomLevel(filter.zoomLevel).toString()
         );
     } else {
-      params = params.set('near', near);
+      params = params.set('near', filter.near);
     }
 
     return this.getJson(this.proxyUrl, params).pipe(

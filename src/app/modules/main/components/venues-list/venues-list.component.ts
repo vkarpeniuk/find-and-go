@@ -1,4 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  SimpleChanges,
+  OnChanges,
+  ViewChildren,
+  ViewContainerRef
+} from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 import { Venue } from '@models';
@@ -19,16 +29,31 @@ import { Venue } from '@models';
     ])
   ]
 })
-export class VenuesListComponent implements OnInit {
+export class VenuesListComponent implements OnInit, OnChanges {
   @Input() venues: Venue[];
   @Input() isLoading: boolean;
+  @Input() scrolledVenueIdx: number;
   @Output() venueFocused = new EventEmitter<string>();
   @Output() venuesUnfocused = new EventEmitter();
   @Output() renavigated = new EventEmitter();
+  @Output() scrolledToVenue = new EventEmitter();
+
+  @ViewChildren('venues', { read: ViewContainerRef }) venuesRef;
+
+  selectedVenueIdx: number;
 
   constructor() {}
 
   ngOnInit() {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.scrolledVenueIdx && !changes.scrolledVenueIdx.firstChange) {
+      if (changes.scrolledVenueIdx.currentValue !== -1) {
+        this.selectedVenueIdx = changes.scrolledVenueIdx.currentValue;
+      }
+      this.scrollToVenue();
+    }
+  }
 
   trackVenues(index: number, item: Venue) {
     return item.id;
@@ -44,5 +69,18 @@ export class VenuesListComponent implements OnInit {
 
   renavigate(): void {
     this.renavigated.emit();
+  }
+
+  scrollToVenue(): void {
+    const element = this.venuesRef.toArray()[this.selectedVenueIdx].element
+      .nativeElement;
+
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'nearest'
+    });
+
+    this.scrolledToVenue.emit();
   }
 }

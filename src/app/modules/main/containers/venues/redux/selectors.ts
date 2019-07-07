@@ -25,3 +25,9 @@ export const selectIsLoading = createSelector(
   selectVenuesState,
   (state: State): boolean => state.isLoading
 );
+
+export const selectScrolledVenueIdx = createSelector(
+  selectVenuesState,
+  (state: State): number =>
+    state.venues.findIndex(v => v.id === state.scrolledVenueId)
+);

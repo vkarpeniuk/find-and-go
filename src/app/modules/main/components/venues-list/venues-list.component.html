@@ -4,9 +4,11 @@
     <a
       mat-list-item
       @items
+      #venues
       [routerLink]="['/venue-details', venue.id]"
-      *ngFor="let venue of venues; trackBy: trackVenues"
+      *ngFor="let venue of venues; let i = index; trackBy: trackVenues"
       class="venue-list-item"
+      [class.selected]="i === selectedVenueIdx"
       (mouseenter)="onVenueFocus(venue.id)"
     >
       <div class="img-container">

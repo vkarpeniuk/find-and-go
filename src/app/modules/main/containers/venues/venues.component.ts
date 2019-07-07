@@ -1,20 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { MapOptions, Venue } from '@models';
 import * as fromRoot from '@reducers';
 import {
   selectAllVenues,
   selectIsLoading,
-  selectFocusedVenueId
+  selectFocusedVenueId,
+  selectScrolledVenueIdx
 } from './redux/selectors';
 import { selectLocationFilter } from '../header/redux/selectors';
 import { ChangeMapLocationAction } from '../header/redux/actions';
 import {
   VenueFocusedAction,
   VenuesUnfocusedAction,
-  RenavigateAction
+  RenavigateAction,
+  ScrollToVenueAction,
+  ResetScrolledVenueAction
 } from './redux/actions';
 
 @Component({
@@ -26,6 +30,7 @@ export class VenuesComponent implements OnInit {
   venues$: Observable<Venue[]>;
   focusedVenueId$: Observable<string>;
   mapOptions$: Observable<MapOptions>;
+  scrolledVenueIdx$: Observable<number>;
   isLoading$: Observable<boolean>;
 
   constructor(private store$: Store<fromRoot.State>) {}
@@ -33,6 +38,9 @@ export class VenuesComponent implements OnInit {
   ngOnInit() {
     this.venues$ = this.store$.pipe(select(selectAllVenues));
     this.focusedVenueId$ = this.store$.pipe(select(selectFocusedVenueId));
+    this.scrolledVenueIdx$ = this.store$.pipe(
+      select(selectScrolledVenueIdx)
+    );
     this.mapOptions$ = this.store$.pipe(select(selectLocationFilter));
     this.isLoading$ = this.store$.pipe(select(selectIsLoading));
   }
@@ -47,6 +55,10 @@ export class VenuesComponent implements OnInit {
     );
   }
 
+  markerClick(id: string): void {
+    this.store$.dispatch(new ScrollToVenueAction({ id }));
+  }
+
   venueFocused(id: string): void {
     this.store$.dispatch(new VenueFocusedAction({ id }));
   }
@@ -57,5 +69,9 @@ export class VenuesComponent implements OnInit {
 
   renavigate(): void {
     this.store$.dispatch(new RenavigateAction());
+  }
+
+  resetScrolledVenue(): void {
+    this.store$.dispatch(new ResetScrolledVenueAction());
   }
 }

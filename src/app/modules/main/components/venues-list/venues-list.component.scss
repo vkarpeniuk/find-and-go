@@ -11,6 +11,10 @@
     height: 100px;
     padding: 10px 0 10px 0;
 
+    &.selected {
+      background: $accent;
+    }
+
     .img-container {
       height: 100%;
       width: 100px;
