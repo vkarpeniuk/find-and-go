@@ -18,4 +18,8 @@ export class PhotosComponent {
       data: { images: this.photos, selectedImageIdx: index }
     });
   }
+
+  trackPhotos(index: number, item: string) {
+    return item;
+  }
 }

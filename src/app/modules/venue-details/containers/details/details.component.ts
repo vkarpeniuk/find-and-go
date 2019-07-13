@@ -32,10 +32,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.store$
       .pipe(
         select(selectParamsId),
-        filter(id => !!id),
+        filter(Boolean),
         takeUntil(this.destroy$)
       )
-      .subscribe(id => {
+      .subscribe((id: string) => {
         this.store$.dispatch(new LoadRequestAction({ id }));
       });
     this.venue$ = this.store$.pipe(select(selectVenue));

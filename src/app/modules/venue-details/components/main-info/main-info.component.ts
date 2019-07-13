@@ -9,4 +9,6 @@ import { VenueDetails } from '@models*';
 })
 export class MainInfoComponent {
   @Input() venue: VenueDetails;
+
+  starNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 }

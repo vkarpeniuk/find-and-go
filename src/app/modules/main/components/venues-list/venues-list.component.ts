@@ -50,8 +50,8 @@ export class VenuesListComponent implements OnInit, OnChanges {
     if (changes.scrolledVenueIdx && !changes.scrolledVenueIdx.firstChange) {
       if (changes.scrolledVenueIdx.currentValue !== -1) {
         this.selectedVenueIdx = changes.scrolledVenueIdx.currentValue;
+        this.scrollToVenue();
       }
-      this.scrollToVenue();
     }
   }
 

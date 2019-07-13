@@ -20,18 +20,20 @@ export class ScrollTopComponent {
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    if (
-      window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop > 101
-    ) {
-      this.windowScrolled = true;
-    } else if (
-      (this.windowScrolled && window.pageYOffset) ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop < 10
-    ) {
-      this.windowScrolled = false;
+    if (window) {
+      if (
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop > 101
+      ) {
+        this.windowScrolled = true;
+      } else if (
+        (this.windowScrolled && window.pageYOffset) ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop < 10
+      ) {
+        this.windowScrolled = false;
+      }
     }
   }
 

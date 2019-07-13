@@ -37,40 +37,12 @@
     >
     <div class="rating flex">
       <p>Rating:</p>
-      <ng-container *ngIf="venue?.rating >= 1; else emptyStar">
-        <mat-icon>star</mat-icon>
-      </ng-container>
-      <ng-container *ngIf="venue?.rating >= 2; else emptyStar">
-        <mat-icon>star</mat-icon>
-      </ng-container>
-      <ng-container *ngIf="venue?.rating >= 3; else emptyStar">
-        <mat-icon>star</mat-icon>
-      </ng-container>
-      <ng-container *ngIf="venue?.rating >= 4; else emptyStar">
-        <mat-icon>star</mat-icon>
-      </ng-container>
-      <ng-container *ngIf="venue?.rating >= 5; else emptyStar">
-        <mat-icon>star</mat-icon>
-      </ng-container>
-      <ng-container *ngIf="venue?.rating >= 6; else emptyStar">
-        <mat-icon>star</mat-icon>
-      </ng-container>
-      <ng-container *ngIf="venue?.rating >= 7; else emptyStar">
-        <mat-icon>star</mat-icon>
-      </ng-container>
-      <ng-container *ngIf="venue?.rating >= 8; else emptyStar">
-        <mat-icon>star</mat-icon>
-      </ng-container>
-      <ng-container *ngIf="venue?.rating >= 9; else emptyStar">
-        <mat-icon>star</mat-icon>
-      </ng-container>
-      <ng-container *ngIf="venue?.rating >= 10; else emptyStar">
-        <mat-icon>star</mat-icon>
-      </ng-container>
+      <mat-icon
+        *ngFor="let number of starNumbers"
+        [class.empty]="venue?.rating <= number"
+      >
+        {{ venue?.rating >= number ? 'star' : 'star_border' }}
+      </mat-icon>
     </div>
   </div>
 </div>
-
-<ng-template #emptyStar>
-  <mat-icon class="empty">star_border</mat-icon>
-</ng-template>

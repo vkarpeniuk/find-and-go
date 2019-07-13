@@ -3,7 +3,7 @@
     <mat-icon class="tips-icon">speaker_notes</mat-icon>
     <h3>{{ tips.length }} tips and reviews</h3>
   </div>
-  <mat-card *ngFor="let tip of tips" class="tip">
+  <mat-card *ngFor="let tip of tips; trackBy: trackTips" class="tip">
     <mat-card-header>
       <div mat-card-avatar>
         <img class="profile" [src]="tip.profilePhotoUrl" />
@@ -11,22 +11,13 @@
       <mat-card-title>{{ tip.authorName }}</mat-card-title>
       <mat-card-subtitle
         ><div class="rating">
-          <ng-container *ngIf="tip?.rating >= 1; else emptyStars">
-            <mat-icon>star</mat-icon>
-            <mat-icon>star</mat-icon>
-          </ng-container>
-          <ng-container *ngIf="tip?.rating >= 2; else emptyStars">
-            <mat-icon>star</mat-icon>
-            <mat-icon>star</mat-icon> </ng-container
-          ><ng-container *ngIf="tip?.rating >= 3; else emptyStars">
-            <mat-icon>star</mat-icon>
-            <mat-icon>star</mat-icon> </ng-container
-          ><ng-container *ngIf="tip?.rating >= 4; else emptyStars">
-            <mat-icon>star</mat-icon>
-            <mat-icon>star</mat-icon> </ng-container
-          ><ng-container *ngIf="tip?.rating >= 5; else emptyStars">
-            <mat-icon>star</mat-icon>
-            <mat-icon>star</mat-icon>
+          <ng-container *ngFor="let number of starNumbers">
+            <mat-icon [class.empty]="tip?.rating <= number">
+              {{ tip?.rating >= number ? 'star' : 'star_border' }}
+            </mat-icon>
+            <mat-icon [class.empty]="tip?.rating <= number">
+              {{ tip?.rating >= number ? 'star' : 'star_border' }}
+            </mat-icon>
           </ng-container>
         </div>
         {{ tip.relativeTimeDescription }}</mat-card-subtitle
@@ -37,8 +28,3 @@
     </mat-card-content>
   </mat-card>
 </div>
-
-<ng-template #emptyStars>
-  <mat-icon class="empty">star_border</mat-icon>
-  <mat-icon class="empty">star_border</mat-icon>
-</ng-template>

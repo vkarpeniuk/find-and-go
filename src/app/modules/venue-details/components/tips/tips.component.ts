@@ -9,4 +9,10 @@ import { Tip } from '@models*';
 })
 export class TipsComponent {
   @Input() tips: Tip[];
+
+  starNumbers = [1, 2, 3, 4, 5];
+
+  trackTips(index: number, item: Tip) {
+    return item.text;
+  }
 }
