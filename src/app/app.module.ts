@@ -14,7 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core';
 import { MainModule } from './modules/main/main.module';
 import { environment } from '../environments/environment';
-import { reducers } from '@reducers';
+import { reducers, loggerMetaReducer } from '@reducers';
 import { CustomRouterStateSerializer } from './redux/custom-router-state-serializer';
 import { CustomLazyAPIKeyLoader } from './core/services/custom-lazy-api-key-loader';
 import { VenueDetailsStoreEffects } from './modules/venue-details/containers/details/redux/effects';
@@ -27,7 +27,7 @@ import { AppComponent } from './app.component';
  */
 const modules = [
   BrowserAnimationsModule,
-  StoreModule.forRoot(reducers),
+  StoreModule.forRoot(reducers, { metaReducers: [loggerMetaReducer] }),
   StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
   EffectsModule.forRoot([
     HeaderStoreEffects,

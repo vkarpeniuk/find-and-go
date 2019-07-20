@@ -1,22 +1,13 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+import * as log from 'loglevel';
 import 'hammerjs';
 
-if (environment.production) {
-  enableProdMode();
-  if (window) {
-    disableConsole();
-  }
-}
+import { AppModule } from './app/app.module';
+import { environment } from './environments/environment';
 
-platformBrowserDynamic()
-  .bootstrapModule(AppModule)
-  .catch(err => console.error(err));
-
-function disableConsole() {
+const disableConsole = () => {
   const consoleMethods: string[] = [
     'assert',
     'clear',
@@ -37,4 +28,39 @@ function disableConsole() {
   consoleMethods.forEach(method => {
     window.console[method] = () => {};
   });
+};
+
+const handleLoggerDev = () => {
+  const loggerValue = localStorage.getItem('logger');
+  if (!loggerValue || loggerValue === 'true') {
+    log.setLevel(log.levels.TRACE, true);
+  } else {
+    disableConsole();
+    log.setLevel(log.levels.SILENT, true);
+  }
+};
+
+const handleLoggerProd = () => {
+  const loggerValue = localStorage.getItem('logger');
+  if (loggerValue === 'true') {
+    log.setLevel(log.levels.TRACE, true);
+  } else {
+    disableConsole();
+    log.setLevel(log.levels.SILENT, true);
+  }
+};
+
+if (environment.production) {
+  enableProdMode();
+  if (localStorage && window) {
+    handleLoggerProd();
+  }
+} else {
+  if (localStorage && window) {
+    handleLoggerDev();
+  }
 }
+
+platformBrowserDynamic()
+  .bootstrapModule(AppModule)
+  .catch(err => log.error(err));

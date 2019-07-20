@@ -1,6 +1,7 @@
 import { Params } from '@angular/router';
-import { ActionReducerMap } from '@ngrx/store';
+import { ActionReducerMap, ActionReducer } from '@ngrx/store';
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
+import * as log from 'loglevel';
 
 import * as fromFilters from '../modules/main/containers/header/redux/reducers';
 import * as fromVenues from '../modules/main/containers/venues/redux/reducers';
@@ -40,6 +41,20 @@ export function reducer(state = initialState, action: Actions): GlobalState {
     default:
       return initialState;
   }
+}
+
+export function loggerMetaReducer(
+  actionReducer: ActionReducer<any>
+): ActionReducer<any> {
+  return (state, action) => {
+    log.info(
+      '******************************************************************'
+    );
+    log.info('state', state);
+    log.info('action', action);
+
+    return actionReducer(state, action);
+  };
 }
 
 export const reducers: ActionReducerMap<State> = {
