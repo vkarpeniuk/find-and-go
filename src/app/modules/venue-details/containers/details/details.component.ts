@@ -6,13 +6,7 @@ import { takeUntil, filter } from 'rxjs/operators';
 import * as fromRoot from '@reducers*';
 import { VenueDetails, Tip } from '@models*';
 import { selectParamsId } from 'app/redux/selectors';
-import {
-  selectPhotos,
-  selectIsLoading,
-  selectVenue,
-  selectTips
-} from './redux/selectors';
-import { LoadRequestAction } from './redux/actions';
+import * as redux from './redux';
 
 @Component({
   selector: 'app-details',
@@ -29,6 +23,15 @@ export class DetailsComponent implements OnInit, OnDestroy {
   constructor(private store$: Store<fromRoot.State>) {}
 
   ngOnInit() {
+    this.loadDataFromStore();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
+  private loadDataFromStore(): void {
     this.store$
       .pipe(
         select(selectParamsId),
@@ -36,16 +39,11 @@ export class DetailsComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe((id: string) => {
-        this.store$.dispatch(new LoadRequestAction({ id }));
+        this.store$.dispatch(new redux.LoadRequestAction({ id }));
       });
-    this.venue$ = this.store$.pipe(select(selectVenue));
-    this.photos$ = this.store$.pipe(select(selectPhotos));
-    this.tips$ = this.store$.pipe(select(selectTips));
-    this.isLoading$ = this.store$.pipe(select(selectIsLoading));
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
+    this.venue$ = this.store$.pipe(select(redux.selectVenue));
+    this.photos$ = this.store$.pipe(select(redux.selectPhotos));
+    this.tips$ = this.store$.pipe(select(redux.selectTips));
+    this.isLoading$ = this.store$.pipe(select(redux.selectIsLoading));
   }
 }

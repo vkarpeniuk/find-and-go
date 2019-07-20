@@ -58,7 +58,8 @@ export class GoogleService extends ApiService {
               profilePhotoUrl: tip.profile_photo_url,
               rating: tip.rating,
               relativeTimeDescription: tip.relative_time_description,
-              text: tip.text
+              text: tip.text,
+              time: tip.time
             };
           });
         }

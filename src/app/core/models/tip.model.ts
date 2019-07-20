@@ -4,4 +4,5 @@ export interface Tip {
   rating: number; //1-5
   relativeTimeDescription: string;
   text: string;
+  time: number;
 }

@@ -1,25 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
 
 import { MapOptions, Venue } from '@models';
 import * as fromRoot from '@reducers';
-import {
-  selectAllVenues,
-  selectIsLoading,
-  selectFocusedVenueId,
-  selectScrolledVenueIdx
-} from './redux/selectors';
-import { selectLocationFilter } from '../header/redux/selectors';
-import { ChangeMapLocationAction } from '../header/redux/actions';
-import {
-  VenueFocusedAction,
-  VenuesUnfocusedAction,
-  RenavigateAction,
-  ScrollToVenueAction,
-  ResetScrolledVenueAction
-} from './redux/actions';
+import * as redux from './redux';
+import * as headerRedux from '../header/redux';
 
 @Component({
   selector: 'app-venues',
@@ -36,18 +22,12 @@ export class VenuesComponent implements OnInit {
   constructor(private store$: Store<fromRoot.State>) {}
 
   ngOnInit() {
-    this.venues$ = this.store$.pipe(select(selectAllVenues));
-    this.focusedVenueId$ = this.store$.pipe(select(selectFocusedVenueId));
-    this.scrolledVenueIdx$ = this.store$.pipe(
-      select(selectScrolledVenueIdx)
-    );
-    this.mapOptions$ = this.store$.pipe(select(selectLocationFilter));
-    this.isLoading$ = this.store$.pipe(select(selectIsLoading));
+    this.loadDataFromStore();
   }
 
   mapOptionsChanged(newOptions: MapOptions): void {
     this.store$.dispatch(
-      new ChangeMapLocationAction({
+      new headerRedux.ChangeMapLocationAction({
         latitude: newOptions.latitude,
         longitude: newOptions.longitude,
         zoom: newOptions.zoom
@@ -56,22 +36,34 @@ export class VenuesComponent implements OnInit {
   }
 
   markerClick(id: string): void {
-    this.store$.dispatch(new ScrollToVenueAction({ id }));
+    this.store$.dispatch(new redux.ScrollToVenueAction({ id }));
   }
 
   venueFocused(id: string): void {
-    this.store$.dispatch(new VenueFocusedAction({ id }));
+    this.store$.dispatch(new redux.VenueFocusedAction({ id }));
   }
 
   venuesUnfocused(): void {
-    this.store$.dispatch(new VenuesUnfocusedAction());
+    this.store$.dispatch(new redux.VenuesUnfocusedAction());
   }
 
   renavigate(): void {
-    this.store$.dispatch(new RenavigateAction());
+    this.store$.dispatch(new redux.RenavigateAction());
   }
 
   resetScrolledVenue(): void {
-    this.store$.dispatch(new ResetScrolledVenueAction());
+    this.store$.dispatch(new redux.ResetScrolledVenueAction());
+  }
+
+  private loadDataFromStore(): void {
+    this.venues$ = this.store$.pipe(select(redux.selectAllVenues));
+    this.focusedVenueId$ = this.store$.pipe(select(redux.selectFocusedVenueId));
+    this.scrolledVenueIdx$ = this.store$.pipe(
+      select(redux.selectScrolledVenueIdx)
+    );
+    this.isLoading$ = this.store$.pipe(select(redux.selectIsLoading));
+    this.mapOptions$ = this.store$.pipe(
+      select(headerRedux.selectLocationFilter)
+    );
   }
 }

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Tip } from '@models*';
+import { googlePossibleRatings } from 'app/core/common/constants';
 
 @Component({
   selector: 'app-tips',
@@ -10,9 +11,9 @@ import { Tip } from '@models*';
 export class TipsComponent {
   @Input() tips: Tip[];
 
-  starNumbers = [1, 2, 3, 4, 5];
+  starNumbers = googlePossibleRatings;
 
   trackTips(index: number, item: Tip) {
-    return item.text;
+    return item.time;
   }
 }

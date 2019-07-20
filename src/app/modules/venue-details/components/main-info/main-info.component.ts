@@ -1,6 +1,7 @@
-import { Component, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { VenueDetails } from '@models*';
+import { foursquarePossibleRatings } from 'app/core/common/constants';
 
 @Component({
   selector: 'app-main-info',
@@ -10,5 +11,5 @@ import { VenueDetails } from '@models*';
 export class MainInfoComponent {
   @Input() venue: VenueDetails;
 
-  starNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  starNumbers = foursquarePossibleRatings;
 }
