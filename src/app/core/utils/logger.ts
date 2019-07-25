@@ -1,3 +1,9 @@
+declare global {
+  interface Window {
+    logger: { enable: () => void; disable: () => void };
+  }
+}
+
 const logger = {
   enable: () => {
     localStorage.setItem('logger', 'true');
@@ -9,6 +15,6 @@ const logger = {
 
 export const initLogger = () => {
   if (window) {
-    window['logger'] = logger;
+    window.logger = logger;
   }
 };

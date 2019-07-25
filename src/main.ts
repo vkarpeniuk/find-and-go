@@ -6,49 +6,7 @@ import 'hammerjs';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-
-const disableConsole = () => {
-  const consoleMethods: string[] = [
-    'assert',
-    'clear',
-    'count',
-    'error',
-    'group',
-    'groupCollapsed',
-    'groupEnd',
-    'info',
-    'log',
-    'table',
-    'time',
-    'timeEnd',
-    'trace',
-    'warn'
-  ];
-
-  consoleMethods.forEach(method => {
-    window.console[method] = () => {};
-  });
-};
-
-const handleLoggerDev = () => {
-  const loggerValue = localStorage.getItem('logger');
-  if (!loggerValue || loggerValue === 'true') {
-    log.setLevel(log.levels.TRACE, true);
-  } else {
-    disableConsole();
-    log.setLevel(log.levels.SILENT, true);
-  }
-};
-
-const handleLoggerProd = () => {
-  const loggerValue = localStorage.getItem('logger');
-  if (loggerValue === 'true') {
-    log.setLevel(log.levels.TRACE, true);
-  } else {
-    disableConsole();
-    log.setLevel(log.levels.SILENT, true);
-  }
-};
+import { handleLoggerProd, handleLoggerDev } from './logger';
 
 if (environment.production) {
   enableProdMode();
