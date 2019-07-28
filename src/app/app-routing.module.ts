@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: 'venue-details/:id',
     loadChildren:
-      './modules/venue-details/venue-details.module#VenueDetailsModule'
+      () => import('./modules/venue-details/venue-details.module').then(m => m.VenueDetailsModule)
   },
   { path: '', redirectTo: '/venues', pathMatch: 'full' }
 ];

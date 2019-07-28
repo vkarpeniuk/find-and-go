@@ -33,7 +33,7 @@ export class MapComponent implements OnInit, OnChanges {
   zoom: number;
   markers: MapMarker[];
 
-  @ViewChild('map') mapRef: AgmMap;
+  @ViewChild('map', { static: true }) mapRef: AgmMap;
 
   constructor() {}
 
