@@ -47,10 +47,6 @@ export function loggerMetaReducer(
   actionReducer: ActionReducer<any>
 ): ActionReducer<any> {
   return (state, action) => {
-    log.info(
-      '******************************************************************'
-    );
-    log.info('state', state);
     log.info('action', action);
 
     return actionReducer(state, action);

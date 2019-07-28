@@ -73,12 +73,18 @@ export class MapComponent implements OnInit, OnChanges {
   }
 
   mapIdle(): void {
-    if (this.isInitialized) {
+    if (
+      this.isInitialized &&
+      this.latitude !== this.mapRef.latitude &&
+      this.longitude !== this.mapRef.longitude
+    ) {
       this.mapUpdated.emit({
         latitude: this.mapRef.latitude,
         longitude: this.mapRef.longitude,
         zoom: this.mapRef.zoom
       });
+      this.latitude = this.mapRef.latitude;
+      this.longitude = this.mapRef.longitude;
     } else {
       this.isInitialized = true;
     }
