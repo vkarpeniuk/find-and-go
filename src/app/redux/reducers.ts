@@ -32,7 +32,7 @@ export interface State {
 
 export function reducer(state = initialState, action: Actions): GlobalState {
   switch (action.type) {
-    case ActionTypes.SHOW_ERROR: {
+    case ActionTypes.APP_FAILURE: {
       return {
         ...state,
         error: action.payload.error
@@ -47,7 +47,11 @@ export function loggerMetaReducer(
   actionReducer: ActionReducer<any>
 ): ActionReducer<any> {
   return (state, action) => {
-    log.info('action', action);
+    if (action.type.endsWith('Failure')) {
+      log.error('action', action);
+    } else {
+      log.info('action', action);
+    }
 
     return actionReducer(state, action);
   };

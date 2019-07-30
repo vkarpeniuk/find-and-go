@@ -1,12 +1,12 @@
 import { Action } from '@ngrx/store';
 
 export enum ActionTypes {
-  SHOW_ERROR = '[Global] Show Error'
+  APP_FAILURE = '[Global] App Failure'
 }
 
-export class ShowErrorAction implements Action {
-  readonly type = ActionTypes.SHOW_ERROR;
+export class AppFailureAction implements Action {
+  readonly type = ActionTypes.APP_FAILURE;
   constructor(public payload: { error: string }) {}
 }
 
-export type Actions = ShowErrorAction;
+export type Actions = AppFailureAction;

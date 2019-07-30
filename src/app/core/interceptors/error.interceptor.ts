@@ -11,7 +11,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/internal/operators/catchError';
 
 import { State } from '@reducers*';
-import { ShowErrorAction } from '@actions*';
+import { AppFailureAction } from '@actions*';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -23,7 +23,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        this.store.dispatch(new ShowErrorAction({ error: error.message }));
+        this.store.dispatch(new AppFailureAction({ error: error.message }));
         return throwError(error);
       })
     );
