@@ -13,13 +13,13 @@ export const selectVenue = createSelector(
 );
 
 export const selectPhotos = createSelector(
-  selectVenueDetailsState,
-  (state: State): string[] => state.venue.photos
+  selectVenue,
+  (venue: VenueDetails): string[] => venue.photos
 );
 
 export const selectTips = createSelector(
-  selectVenueDetailsState,
-  (state: State): Tip[] => state.venue.tips
+  selectVenue,
+  (venue: VenueDetails): Tip[] => venue.tips
 );
 
 export const selectIsLoading = createSelector(

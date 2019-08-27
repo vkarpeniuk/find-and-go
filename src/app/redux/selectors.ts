@@ -4,32 +4,34 @@ import { RouterReducerState } from '@ngrx/router-store';
 
 import { RouterState, GlobalState } from './reducers';
 
-export const selectRouterState = createFeatureSelector<
+export const routerStateSelector = createFeatureSelector<
   RouterReducerState<RouterState>
 >('router');
 
+export const selectRouterState = createSelector(
+  routerStateSelector,
+  (routerState: RouterReducerState<RouterState>): RouterState =>
+    routerState.state
+);
+
 export const selectParams = createSelector(
   selectRouterState,
-  (routerState: RouterReducerState<RouterState>): Params =>
-    routerState.state.params
+  (routerState: RouterState): Params => routerState.params
 );
 
 export const selectQueryParams = createSelector(
   selectRouterState,
-  (routerState: RouterReducerState<RouterState>): Params =>
-    routerState.state.queryParams
+  (routerState: RouterState): Params => routerState.queryParams
 );
 
 export const selectUrl = createSelector(
   selectRouterState,
-  (routerState: RouterReducerState<RouterState>): string =>
-    routerState.state.url
+  (routerState: RouterState): string => routerState.url
 );
 
 export const selectParamsId = createSelector(
-  selectRouterState,
-  (routerState: RouterReducerState<RouterState>): string =>
-    routerState.state.params.id
+  selectParams,
+  (params: Params): string => params.id
 );
 
 export const selectGlobalState = createFeatureSelector<GlobalState>('global');
