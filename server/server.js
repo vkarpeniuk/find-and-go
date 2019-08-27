@@ -7,6 +7,8 @@ const alive = new HerokuKeepAlive();
 const RequestHelper = require('./request-helper');
 const requestHelper = new RequestHelper();
 const devConfigPath = '../dist/find-and-go/dev-config.json';
+const foursquareApiUrl = 'https://api.foursquare.com/v2/';
+const foursquareApiVersionDate = '20190430';
 
 const app = express();
 app.use(bodyParser.json());
@@ -38,26 +40,38 @@ const googleApiService = new GoogleApiServiceModule(
 );
 
 app.get('/api/google-maps-script', function(req, res, next) {
-  const url = requestHelper.getGoogleMapsScriptUrl(
-    req.query,
-    app.locals.googleApiKey
+  request.get(
+    `${req.query.url}&key=${app.locals.googleApiKey}`,
+    (error, response, body) => {
+      res
+        .status(response.statusCode)
+        .type('.js')
+        .send(body);
+    }
   );
-  request.get(url, (error, response, body) => {
-    res
-      .status(response.statusCode)
-      .type('.js')
-      .send(body);
-  });
 });
 
 app.use('/api/foursquare', function(req, res, next) {
   req.query.client_id = app.locals.foursquareClientId;
   req.query.client_secret = app.locals.foursquareClientSecret;
+  req.query.v = foursquareApiVersionDate;
   next();
 });
 
-app.get('/api/foursquare', function(req, res, next) {
-  const url = requestHelper.getFoursquareRequestUrl(req.query);
+app.get('/api/foursquare/venue-details', function(req, res, next) {
+  let url = `${foursquareApiUrl}venues/${req.query.id}?`;
+  delete req.query.id;
+  url += requestHelper.getQueryParamsString(req.query);
+  request.get(encodeURI(url), (error, response, body) => {
+    const responseBodyObject = JSON.parse(body);
+    res.status(responseBodyObject.meta.code).send(responseBodyObject.response);
+  });
+});
+
+app.get('/api/foursquare/explore', function(req, res, next) {
+  const url =
+    `${foursquareApiUrl}venues/explore?` +
+    requestHelper.getQueryParamsString(req.query);
   request.get(encodeURI(url), (error, response, body) => {
     const responseBodyObject = JSON.parse(body);
     res.status(responseBodyObject.meta.code).send(responseBodyObject.response);

@@ -15,7 +15,7 @@ export class GoogleService extends ApiService {
   }
 
   getMapsScriptContent(url: string): Observable<string> {
-    const params = new HttpParams().set('requestPath', url);
+    const params = new HttpParams().set('url', url);
     return this.getText('api/google-maps-script', params);
   }
 

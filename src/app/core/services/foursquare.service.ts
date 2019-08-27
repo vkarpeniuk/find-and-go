@@ -13,7 +13,6 @@ import { FoursquareHelper } from './helpers/foursquare-helper';
 })
 export class FoursquareService extends ApiService {
   private proxyUrl = 'api/foursquare';
-  private foursquareApiUrl = 'https://api.foursquare.com/v2/';
 
   private defaultSearch = 'top picks';
 
@@ -23,11 +22,9 @@ export class FoursquareService extends ApiService {
 
   getVenueRecommendations(filter: VenueFilter): Observable<Venue[]> {
     let params = new HttpParams().set(
-      'requestPath',
-      `${this.foursquareApiUrl}venues/explore`
+      'query',
+      filter.search || this.defaultSearch
     );
-
-    params = params.set('query', filter.search || this.defaultSearch);
 
     if (filter.locationByMap) {
       params = params
@@ -40,19 +37,16 @@ export class FoursquareService extends ApiService {
       params = params.set('near', filter.near);
     }
 
-    return this.getJson(this.proxyUrl, params).pipe(
+    return this.getJson(`${this.proxyUrl}/explore`, params).pipe(
       map(res => FoursquareHelper.parseVenuesRecommendations(res)),
       switchMap(venues => this.googleService.getPlacesPhotosUrls(venues))
     );
   }
 
   getVenueDetails(id: string): Observable<VenueDetails> {
-    const params = new HttpParams().set(
-      'requestPath',
-      `${this.foursquareApiUrl}venues/${id}`
-    );
+    const params = new HttpParams().set('id', id);
 
-    return this.getJson(this.proxyUrl, params).pipe(
+    return this.getJson(`${this.proxyUrl}/venue-details`, params).pipe(
       map(res => FoursquareHelper.parseVenueDetails(res)),
       switchMap(venue => this.googleService.getPlaceDetails(venue))
     );
