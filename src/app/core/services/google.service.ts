@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Venue, VenueDetails } from '@models*';
+import { Venue, VenueDetails, VenuePhoto } from '@models*';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class GoogleService extends ApiService {
     return this.getText('api/google-maps-script', params);
   }
 
-  getPlacesPhotosUrls(venues: Venue[]): Observable<Venue[]> {
+  getPlacesPhotosUrls(venues: Venue[]): Observable<VenuePhoto[]> {
     const body = {
       venues: venues.map(venue => {
         return {
@@ -28,15 +28,7 @@ export class GoogleService extends ApiService {
         };
       })
     };
-    return this.post('api/place-photos', body).pipe(
-      map(photosRes => {
-        photosRes.forEach(venuePhoto => {
-          venues.find(v => v.id === venuePhoto.id).imageUrl =
-            venuePhoto.photoUrl;
-        });
-        return venues;
-      })
-    );
+    return this.post('api/place-photos', body);
   }
 
   getPlaceDetails(venue: VenueDetails): Observable<VenueDetails> {

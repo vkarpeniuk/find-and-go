@@ -1,8 +1,9 @@
-import { Venue } from '@models';
+import { Venue, VenuePhoto } from '@models';
 import { Actions, ActionTypes } from './actions';
 
 export interface State {
   venues: Venue[];
+  venuesPhotos: VenuePhoto[];
   focusedVenueId: string;
   scrolledVenueId: string;
   isLoading: boolean;
@@ -10,6 +11,7 @@ export interface State {
 
 export const initialState: State = {
   venues: [],
+  venuesPhotos: [],
   focusedVenueId: null,
   scrolledVenueId: null,
   isLoading: false
@@ -26,7 +28,13 @@ export function reducer(state = initialState, action: Actions): State {
     case ActionTypes.LOAD_COMPLETE: {
       return {
         ...state,
-        venues: action.payload.items,
+        venues: action.payload.items
+      };
+    }
+    case ActionTypes.LOAD_PHOTOS_COMPLETE: {
+      return {
+        ...state,
+        venuesPhotos: action.payload.venuesPhotos,
         isLoading: false
       };
     }

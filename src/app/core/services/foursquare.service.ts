@@ -38,8 +38,7 @@ export class FoursquareService extends ApiService {
     }
 
     return this.getJson(`${this.proxyUrl}/explore`, params).pipe(
-      map(res => FoursquareHelper.parseVenuesRecommendations(res)),
-      switchMap(venues => this.googleService.getPlacesPhotosUrls(venues))
+      map(res => FoursquareHelper.parseVenuesRecommendations(res))
     );
   }
 

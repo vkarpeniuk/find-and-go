@@ -6,3 +6,4 @@ export * from './map-marker.model';
 export * from './category.model';
 export * from './key-codes.model';
 export * from './venue-filter.model';
+export * from './venue-photo.model';

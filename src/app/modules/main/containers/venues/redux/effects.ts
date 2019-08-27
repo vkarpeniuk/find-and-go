@@ -6,13 +6,14 @@ import { Effect, Actions, ofType } from '@ngrx/effects';
 import { map, withLatestFrom, switchMap, tap, filter } from 'rxjs/operators';
 
 import * as fromRoot from '@reducers';
-import { FoursquareService } from '@services';
+import { FoursquareService, GoogleService } from '@services';
 import {
   LoadRequestAction,
   ActionTypes,
   LoadCompleteAction,
   RenavigateAction,
-  VenuesUnfocusedAction
+  VenuesUnfocusedAction,
+  LoadPhotosCompleteAction
 } from './actions';
 
 @Injectable()
@@ -21,7 +22,8 @@ export class VenuesStoreEffects {
     private store$: Store<fromRoot.State>,
     private actions$: Actions,
     private router: Router,
-    private foursquareService: FoursquareService
+    private foursquareService: FoursquareService,
+    private googleService: GoogleService
   ) {}
 
   @Effect()
@@ -41,6 +43,16 @@ export class VenuesStoreEffects {
       })
     ),
     map(items => new LoadCompleteAction({ items }))
+  );
+
+  @Effect()
+  loadVenuesComplete$ = this.actions$.pipe(
+    ofType<LoadCompleteAction>(ActionTypes.LOAD_COMPLETE),
+    withLatestFrom(this.store$),
+    switchMap(([action, storeState]) =>
+      this.googleService.getPlacesPhotosUrls(storeState.venues.venues)
+    ),
+    map(venuesPhotos => new LoadPhotosCompleteAction({ venuesPhotos }))
   );
 
   @Effect()

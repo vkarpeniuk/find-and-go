@@ -1,10 +1,11 @@
 import { Action } from '@ngrx/store';
 
-import { Venue } from '@models';
+import { Venue, VenuePhoto } from '@models';
 
 export enum ActionTypes {
   LOAD_REQUEST = '[Venues] Load Request',
   LOAD_COMPLETE = '[Venues] Load Complete',
+  LOAD_PHOTOS_COMPLETE = '[Venues] Load Photos Complete',
   VENUE_FOCUSED = '[Venues] Venue Focused',
   VENUES_UNFOCUSED = '[Venues] Venues Unfocused',
   RENAVIGATE = '[Venues] Renavigate',
@@ -19,6 +20,11 @@ export class LoadRequestAction implements Action {
 export class LoadCompleteAction implements Action {
   readonly type = ActionTypes.LOAD_COMPLETE;
   constructor(public payload: { items: Venue[] }) {}
+}
+
+export class LoadPhotosCompleteAction implements Action {
+  readonly type = ActionTypes.LOAD_PHOTOS_COMPLETE;
+  constructor(public payload: { venuesPhotos: VenuePhoto[] }) {}
 }
 
 export class VenueFocusedAction implements Action {
@@ -46,6 +52,7 @@ export class ResetScrolledVenueAction implements Action {
 export type Actions =
   | LoadRequestAction
   | LoadCompleteAction
+  | LoadPhotosCompleteAction
   | VenueFocusedAction
   | VenuesUnfocusedAction
   | RenavigateAction

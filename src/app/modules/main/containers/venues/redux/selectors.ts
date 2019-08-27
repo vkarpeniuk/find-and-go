@@ -7,7 +7,14 @@ export const selectVenuesState = createFeatureSelector<State>('venues');
 
 export const selectAllVenues = createSelector(
   selectVenuesState,
-  (state: State): Venue[] => state.venues
+  (state: State): Venue[] =>
+    state.venues.map(venue => {
+      const venuePhoto = state.venuesPhotos.find(p => p.id === venue.id);
+      return {
+        ...venue,
+        imageUrl: venuePhoto ? venuePhoto.photoUrl : null
+      };
+    })
 );
 
 export const selectVenueById = createSelector(
