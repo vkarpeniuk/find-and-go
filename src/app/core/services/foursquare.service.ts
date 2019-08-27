@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 
 import { VenueDetails, Venue, VenueFilter } from '@models*';
 import { GoogleService } from './google.service';
@@ -41,8 +41,8 @@ export class FoursquareService extends ApiService {
     }
 
     return this.getJson(this.proxyUrl, params).pipe(
-      mergeMap(res => of(FoursquareHelper.parseVenuesRecommendations(res))),
-      mergeMap(venues => this.googleService.getPlacesPhotosUrls(venues))
+      map(res => FoursquareHelper.parseVenuesRecommendations(res)),
+      switchMap(venues => this.googleService.getPlacesPhotosUrls(venues))
     );
   }
 
@@ -53,8 +53,8 @@ export class FoursquareService extends ApiService {
     );
 
     return this.getJson(this.proxyUrl, params).pipe(
-      mergeMap(res => of(FoursquareHelper.parseVenueDetails(res))),
-      mergeMap(venue => this.googleService.getPlaceDetails(venue))
+      map(res => FoursquareHelper.parseVenueDetails(res)),
+      switchMap(venue => this.googleService.getPlaceDetails(venue))
     );
   }
 }

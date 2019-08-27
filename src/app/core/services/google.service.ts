@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Venue, VenueDetails } from '@models*';
 import { ApiService } from './api.service';
@@ -29,26 +29,23 @@ export class GoogleService extends ApiService {
       })
     };
     return this.post('api/place-photos', body).pipe(
-      mergeMap(photosRes => {
+      map(photosRes => {
         photosRes.forEach(venuePhoto => {
           venues.find(v => v.id === venuePhoto.id).imageUrl =
             venuePhoto.photoUrl;
         });
-        return of(venues);
+        return venues;
       })
     );
   }
 
   getPlaceDetails(venue: VenueDetails): Observable<VenueDetails> {
-    let searchQuery = '';
-    if (venue.city) {
-      searchQuery = `${venue.name}, ${venue.city}`;
-    } else {
-      searchQuery = `${venue.name}, ${venue.country}`;
-    }
+    const searchQuery = venue.city
+      ? `${venue.name}, ${venue.city}`
+      : `${venue.name}, ${venue.country}`;
     const params = new HttpParams().set('searchQuery', searchQuery);
     return this.getJson('api/place-details', params).pipe(
-      mergeMap(detailsRes => {
+      map(detailsRes => {
         const response: any = detailsRes;
         venue.photos = response.photos.map(photo => photo);
         if (response.tips) {
@@ -63,7 +60,7 @@ export class GoogleService extends ApiService {
             };
           });
         }
-        return of(venue);
+        return venue;
       })
     );
   }
