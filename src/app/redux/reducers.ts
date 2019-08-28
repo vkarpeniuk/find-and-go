@@ -2,23 +2,23 @@ import { ActionReducerMap } from '@ngrx/store';
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 
 import { GlobalState, globalReducer } from './global-reducer';
-import * as fromFilters from '../modules/main/containers/header/redux/reducers';
-import * as fromVenues from '../modules/main/containers/venues/redux/reducers';
-import * as fromVenueDetails from '../modules/venue-details/containers/details/redux/reducers';
+import { reducers as filterReducers } from '../modules/main/containers/header/redux';
+import { reducers as venueReducers } from '../modules/main/containers/venues/redux';
+import { reducers as venueDetailsReducers } from '../modules/venue-details/containers/details/redux';
 import { RouterState } from './router-state';
 
 export interface State {
-  filters: fromFilters.State;
-  venues: fromVenues.State;
-  venueDetails: fromVenueDetails.State;
+  filters: filterReducers.State;
+  venues: venueReducers.State;
+  venueDetails: venueDetailsReducers.State;
   router: RouterReducerState<RouterState>;
   global: GlobalState;
 }
 
 export const reducers: ActionReducerMap<State> = {
-  filters: fromFilters.reducer,
-  venues: fromVenues.reducer,
-  venueDetails: fromVenueDetails.reducer,
+  filters: filterReducers.reducer,
+  venues: venueReducers.reducer,
+  venueDetails: venueDetailsReducers.reducer,
   router: routerReducer,
   global: globalReducer
 };

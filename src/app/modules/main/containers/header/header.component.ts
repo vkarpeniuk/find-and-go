@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
-import * as redux from './redux';
+import { actions, reducers } from './redux';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +13,7 @@ import * as redux from './redux';
 export class HeaderComponent implements OnInit {
   search = new FormControl();
   where = new FormControl();
-  constructor(private store$: Store<redux.State>) {}
+  constructor(private store$: Store<reducers.State>) {}
 
   ngOnInit() {
     this.subscribeToChanges();
@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
 
   getCurrentLocation(event): void {
     event.stopPropagation();
-    this.store$.dispatch(new redux.GetCurrentLocationAction());
+    this.store$.dispatch(new actions.GetCurrentLocationAction());
   }
 
   private subscribeToChanges(): void {
@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe(value => {
-        this.store$.dispatch(new redux.ChangeSearchAction({ search: value }));
+        this.store$.dispatch(new actions.ChangeSearchAction({ search: value }));
       });
 
     this.where.valueChanges
@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe(value => {
-        this.store$.dispatch(new redux.ChangeWhereAction({ where: value }));
+        this.store$.dispatch(new actions.ChangeWhereAction({ where: value }));
       });
   }
 }

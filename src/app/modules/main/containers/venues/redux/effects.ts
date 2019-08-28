@@ -5,7 +5,7 @@ import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { map, withLatestFrom, switchMap, tap, filter } from 'rxjs/operators';
 
-import * as fromRoot from '@reducers';
+import { State as RootState } from '@reducers';
 import { FoursquareService, GoogleService } from '@services';
 import {
   LoadRequestAction,
@@ -19,7 +19,7 @@ import {
 @Injectable()
 export class VenuesStoreEffects {
   constructor(
-    private store$: Store<fromRoot.State>,
+    private store$: Store<RootState>,
     private actions$: Actions,
     private router: Router,
     private foursquareService: FoursquareService,

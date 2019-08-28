@@ -5,7 +5,7 @@ import { Effect, Actions, ofType } from '@ngrx/effects';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { LocationService } from '@services';
-import * as fromRoot from '@reducers';
+import { State as RootState } from '@reducers';
 import {
   ActionTypes,
   GetCurrentLocationAction,
@@ -17,7 +17,7 @@ import { LoadRequestAction } from '../../venues/redux/actions';
 export class HeaderStoreEffects {
   constructor(
     private router: Router,
-    private store$: Store<fromRoot.State>,
+    private store$: Store<RootState>,
     private actions$: Actions,
     private locationService: LocationService
   ) {}
