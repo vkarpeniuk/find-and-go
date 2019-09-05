@@ -17,10 +17,10 @@ export class AppComponent implements OnInit {
     this.store$
       .pipe(
         select(selectErrorMessage),
-        filter(error => error !== null)
+        filter(errorMessage => errorMessage !== '')
       )
-      .subscribe(error => {
-        this.snackBar.open(error);
+      .subscribe(errorMessage => {
+        this.snackBar.open(errorMessage);
       });
   }
 

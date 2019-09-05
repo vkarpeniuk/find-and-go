@@ -44,6 +44,6 @@ export const selectError = createSelector(
 );
 
 export const selectErrorMessage = createSelector(
-  selectGlobalState,
-  (state: GlobalState): string => state.error.message
+  selectError,
+  (error: HttpErrorResponse): string => (error ? error.message : '')
 );

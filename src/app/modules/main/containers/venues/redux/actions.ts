@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Venue, VenuePhoto } from '@models';
+import { Venue } from '@models';
 
 export enum ActionTypes {
   LOAD_REQUEST = '[Venues] Load Request',
@@ -24,7 +24,7 @@ export class LoadCompleteAction implements Action {
 
 export class LoadPhotosCompleteAction implements Action {
   readonly type = ActionTypes.LOAD_PHOTOS_COMPLETE;
-  constructor(public payload: { venuesPhotos: VenuePhoto[] }) {}
+  constructor(public payload: { venuesPhotos: { [id: string]: string } }) {}
 }
 
 export class VenueFocusedAction implements Action {

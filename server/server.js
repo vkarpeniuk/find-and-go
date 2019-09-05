@@ -89,7 +89,7 @@ app.get('/api/foursquare/explore', function(req, res, next) {
 });
 
 app.post('/api/place-photos', function(req, res, next) {
-  const result = [];
+  const result = {};
   const promises = [];
 
   req.body.venues.forEach(venue => {
@@ -110,13 +110,10 @@ app.post('/api/place-photos', function(req, res, next) {
                 300
               )
               .then(responsePlacePhoto => {
-                result.push({
-                  id: venue.id,
-                  photoUrl:
-                    'https://' +
-                    responsePlacePhoto.req.socket._host +
-                    responsePlacePhoto.req.path
-                });
+                result[venue.id] =
+                  'https://' +
+                  responsePlacePhoto.req.socket._host +
+                  responsePlacePhoto.req.path;
                 resolve();
               })
               .catch(err => {

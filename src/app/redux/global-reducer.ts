@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Actions, ActionTypes } from '@actions*';
 
 export interface GlobalState {
-  error: HttpErrorResponse;
+  error: HttpErrorResponse | null;
 }
 
 export const initialState: GlobalState = {

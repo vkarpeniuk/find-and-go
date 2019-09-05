@@ -9,10 +9,9 @@ export const selectAllVenues = createSelector(
   selectVenuesState,
   (state: State): Venue[] =>
     state.venues.map(venue => {
-      const venuePhoto = state.venuesPhotos.find(p => p.id === venue.id);
       return {
         ...venue,
-        imageUrl: venuePhoto ? venuePhoto.photoUrl : null
+        imageUrl: state.venuesPhotos[venue.id]
       };
     })
 );

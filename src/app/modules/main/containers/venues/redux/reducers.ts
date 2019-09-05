@@ -1,9 +1,9 @@
-import { Venue, VenuePhoto } from '@models';
+import { Venue } from '@models';
 import { Actions, ActionTypes } from './actions';
 
 export interface State {
   venues: Venue[];
-  venuesPhotos: VenuePhoto[];
+  venuesPhotos: { [id: string]: string };
   focusedVenueId: string;
   scrolledVenueId: string;
   isLoading: boolean;
@@ -11,7 +11,7 @@ export interface State {
 
 export const initialState: State = {
   venues: [],
-  venuesPhotos: [],
+  venuesPhotos: {},
   focusedVenueId: null,
   scrolledVenueId: null,
   isLoading: false
