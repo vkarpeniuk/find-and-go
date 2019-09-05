@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
+
 import { Actions, ActionTypes } from '@actions*';
 
 export interface GlobalState {
-  error: string;
+  error: HttpErrorResponse;
 }
 
 export const initialState: GlobalState = {

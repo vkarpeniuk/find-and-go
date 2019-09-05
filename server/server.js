@@ -7,8 +7,6 @@ const alive = new HerokuKeepAlive();
 const RequestHelper = require('./request-helper');
 const requestHelper = new RequestHelper();
 const devConfigPath = '../dist/find-and-go/dev-config.json';
-const foursquareApiUrl = 'https://api.foursquare.com/v2/';
-const foursquareApiVersionDate = '20190430';
 
 const app = express();
 app.use(bodyParser.json());
@@ -32,6 +30,18 @@ app.locals.foursquareClientSecret = process.env.production
   ? process.env.foursquare_client_secret
   : require(path.resolve(__dirname, devConfigPath)).foursquareClientSecret;
 
+app.locals.foursquareApiUrl = process.env.production
+  ? process.env.foursquare_api_url
+  : require(path.resolve(__dirname, devConfigPath)).foursquareApiUrl;
+
+app.locals.foursquareApiVersion = process.env.production
+  ? process.env.foursquare_api_version
+  : require(path.resolve(__dirname, devConfigPath)).foursquareApiVersion;
+
+app.locals.foursquareApiVersionDate = process.env.production
+  ? process.env.foursquare_api_version_date
+  : require(path.resolve(__dirname, devConfigPath)).foursquareApiVersionDate;
+
 //#endregion
 
 const GoogleApiServiceModule = require('./google-api-service');
@@ -54,12 +64,12 @@ app.get('/api/google-maps-script', function(req, res, next) {
 app.use('/api/foursquare', function(req, res, next) {
   req.query.client_id = app.locals.foursquareClientId;
   req.query.client_secret = app.locals.foursquareClientSecret;
-  req.query.v = foursquareApiVersionDate;
+  req.query.v = app.locals.foursquareApiVersionDate;
   next();
 });
 
 app.get('/api/foursquare/venue-details', function(req, res, next) {
-  let url = `${foursquareApiUrl}venues/${req.query.id}?`;
+  let url = `${app.locals.foursquareApiUrl}/${app.locals.foursquareApiVersion}/venues/${req.query.id}?`;
   delete req.query.id;
   url += requestHelper.getQueryParamsString(req.query);
   request.get(encodeURI(url), (error, response, body) => {
@@ -70,7 +80,7 @@ app.get('/api/foursquare/venue-details', function(req, res, next) {
 
 app.get('/api/foursquare/explore', function(req, res, next) {
   const url =
-    `${foursquareApiUrl}venues/explore?` +
+    `${app.locals.foursquareApiUrl}/${app.locals.foursquareApiVersion}/venues/explore?` +
     requestHelper.getQueryParamsString(req.query);
   request.get(encodeURI(url), (error, response, body) => {
     const responseBodyObject = JSON.parse(body);

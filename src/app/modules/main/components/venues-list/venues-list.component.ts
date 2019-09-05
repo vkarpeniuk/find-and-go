@@ -9,7 +9,13 @@ import {
   ViewChildren,
   ViewContainerRef
 } from '@angular/core';
-import { trigger, transition, style, animate } from '@angular/animations';
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+  state
+} from '@angular/animations';
 
 import { Venue } from '@models';
 
@@ -26,6 +32,11 @@ import { Venue } from '@models';
           style({ transform: 'scale(1)', opacity: 1 })
         )
       ])
+    ]),
+    trigger('image', [
+      state('in', style({ opacity: 1 })),
+      transition(':enter', [style({ opacity: 0 }), animate(700)]),
+      transition(':leave', animate(700, style({ opacity: 0 })))
     ])
   ]
 })

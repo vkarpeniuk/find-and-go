@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 
-import { selectError } from './redux/selectors';
+import { selectErrorMessage } from './redux/selectors';
 import { State } from '@reducers*';
 import { initLogger } from './core/utils/logger';
 
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   constructor(private snackBar: MatSnackBar, private store$: Store<State>) {
     this.store$
       .pipe(
-        select(selectError),
+        select(selectErrorMessage),
         filter(error => error !== null)
       )
       .subscribe(error => {

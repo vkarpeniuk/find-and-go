@@ -12,7 +12,7 @@
       (mouseenter)="onVenueFocus(venue.id)"
     >
       <div class="img-container">
-        <img *ngIf="venue.imageUrl" [src]="venue.imageUrl" />
+        <img @image *ngIf="venue.imageUrl" [src]="venue.imageUrl" />
         <span *ngIf="!venue.imageUrl" class="icon-img-placeholder">
           <span class="path1"></span> <span class="path2"></span>
           <span class="path3"></span> <span class="path4"></span>

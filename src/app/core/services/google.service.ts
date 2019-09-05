@@ -32,10 +32,10 @@ export class GoogleService extends ApiService {
   }
 
   getPlaceDetails(venue: VenueDetails): Observable<VenueDetails> {
-    const searchQuery = venue.city
-      ? `${venue.name}, ${venue.city}`
-      : `${venue.name}, ${venue.country}`;
-    const params = new HttpParams().set('searchQuery', searchQuery);
+    const params = new HttpParams().set(
+      'searchQuery',
+      `${venue.name}, ${venue.city || venue.country}`
+    );
     return this.getJson('api/place-details', params).pipe(
       map(detailsRes => {
         const response: any = detailsRes;

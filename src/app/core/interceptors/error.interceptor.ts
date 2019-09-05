@@ -23,7 +23,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        this.store.dispatch(new AppFailureAction({ error: error.message }));
+        this.store.dispatch(new AppFailureAction({ error }));
         return throwError(error);
       })
     );

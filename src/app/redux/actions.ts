@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Action } from '@ngrx/store';
 
 export enum ActionTypes {
@@ -6,7 +7,7 @@ export enum ActionTypes {
 
 export class AppFailureAction implements Action {
   readonly type = ActionTypes.APP_FAILURE;
-  constructor(public payload: { error: string }) {}
+  constructor(public payload: { error: HttpErrorResponse }) {}
 }
 
 export type Actions = AppFailureAction;
