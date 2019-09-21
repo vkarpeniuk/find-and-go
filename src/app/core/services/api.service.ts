@@ -37,7 +37,7 @@ export abstract class ApiService {
     return this.get(path, { params, responseType: 'text' });
   }
 
-  put(path: string, body: Object = {}): Observable<any> {
+  put(path: string, body: any = {}): Observable<any> {
     return this.http
       .put(path, JSON.stringify(body))
       .pipe(catchError(this.formatErrors));

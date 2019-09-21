@@ -13,10 +13,10 @@ import { GoogleService } from './google.service';
 
 @Injectable()
 export class CustomLazyAPIKeyLoader extends MapsAPILoader {
-  private _scriptLoadingPromise: Promise<void>;
-  private _config: LazyMapsAPILoaderConfigLiteral;
-  private _windowRef: WindowRef;
-  private _documentRef: DocumentRef;
+  private scriptLoadingPromise: Promise<void>;
+  private config: LazyMapsAPILoaderConfigLiteral;
+  private windowRef: WindowRef;
+  private documentRef: DocumentRef;
 
   constructor(
     @Inject(LAZY_MAPS_API_CONFIG) config: any,
@@ -25,32 +25,30 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
     private googleService: GoogleService
   ) {
     super();
-    this._config = config || {};
-    this._windowRef = w;
-    this._documentRef = d;
+    this.config = config || {};
+    this.windowRef = w;
+    this.documentRef = d;
   }
 
   load(): Promise<void> {
-    if (this._scriptLoadingPromise) {
-      return this._scriptLoadingPromise;
+    if (this.scriptLoadingPromise) {
+      return this.scriptLoadingPromise;
     }
 
-    const script = this._documentRef
-      .getNativeDocument()
-      .createElement('script');
+    const script = this.documentRef.getNativeDocument().createElement('script');
     script.type = 'text/javascript';
     script.async = true;
     script.defer = true;
-    const callbackName: string = `agmLazyMapsAPILoader`;
+    const callbackName = `agmLazyMapsAPILoader`;
 
     this._getScript(callbackName).subscribe(res => {
       script.innerHTML = res;
-      this._documentRef.getNativeDocument().body.appendChild(script);
+      this.documentRef.getNativeDocument().body.appendChild(script);
     });
 
-    this._scriptLoadingPromise = new Promise<void>(
-      (resolve: Function, reject: Function) => {
-        (<any>this._windowRef.getNativeWindow())[callbackName] = () => {
+    this.scriptLoadingPromise = new Promise<void>(
+      (resolve: () => void, reject: (err: any) => void) => {
+        this.windowRef.getNativeWindow()[callbackName] = () => {
           resolve();
         };
 
@@ -60,12 +58,12 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
       }
     );
 
-    return this._scriptLoadingPromise;
+    return this.scriptLoadingPromise;
   }
 
   private _getScript(callbackName: string): Observable<string> {
-    let protocolType: GoogleMapsScriptProtocol =
-      (this._config && this._config.protocol) || GoogleMapsScriptProtocol.HTTPS;
+    const protocolType: GoogleMapsScriptProtocol =
+      (this.config && this.config.protocol) || GoogleMapsScriptProtocol.HTTPS;
     let protocol: string;
 
     switch (protocolType) {
@@ -81,15 +79,15 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
     }
 
     const hostAndPath: string =
-      this._config.hostAndPath || 'maps.googleapis.com/maps/api/js';
+      this.config.hostAndPath || 'maps.googleapis.com/maps/api/js';
     const queryParams: { [key: string]: string | Array<string> } = {
-      v: this._config.apiVersion || '3',
+      v: this.config.apiVersion || '3',
       callback: callbackName,
-      client: this._config.clientId,
-      channel: this._config.channel,
-      libraries: this._config.libraries,
-      region: this._config.region,
-      language: this._config.language
+      client: this.config.clientId,
+      channel: this.config.channel,
+      libraries: this.config.libraries,
+      region: this.config.region,
+      language: this.config.language
     };
     const params: string = Object.keys(queryParams)
       .filter((k: string) => queryParams[k] != null)
@@ -100,7 +98,7 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
         );
       })
       .map((k: string) => {
-        let i = queryParams[k];
+        const i = queryParams[k];
         if (Array.isArray(i)) {
           return { key: k, value: i.join(',') };
         }
