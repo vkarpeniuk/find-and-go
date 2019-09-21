@@ -1,0 +1,27 @@
+sudo: required
+
+language: node_js
+node_js:
+  - '10.15.3'
+
+branches:
+  only:
+    - master
+
+cache:
+  directories:
+    - ./node_modules
+
+before_install:
+  # install heroku CLI
+  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
+
+before_script:
+  - npm install -g @angular/cli
+
+install:
+  - npm install
+
+script:
+  - npm run lint
+  - npm run build
