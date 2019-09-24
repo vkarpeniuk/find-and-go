@@ -29,11 +29,11 @@ script:
   - npm run lint
   - npm run build --prod
   - docker build -t vkarpeniuk/find-and-go .
-  - docker tag vkarpeniuk/find-and-go registry.heroku.com/docker-find-and-go/web
+  - docker tag vkarpeniuk/find-and-go registry.heroku.com/find-and-go/web
 
 deploy:
   provider: script
-  script: docker push registry.heroku.com/docker-find-and-go/web;
-    heroku container:release web --app docker-find-and-go;
+  script: docker push registry.heroku.com/find-and-go/web;
+    heroku container:release web --app find-and-go;
   on:
     branch: master
