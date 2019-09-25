@@ -8,6 +8,8 @@ COPY \
   tsconfig.json \
   $HOME
 COPY dist $HOME/dist
+RUN npm i express
+RUN npm i body-parser
 COPY server $HOME/server
 EXPOSE 8080
 CMD ["npm", "start"]
