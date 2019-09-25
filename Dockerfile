@@ -9,7 +9,9 @@ COPY \
   $HOME
 COPY dist $HOME/dist
 RUN npm i express
+RUN npm i path
 RUN npm i body-parser
+RUN npm i request
 COPY server $HOME/server
 EXPOSE 8080
 CMD ["npm", "start"]
